@@ -1,20 +1,24 @@
-import React from 'react';
-import './App.css';
-import Header from './components/Header';
-import Content from './components/Content';
-import Footer from './components/Footer';
-import { Layout } from 'antd';
+import React from 'react'
+import 'rsuite/dist/styles/rsuite-default.css'
+import './App.css'
+import { Header, Content, Footer, Generate } from './components/'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 function App() {
   return (
-    <main>
-      <Layout className="layout" theme="dark">
+    <Router>
+      <main>
         <Header />
-        <Content />
+        <Route path="/" exact={true}>
+          <Content />
+        </Route>
+        <Route path="/generate">
+          <Generate />
+        </Route>
         <Footer />
-      </Layout>
-    </main>
-  );
+      </main>
+    </Router>
+  )
 }
 
-export default App;
+export default App

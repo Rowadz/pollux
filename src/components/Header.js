@@ -1,21 +1,42 @@
-import { Layout, Menu } from 'antd';
-import React from 'react';
-const { Header } = Layout;
+import React from 'react'
+import { Navbar, Nav, Icon } from 'rsuite'
+import { NavLink, BrowserRouter as Router } from 'react-router-dom'
+const { Body } = Navbar
+const { Item } = Nav
 
 function HeaderComp() {
   return (
-    <Header>
-      <div className="logo" />
-      <Menu
-        theme="dark"
-        mode="horizontal"
-        defaultSelectedKeys={['1']}
-        style={{ textAlign: 'center' }}
-      >
-        <Menu.Item key="1">Pollux</Menu.Item>
-      </Menu>
-    </Header>
-  );
+    <Navbar>
+      <Body>
+        <Nav>
+          <NavLink to="/" activeClassName="active-route" exact={true}>
+            <Item
+              renderItem={() => (
+                <span className="rs-nav-item-content">
+                  <Icon icon="home" /> Pollux
+                </span>
+              )}
+            ></Item>
+          </NavLink>
+          <NavLink to="generate" activeClassName="active-route">
+            <Item
+              renderItem={() => (
+                <span className="rs-nav-item-content">
+                  <Icon icon="magic2" />
+                  Generate
+                </span>
+              )}
+            >
+              About
+            </Item>
+          </NavLink>
+        </Nav>
+        <Nav pullRight>
+          <Item icon={<Icon icon="cog" />}>Settings</Item>
+        </Nav>
+      </Body>
+    </Navbar>
+  )
 }
 
-export default HeaderComp;
+export default HeaderComp
