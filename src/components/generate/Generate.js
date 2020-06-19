@@ -1,12 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Controller } from './components'
-import { Grid, Row, Col, Container, Content } from 'rsuite'
+import { Grid, Row, Col } from 'rsuite'
 
 function Generate() {
-  const [state, setState] = useState()
+  // const [state, setState] = useState()
   return (
-    // <Container >
-    //   <Content>
     <Grid fluid>
       <Row style={{ margin: '1rem' }}>
         <Col xs={24} sm={24} md={24} style={{ marginTop: '20px' }}>
@@ -14,8 +12,6 @@ function Generate() {
         </Col>
       </Row>
     </Grid>
-    //   </Content>
-    // </Container>
   )
 }
 

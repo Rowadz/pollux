@@ -1,6 +1,6 @@
 import React from 'react'
 import { Navbar, Nav, Icon } from 'rsuite'
-import { NavLink, BrowserRouter as Router } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 const { Body } = Navbar
 const { Item } = Nav
 

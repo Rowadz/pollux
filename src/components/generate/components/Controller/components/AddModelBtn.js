@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import { IconButton, Icon, Modal, Button, Input } from 'rsuite'
+import { connect } from 'react-redux'
+import { addModel } from '../../../../../redux/actions'
 
 const { Header, Body, Footer, Title } = Modal
 
-function AddModelBtn() {
+const AddModelBtn = ({ dispatch }) => {
   const [state, setState] = useState({ showNameModal: false, modelName: '' })
   const showNameModal = () => setState({ ...state, showNameModal: true })
   const close = () => setState({ ...state, showNameModal: false })
-  const create = () => ''
+  const create = () => dispatch(addModel({ name: state.modelName }))
   /**
    * @param {string} str
    */
@@ -49,4 +51,4 @@ function AddModelBtn() {
   )
 }
 
-export default AddModelBtn
+export default connect()(AddModelBtn)
