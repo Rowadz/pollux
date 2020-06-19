@@ -1,3 +1,3 @@
 import AddModelBtn from './AddModelBtn'
-
-export { AddModelBtn }
+import Models from './Models'
+export { AddModelBtn, Models }

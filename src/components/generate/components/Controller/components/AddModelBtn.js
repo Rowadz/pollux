@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { IconButton, Icon, Modal, Button, Input } from 'rsuite'
 import { connect } from 'react-redux'
 import { addModel } from '../../../../../redux/actions'
+import { v4 } from 'uuid'
 
 const { Header, Body, Footer, Title } = Modal
 
@@ -9,7 +10,16 @@ const AddModelBtn = ({ dispatch }) => {
   const [state, setState] = useState({ showNameModal: false, modelName: '' })
   const showNameModal = () => setState({ ...state, showNameModal: true })
   const close = () => setState({ ...state, showNameModal: false })
-  const create = () => dispatch(addModel({ name: state.modelName }))
+  const create = () => {
+    dispatch(
+      addModel({
+        id: v4(),
+        name: state.modelName,
+        createdAt: +new Date(),
+      })
+    )
+    setState({ ...state, modelName: '', showNameModal: false })
+  }
   /**
    * @param {string} str
    */

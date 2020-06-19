@@ -15,7 +15,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
-    "rsuite": "^4.7.3"
+    "rsuite": "^4.7.3",
+    "uuid": "^8.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
