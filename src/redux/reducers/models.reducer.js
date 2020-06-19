@@ -1,16 +1,15 @@
-import { ADD_MODEL } from '../actionTypes'
+import { ADD_MODEL, DELETE_MODEL } from '../actionTypes'
 
-const initialState = {
-  models: [],
-}
+const initialState = []
 
 export default function (state = initialState, action) {
   switch (action.type) {
     case ADD_MODEL: {
-      return {
-        ...state,
-        models: [...state.models, { ...action.payload }],
-      }
+      return [...state, { ...action.payload }]
+    }
+    case DELETE_MODEL: {
+      const { payload: uuid } = action
+      return state.filter(({ id }) => id !== uuid)
     }
     default:
       return state
