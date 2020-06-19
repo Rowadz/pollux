@@ -1,30 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import {
-  Icon,
-  IconButton,
-  Panel,
-  Button,
-  PanelGroup,
-  Grid,
-  Row,
-  Col,
-  Whisper,
-  Tooltip,
-  Modal,
-} from 'rsuite'
-import { deleteModel } from '../../../../../redux/actions'
+import { Panel, PanelGroup } from 'rsuite'
 import empty from './empty.svg'
 import Model from './ModelsComponents/Model'
-const { Body, Footer } = Modal
 
-const delToolTip = (
-  <Tooltip>
-    Click here to <b>Delete</b> this model.
-  </Tooltip>
-)
-
-const Models = ({ models, dispatch }) => {
+const Models = ({ models }) => {
   const modelsEls =
     models.length > 0 ? (
       models.map((model, i) => <Model model={model} key={i} />)
