@@ -35,7 +35,11 @@ const AddModelBtn = ({ dispatch }) => {
       >
         Add a model prototype
       </IconButton>
-      <Modal show={state.showNameModal} onHide={close}>
+      <Modal
+        show={state.showNameModal}
+        onHide={close}
+        style={{ maxWidth: '100%' }}
+      >
         <Header>
           <Title>Choose the model name</Title>
         </Header>

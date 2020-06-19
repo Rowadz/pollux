@@ -25,6 +25,7 @@ const Model = ({ dispatch, model: { id, name } }) => {
       {'`'}.
     </Tooltip>
   )
+  const addKeyTip = <Tooltip>Click here to add an attribute.</Tooltip>
   const [state, setState] = useState({ showConfirmModel: false })
   const closeConfirmModal = () =>
     setState({ ...state, showConfirmModel: false })
@@ -34,6 +35,8 @@ const Model = ({ dispatch, model: { id, name } }) => {
     dispatch(deleteModel(id))
   }
 
+  const addProp = () => dispatch()
+
   return (
     <section>
       <PanelGroup bordered accordion>
@@ -41,6 +44,15 @@ const Model = ({ dispatch, model: { id, name } }) => {
           <Grid fluid>
             <Row>
               <Col xs={24} sm={24} md={24} style={{ textAlign: 'right' }}>
+                <Whisper placement="left" trigger="hover" speaker={addKeyTip}>
+                  <IconButton
+                    style={{ float: 'left' }}
+                    icon={<Icon icon="plus" />}
+                    color="cyan"
+                    circle
+                    onClick={addProp}
+                  />
+                </Whisper>
                 <Whisper placement="left" trigger="hover" speaker={delToolTip}>
                   <IconButton
                     icon={<Icon icon="minus" />}
