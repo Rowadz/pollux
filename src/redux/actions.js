@@ -1,4 +1,9 @@
-import { ADD_MODEL, DELETE_MODEL, ADD_RPOP_NAME } from './actionTypes'
+import {
+  ADD_MODEL,
+  DELETE_MODEL,
+  ADD_RPOP_NAME,
+  REMOVE_ALL_RPOPS,
+} from './actionTypes'
 
 export const addModel = (model) => ({
   type: ADD_MODEL,
@@ -10,7 +15,12 @@ export const deleteModel = (uuid) => ({
   payload: uuid,
 })
 
-export const addPropName = (propName) => ({
+export const addPropName = (uuidAndPropName) => ({
   type: ADD_RPOP_NAME,
-  payload: propName,
+  payload: uuidAndPropName,
+})
+
+export const removeAllProps = (uuid) => ({
+  type: REMOVE_ALL_RPOPS,
+  payload: uuid,
 })

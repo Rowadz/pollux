@@ -4,24 +4,22 @@ import {
   Icon,
   IconButton,
   Panel,
-  Button,
   PanelGroup,
   Grid,
   Row,
   Col,
-  Input,
   Whisper,
   Tooltip,
-  Modal,
 } from 'rsuite'
-import { deleteModel, addPropName } from 'redux/actions'
-import { danger } from 'colors'
-const { Body, Footer, Header, Title } = Modal
+import ConfirmDel from './ConfirmDel'
+import AddProp from './AddProp'
+
+import { deleteModel, addPropName, removeAllProps } from 'redux/actions'
 
 const Model = ({ dispatch, model: { id, name } }) => {
   const [state, setState] = useState({
-    showConfirmModel: false,
-    showPropName: false,
+    showConfirmModal: false,
+    showPropNameModal: false,
   })
   const delToolTip = (
     <Tooltip>
@@ -32,16 +30,21 @@ const Model = ({ dispatch, model: { id, name } }) => {
   )
   const addKeyTip = <Tooltip>Click here to add an attribute.</Tooltip>
   const closeConfirmModal = () =>
-    setState({ ...state, showConfirmModel: false, showPropName: false })
-  const openConfirmModal = () => setState({ ...state, showConfirmModel: true })
+    setState({ ...state, showConfirmModal: false, showPropNameModal: false })
+  const openConfirmModal = () => {
+    console.log('d')
+    setState({ ...state, showConfirmModal: true })
+  }
   const openPropNameModal = () =>
-    setState({ ...state, showConfirmModel: false, showPropName: true })
+    setState({ ...state, showConfirmModal: false, showPropNameModal: true })
+
   const del = (id) => {
     closeConfirmModal()
+    dispatch(removeAllProps(id))
     dispatch(deleteModel(id))
   }
 
-  const addProp = (name) => dispatch(addPropName(name))
+  const addProp = (name) => dispatch(addPropName({ propName: name, uuid: id }))
 
   return (
     <section>
@@ -67,73 +70,20 @@ const Model = ({ dispatch, model: { id, name } }) => {
                     onClick={openConfirmModal}
                   />
                 </Whisper>
-                <Modal
-                  backdrop="static"
-                  show={state.showConfirmModel}
-                  onHide={closeConfirmModal}
-                  size="xs"
-                >
-                  <Header>
-                    <Title>Confirm</Title>
-                  </Header>
-                  <Body>
-                    <Icon
-                      icon="remind"
-                      style={{
-                        color: '#ffb300',
-                        fontSize: 24,
-                      }}
-                    />
-                    <b>
-                      {' '}
-                      Are you sure you want to delete this model {'`'}
-                      <span style={{ color: danger }}>{name}</span>
-                      {'`'}?
-                    </b>
-                  </Body>
-                  <Footer>
-                    <Button
-                      onClick={() => del(id)}
-                      appearance="primary"
-                      color="red"
-                    >
-                      Ok
-                    </Button>
-                    <Button onClick={closeConfirmModal} appearance="subtle">
-                      Cancel
-                    </Button>
-                  </Footer>
-                </Modal>
-                <Modal
-                  backdrop="static"
-                  show={state.showPropName}
-                  onHide={closeConfirmModal}
-                  size="md"
-                >
-                  <Header>
-                    <Title>
-                      Please enter the property name, you can change that later{' '}
-                    </Title>
-                  </Header>
-                  <Body>
-                    <Input
-                      style={{ width: '100%' }}
-                      placeholder="Enter prop name"
-                    />
-                  </Body>
-                  <Footer>
-                    <Button
-                      // onClick={() => addProp(id)}
-                      appearance="primary"
-                      color="cyan"
-                    >
-                      Ok
-                    </Button>
-                    <Button onClick={closeConfirmModal} appearance="subtle">
-                      Cancel
-                    </Button>
-                  </Footer>
-                </Modal>
+                <ConfirmDel
+                  id={id}
+                  del={del}
+                  closeConfirmModal={closeConfirmModal}
+                  name={name}
+                  showConfirmModal={state.showConfirmModal}
+                />
+                <AddProp
+                  id={id}
+                  showPropNameModal={state.showPropNameModal}
+                  closeConfirmModal={closeConfirmModal}
+                  name={name}
+                  addProp={addProp}
+                />
               </Col>
             </Row>
           </Grid>
