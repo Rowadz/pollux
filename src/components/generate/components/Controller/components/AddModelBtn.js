@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { IconButton, Icon, Modal, Button, Input } from 'rsuite'
 import { connect } from 'react-redux'
-import { addModel } from '../../../../../redux/actions'
+import { addModel } from 'redux/actions'
 import { v4 } from 'uuid'
 
 const { Header, Body, Footer, Title } = Modal

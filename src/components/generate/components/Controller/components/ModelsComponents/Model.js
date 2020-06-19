@@ -13,7 +13,7 @@ import {
   Tooltip,
   Modal,
 } from 'rsuite'
-import { deleteModel } from '../../../../../../redux/actions'
+import { deleteModel } from 'redux/actions'
 import { danger } from 'colors'
 const { Body, Footer } = Modal
 
