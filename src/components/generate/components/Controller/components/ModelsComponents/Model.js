@@ -14,24 +14,29 @@ import {
   Modal,
 } from 'rsuite'
 import { deleteModel } from '../../../../../../redux/actions'
+import { danger } from 'colors'
 const { Body, Footer } = Modal
 
-const delToolTip = (
-  <Tooltip>
-    Click here to <b>Delete</b> this model.
-  </Tooltip>
-)
-
 const Model = ({ dispatch, model: { id, name } }) => {
+  const delToolTip = (
+    <Tooltip>
+      Click here to <b>Delete</b> this model {'`'}
+      {name}
+      {'`'}.
+    </Tooltip>
+  )
   const [state, setState] = useState({ showConfirmModel: false })
   const closeConfirmModal = () =>
     setState({ ...state, showConfirmModel: false })
   const openConfirmModal = () => setState({ ...state, showConfirmModel: true })
-  const del = (id) => dispatch(deleteModel(id))
+  const del = (id) => {
+    closeConfirmModal()
+    dispatch(deleteModel(id))
+  }
 
   return (
     <section>
-      <PanelGroup bordered>
+      <PanelGroup bordered accordion>
         <Panel bordered header={`Model name ${name}`}>
           <Grid fluid>
             <Row>
@@ -58,7 +63,12 @@ const Model = ({ dispatch, model: { id, name } }) => {
                         fontSize: 24,
                       }}
                     />
-                    <b>Are you sure you want to delete this model ?</b>
+                    <b>
+                      {' '}
+                      Are you sure you want to delete this model {'`'}
+                      <span style={{ color: danger }}>{name}</span>
+                      {'`'}?
+                    </b>
                   </Body>
                   <Footer>
                     <Button
