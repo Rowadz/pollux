@@ -9,15 +9,20 @@ import {
   Grid,
   Row,
   Col,
+  Input,
   Whisper,
   Tooltip,
   Modal,
 } from 'rsuite'
-import { deleteModel } from 'redux/actions'
+import { deleteModel, addPropName } from 'redux/actions'
 import { danger } from 'colors'
-const { Body, Footer } = Modal
+const { Body, Footer, Header, Title } = Modal
 
 const Model = ({ dispatch, model: { id, name } }) => {
+  const [state, setState] = useState({
+    showConfirmModel: false,
+    showPropName: false,
+  })
   const delToolTip = (
     <Tooltip>
       Click here to <b>Delete</b> this model {'`'}
@@ -26,16 +31,17 @@ const Model = ({ dispatch, model: { id, name } }) => {
     </Tooltip>
   )
   const addKeyTip = <Tooltip>Click here to add an attribute.</Tooltip>
-  const [state, setState] = useState({ showConfirmModel: false })
   const closeConfirmModal = () =>
-    setState({ ...state, showConfirmModel: false })
+    setState({ ...state, showConfirmModel: false, showPropName: false })
   const openConfirmModal = () => setState({ ...state, showConfirmModel: true })
+  const openPropNameModal = () =>
+    setState({ ...state, showConfirmModel: false, showPropName: true })
   const del = (id) => {
     closeConfirmModal()
     dispatch(deleteModel(id))
   }
 
-  const addProp = () => dispatch()
+  const addProp = (name) => dispatch(addPropName(name))
 
   return (
     <section>
@@ -44,13 +50,13 @@ const Model = ({ dispatch, model: { id, name } }) => {
           <Grid fluid>
             <Row>
               <Col xs={24} sm={24} md={24} style={{ textAlign: 'right' }}>
-                <Whisper placement="left" trigger="hover" speaker={addKeyTip}>
+                <Whisper placement="right" trigger="hover" speaker={addKeyTip}>
                   <IconButton
                     style={{ float: 'left' }}
                     icon={<Icon icon="plus" />}
                     color="cyan"
                     circle
-                    onClick={addProp}
+                    onClick={openPropNameModal}
                   />
                 </Whisper>
                 <Whisper placement="left" trigger="hover" speaker={delToolTip}>
@@ -67,6 +73,9 @@ const Model = ({ dispatch, model: { id, name } }) => {
                   onHide={closeConfirmModal}
                   size="xs"
                 >
+                  <Header>
+                    <Title>Confirm</Title>
+                  </Header>
                   <Body>
                     <Icon
                       icon="remind"
@@ -87,6 +96,36 @@ const Model = ({ dispatch, model: { id, name } }) => {
                       onClick={() => del(id)}
                       appearance="primary"
                       color="red"
+                    >
+                      Ok
+                    </Button>
+                    <Button onClick={closeConfirmModal} appearance="subtle">
+                      Cancel
+                    </Button>
+                  </Footer>
+                </Modal>
+                <Modal
+                  backdrop="static"
+                  show={state.showPropName}
+                  onHide={closeConfirmModal}
+                  size="md"
+                >
+                  <Header>
+                    <Title>
+                      Please enter the property name, you can change that later{' '}
+                    </Title>
+                  </Header>
+                  <Body>
+                    <Input
+                      style={{ width: '100%' }}
+                      placeholder="Enter prop name"
+                    />
+                  </Body>
+                  <Footer>
+                    <Button
+                      // onClick={() => addProp(id)}
+                      appearance="primary"
+                      color="cyan"
                     >
                       Ok
                     </Button>
