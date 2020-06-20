@@ -7,16 +7,17 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 function App() {
   return (
     <Router>
-      <main>
-        <Header />
-        <Route path="/" exact={true}>
+      <Header />
+      <Route path="/" exact={true}>
+        <main>
           <Content />
-        </Route>
-        <Route path="/generate">
-          <Generate />
-        </Route>
+          <Footer />
+        </main>
+      </Route>
+      <Route path="/generate">
+        <Generate />
         <Footer />
-      </main>
+      </Route>
     </Router>
   )
 }

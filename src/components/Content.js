@@ -1,24 +1,89 @@
-import React, { useState } from 'react'
-import { Layout, Breadcrumb } from 'antd'
-const { Content } = Layout
+import React from 'react'
+import { Grid, Row, Col, Panel } from 'rsuite'
+import prototype from './prototype.svg'
+import box from './box.svg'
+import reactimg from './reactimg.svg'
+import taken from './taken.svg'
 
-function ContentComp() {
-  const [
-    json,
-    // setJson,
-  ] = useState(`Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vitae omnis
-  dolore mollitia aliquid saepe rem aperiam non culpa suscipit nemo et
-  animi, nulla nobis reiciendis? Consectetur tempora aspernatur dolores
-  adipisci!`)
+const ContentComp = () => {
   return (
-    <Content style={{ padding: '0 50px' }}>
-      <Breadcrumb style={{ margin: '16px 0' }}>
-        <Breadcrumb.Item>
-          <b>Editor</b>
-        </Breadcrumb.Item>
-      </Breadcrumb>
-      <div className="site-layout-content">{json}</div>
-    </Content>
+    <section>
+      <Grid fluid className="site-layout-content">
+        <Row>
+          <Col xs={24} sm={24} md={12}>
+            <Panel
+              shaded
+              bordered
+              bodyFill
+              style={{ display: 'inline-block', width: '100%' }}
+            >
+              <img src={taken} height="240" width={'100%'} alt="taken" />
+              <Panel header="POLLUX">
+                <p>Welcome to Pollux - The app that generate fake data</p>
+              </Panel>
+            </Panel>
+          </Col>
+          <Col xs={24} sm={24} md={12}>
+            <Panel
+              shaded
+              bordered
+              bodyFill
+              style={{ display: 'inline-block', width: '100%' }}
+            >
+              <img
+                src={reactimg}
+                height="240"
+                width={'100%'}
+                alt="react
+              "
+              />
+              <Panel header="Built via">
+                <p>Built with React.js &#38; Redux</p>
+              </Panel>
+            </Panel>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={24} sm={24} md={12}>
+            <Panel
+              shaded
+              bordered
+              bodyFill
+              style={{ display: 'inline-block', width: '100%' }}
+            >
+              <img
+                src={prototype}
+                height="240"
+                width={'100%'}
+                alt="prototype"
+              />
+              <Panel header="Prototype">
+                <p>Define prototypes and their properties</p>
+              </Panel>
+            </Panel>
+          </Col>
+          <Col xs={24} sm={24} md={12}>
+            <Panel
+              shaded
+              bordered
+              bodyFill
+              style={{ display: 'inline-block', width: '100%' }}
+            >
+              <img
+                src={box}
+                height="240"
+                width={'100%'}
+                alt="box
+              "
+              />
+              <Panel header="Generate">
+                <p>Generate fake data based on your prototypes</p>
+              </Panel>
+            </Panel>
+          </Col>
+        </Row>
+      </Grid>
+    </section>
   )
 }
 
