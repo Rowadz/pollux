@@ -31,7 +31,7 @@ export default function (state = initialState, action) {
         ...propData,
       }
 
-      if (!propData.func) delete findProp.func
+      if (!propData.func && !findProp.func) delete findProp.func
       const without = state[modelUuid].filter(({ id }) => id !== propId)
       return {
         ...state,

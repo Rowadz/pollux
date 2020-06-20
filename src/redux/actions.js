@@ -55,7 +55,8 @@ export const removeAllProps = (uuid) => ({
  * @param {string} props.propId - the prop uuid
  * @param {string} props.id - the model uuid
  * @param {string} props.newName - the new prop name
- * @param {(input?: any) => any} props.func - the faker function
+ * @param {string} props.groupName - the top lvl obj name for faker
+ * @param {string} props.func - the faker function
  */
 export const editProp = (props) => ({
   type: EDIT_PROP,

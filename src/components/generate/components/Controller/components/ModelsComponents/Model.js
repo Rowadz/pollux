@@ -15,10 +15,11 @@ import {
 import ConfirmDel from './ConfirmDel'
 import PropsDisplay from './PropsDisplay'
 import AddProp from './AddProp'
+import * as faker from 'faker'
 
 import { deleteModel, addPropName, removeAllProps } from 'redux/actions'
 
-const Model = ({ dispatch, model: { id, name }, propsCount }) => {
+const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
   const [state, setState] = useState({
     showConfirmModal: false,
     showPropNameModal: false,
@@ -41,6 +42,20 @@ const Model = ({ dispatch, model: { id, name }, propsCount }) => {
     closeConfirmModal()
     dispatch(removeAllProps(id))
     dispatch(deleteModel(id))
+  }
+
+  const generate = (ammount = 10) => {
+    console.log({ ammount })
+    const res = Array.from({ length: ammount }).map(() => {
+      return props.reduce(
+        (prev, { propName, groupName, func }) => ({
+          ...prev,
+          [propName]: faker[groupName][func](),
+        }),
+        {}
+      )
+    })
+    console.log(res)
   }
 
   const addProp = (name) => dispatch(addPropName({ propName: name, uuid: id }))
@@ -68,6 +83,15 @@ const Model = ({ dispatch, model: { id, name }, propsCount }) => {
                     color="cyan"
                     circle
                     onClick={openPropNameModal}
+                  />
+                </Whisper>
+                <Whisper placement="right" trigger="hover" speaker={addKeyTip}>
+                  <IconButton
+                    style={{ float: 'left', marginLeft: '5px' }}
+                    icon={<Icon icon="magic2" />}
+                    color="orange"
+                    circle
+                    onClick={() => generate()}
                   />
                 </Whisper>
                 <Whisper placement="left" trigger="hover" speaker={delToolTip}>
@@ -112,4 +136,5 @@ const Model = ({ dispatch, model: { id, name }, propsCount }) => {
 export default connect((state, ownProps) => ({
   ...ownProps,
   propsCount: (state.prop[ownProps.model.id] || []).length,
+  props: state.prop[ownProps.model.id],
 }))(Model)

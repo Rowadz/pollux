@@ -18,9 +18,12 @@ const Prop = ({
   const closeModal = () => setState({ ...state, showPropNameModal: false })
   const openModal = () => setState({ ...state, showPropNameModal: true })
   const del = () => dispatch(delProp({ propId: id, modelId }))
-  const onFuncSelect = (value) => {
+  const onFuncSelect = (value, event) => {
+    const findRes = inputData.find(({ value: val }) => value === val)
+    if (!findRes) return
+    const { groupName } = findRes
     setState({ ...state, func: value })
-    dispatch(editProp({ id: modelId, propId: id, func: value }))
+    dispatch(editProp({ id: modelId, propId: id, func: value, groupName }))
   }
 
   return (
