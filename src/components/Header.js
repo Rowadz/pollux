@@ -31,9 +31,9 @@ function HeaderComp() {
             </Item>
           </NavLink>
         </Nav>
-        <Nav pullRight>
+        {/* <Nav pullRight>
           <Item icon={<Icon icon="cog" />}>Settings</Item>
-        </Nav>
+        </Nav> */}
       </Body>
     </Navbar>
   )
