@@ -20,7 +20,7 @@ const Prop = ({
   const del = () => dispatch(delProp({ propId: id, modelId }))
   const onFuncSelect = (value) => {
     setState({ ...state, func: value })
-    dispatch(editProp({ editProp: name, id: modelId, propId: id, func: value }))
+    dispatch(editProp({ id: modelId, propId: id, func: value }))
   }
 
   return (

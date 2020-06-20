@@ -24,18 +24,21 @@ export default function (state = initialState, action) {
     }
     case EDIT_PROP: {
       const { id: modelUuid, propId, ...propData } = action.payload
+      // we need to save it in its orignal place
+      const idx = state[modelUuid].findIndex(({ id }) => id === propId)
       const findProp = {
         ...state[modelUuid].find(({ id }) => id === propId),
         ...propData,
       }
 
       if (!propData.func) delete findProp.func
-
+      const without = state[modelUuid].filter(({ id }) => id !== propId)
       return {
         ...state,
         [modelUuid]: [
-          ...state[modelUuid].filter(({ id }) => id !== propId),
+          ...without.slice(0, idx),
           findProp,
+          ...without.slice(idx),
         ],
       }
     }
