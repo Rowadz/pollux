@@ -18,7 +18,7 @@ function HeaderComp() {
               )}
             ></Item>
           </NavLink>
-          <NavLink to="generate" activeClassName="active-route">
+          <NavLink to="/pollux/generate" activeClassName="active-route">
             <Item
               renderItem={() => (
                 <span className="rs-nav-item-content">
