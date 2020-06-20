@@ -11,11 +11,14 @@ import {
   Whisper,
   Tooltip,
   Tag,
+  InputNumber,
+  Alert,
 } from 'rsuite'
 import ConfirmDel from './ConfirmDel'
 import PropsDisplay from './PropsDisplay'
 import AddProp from './AddProp'
 import * as faker from 'faker'
+import { saveAs } from 'file-saver'
 
 import { deleteModel, addPropName, removeAllProps } from 'redux/actions'
 
@@ -32,6 +35,11 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
     </Tooltip>
   )
   const addKeyTip = <Tooltip>Click here to add an attribute.</Tooltip>
+  const generateTip = (
+    <Tooltip>
+      Click here to <b>generate</b> a json for this model.
+    </Tooltip>
+  )
   const closeConfirmModal = () =>
     setState({ ...state, showConfirmModal: false, showPropNameModal: false })
   const openConfirmModal = () => setState({ ...state, showConfirmModal: true })
@@ -45,7 +53,23 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
   }
 
   const generate = (ammount = 10) => {
-    console.log({ ammount })
+    if (!props) {
+      Alert.warning(`plz add some properties to this model (${name})`)
+      return
+    }
+    const atLeastOneWithoutFunc = props
+      .filter(({ func }) => !func)
+      .map(({ propName }) => propName)
+    const len = atLeastOneWithoutFunc.length
+    if (len > 0) {
+      console.log(atLeastOneWithoutFunc)
+      Alert.warning(
+        `There is ${len} ${
+          len === 1 ? 'property' : 'properties'
+        } without function ${atLeastOneWithoutFunc.join(' || ')}`
+      )
+      return
+    }
     const res = Array.from({ length: ammount }).map(() => {
       return props.reduce(
         (prev, { propName, groupName, func }) => ({
@@ -55,7 +79,10 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
         {}
       )
     })
-    console.log(res)
+    saveAs(
+      new Blob([JSON.stringify(res, null, 2)], { type: 'application/json' }),
+      name
+    )
   }
 
   const addProp = (name) => dispatch(addPropName({ propName: name, uuid: id }))
@@ -85,7 +112,11 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
                     onClick={openPropNameModal}
                   />
                 </Whisper>
-                <Whisper placement="right" trigger="hover" speaker={addKeyTip}>
+                <Whisper
+                  placement="right"
+                  trigger="hover"
+                  speaker={generateTip}
+                >
                   <IconButton
                     style={{ float: 'left', marginLeft: '5px' }}
                     icon={<Icon icon="magic2" />}
@@ -94,6 +125,9 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
                     onClick={() => generate()}
                   />
                 </Whisper>
+                <div style={{ width: 100, display: 'flex', paddingLeft: 10 }}>
+                  <InputNumber defaultValue={10} max={1000} min={1} />
+                </div>
                 <Whisper placement="left" trigger="hover" speaker={delToolTip}>
                   <IconButton
                     icon={<Icon icon="minus" />}

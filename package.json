@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^7.2.1",
     "antd": "^4.1.1",
     "faker": "^4.1.0",
+    "file-saver": "^2.0.2",
     "jsoneditor-react": "^3.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
