@@ -28,9 +28,13 @@ const objects = {
   phone,
 }
 
-const initialState = Object.keys(objects).map((name) => ({
-  [name]: Object.keys(objects[name]),
-}))
+const initialState = Object.keys(objects).map((name) => [
+  ...Object.keys(objects[name]).map((funName) => ({
+    groupName: name,
+    label: funName,
+    value: funName,
+  })),
+])
 
 export default function (state = initialState, action) {
   return state
