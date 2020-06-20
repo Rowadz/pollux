@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { List, FlexboxGrid, Icon, IconButton } from 'rsuite'
+import { InputPicker, List, FlexboxGrid, Icon, IconButton } from 'rsuite'
 import AddProp from './AddProp'
 import { connect } from 'react-redux'
 import { delProp } from 'redux/actions'
 
-const Prop = ({ i, name, id, modelName, modelId, dispatch }) => {
+const Prop = ({ i, name, id, modelName, modelId, dispatch, inputData }) => {
+  console.log({ inputData })
   const [state, setState] = useState({ showPropNameModal: false })
   const closeModal = () => setState({ ...state, showPropNameModal: false })
   const openModal = () => setState({ ...state, showPropNameModal: true })
@@ -12,23 +13,20 @@ const Prop = ({ i, name, id, modelName, modelId, dispatch }) => {
   return (
     <List.Item key={i} index={i}>
       <FlexboxGrid>
-        {/*icon*/}
         <FlexboxGrid.Item colspan={6} style={{ textAlign: 'left' }}>
           <h4>
             <Icon icon="circle" /> {name}
           </h4>
         </FlexboxGrid.Item>
-        {/*base info*/}
-        <FlexboxGrid.Item
-          colspan={6}
-          style={{
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            overflow: 'hidden',
-          }}
-        ></FlexboxGrid.Item>
-        {/*peak data*/}
-        <FlexboxGrid.Item colspan={6}>
+        <FlexboxGrid.Item colspan={12} style={{ textAlign: 'left' }}>
+          <InputPicker
+            data={inputData}
+            groupBy="groupName"
+            placeholder="Select a function"
+            style={{ width: '100%' }}
+          />
+        </FlexboxGrid.Item>
+        <FlexboxGrid.Item colspan={0}>
           <AddProp
             id={modelId}
             showPropNameModal={state.showPropNameModal}
@@ -39,7 +37,6 @@ const Prop = ({ i, name, id, modelName, modelId, dispatch }) => {
             mode={'edit'}
           />
         </FlexboxGrid.Item>
-        {/*uv data*/}
         <FlexboxGrid.Item colspan={4}>
           <IconButton
             style={{ margin: '5px' }}
@@ -61,4 +58,7 @@ const Prop = ({ i, name, id, modelName, modelId, dispatch }) => {
   )
 }
 
-export default connect()(Prop)
+export default connect((state, ownProp) => ({
+  ...ownProp,
+  inputData: state.faker,
+}))(Prop)
