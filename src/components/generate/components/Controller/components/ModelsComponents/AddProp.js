@@ -73,9 +73,10 @@ const AddProp = ({
 
         <Input
           style={{ width: '100%' }}
-          placeholder="Enter prop name"
+          placeholder={mode === 'edit' ? 'Change prop name' : 'Enter prop name'}
           onChange={inputChange}
-          value={state.propName}
+          // defaultValue={propNameProp}
+          // value={state.propName}
         />
       </Body>
       <Footer>

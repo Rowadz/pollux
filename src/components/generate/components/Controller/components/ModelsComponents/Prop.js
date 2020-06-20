@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import { List, FlexboxGrid, Icon, IconButton } from 'rsuite'
 import AddProp from './AddProp'
+import { connect } from 'react-redux'
+import { delProp } from 'redux/actions'
 
-const Prop = ({ i, name, id, modelName, modelId }) => {
+const Prop = ({ i, name, id, modelName, modelId, dispatch }) => {
   const [state, setState] = useState({ showPropNameModal: false })
   const closeModal = () => setState({ ...state, showPropNameModal: false })
   const openModal = () => setState({ ...state, showPropNameModal: true })
+  const del = () => dispatch(delProp({ propId: id, modelId }))
   return (
     <List.Item key={i} index={i}>
       <FlexboxGrid>
@@ -50,6 +53,7 @@ const Prop = ({ i, name, id, modelName, modelId }) => {
             icon={<Icon icon="minus" />}
             color="red"
             circle
+            onClick={del}
           />
         </FlexboxGrid.Item>
       </FlexboxGrid>
@@ -57,4 +61,4 @@ const Prop = ({ i, name, id, modelName, modelId }) => {
   )
 }
 
-export default Prop
+export default connect()(Prop)
