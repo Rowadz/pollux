@@ -23,11 +23,15 @@ export default function (state = initialState, action) {
       return { ...state }
     }
     case EDIT_PROP: {
-      const { newName, id: modelUuid, propId } = action.payload
+      const { newName, id: modelUuid, propId, func } = action.payload
       const findProp = {
         ...state[modelUuid].find(({ id }) => id === propId),
         propName: newName,
+        func,
       }
+
+      if (!func) delete findProp.func
+
       return {
         ...state,
         [modelUuid]: [
