@@ -14,18 +14,20 @@ import {
   phone,
 } from 'faker'
 
-delete random.objectElement
-delete random.arrayElement
-delete date.between
+const randomCpy = { ...random }
+const dateCpy = { ...date }
+delete randomCpy.objectElement
+delete randomCpy.arrayElement
+delete dateCpy.between
 
 const objects = {
-  random,
+  random: randomCpy,
   name,
   address,
   commerce,
   company,
   database,
-  date,
+  date: dateCpy,
   finance,
   hacker,
   image,
