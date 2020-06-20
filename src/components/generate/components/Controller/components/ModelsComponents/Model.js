@@ -26,6 +26,7 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
   const [state, setState] = useState({
     showConfirmModal: false,
     showPropNameModal: false,
+    amount: 10,
   })
   const delToolTip = (
     <Tooltip>
@@ -52,7 +53,9 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
     dispatch(deleteModel(id))
   }
 
-  const generate = (ammount = 10) => {
+  const changeAmount = (val) => setState({ ...state, amount: +val })
+
+  const generate = () => {
     if (!props) {
       Alert.warning(`plz add some properties to this model (${name})`)
       return
@@ -70,7 +73,7 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
       )
       return
     }
-    const res = Array.from({ length: ammount }).map(() => {
+    const res = Array.from({ length: state.amount }).map(() => {
       return props.reduce(
         (prev, { propName, groupName, func }) => ({
           ...prev,
@@ -102,10 +105,9 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
         <Panel shaded header={dynamicHeder}>
           <Grid fluid>
             <Row>
-              <Col xs={24} sm={24} md={24} style={{ textAlign: 'right' }}>
+              <Col xs={24} sm={24} md={24}>
                 <Whisper placement="right" trigger="hover" speaker={addKeyTip}>
                   <IconButton
-                    style={{ float: 'left' }}
                     icon={<Icon icon="plus" />}
                     color="cyan"
                     circle
@@ -118,19 +120,32 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
                   speaker={generateTip}
                 >
                   <IconButton
-                    style={{ float: 'left', marginLeft: '5px' }}
+                    style={{ marginLeft: '5px' }}
                     icon={<Icon icon="magic2" />}
                     color="orange"
                     circle
                     onClick={() => generate()}
                   />
                 </Whisper>
-                <div style={{ width: 100, display: 'flex', paddingLeft: 10 }}>
-                  <InputNumber defaultValue={10} max={1000} min={1} />
+                <div
+                  style={{
+                    width: 100,
+                    display: 'inline',
+                    position: 'absolute',
+                    paddingLeft: 10,
+                  }}
+                >
+                  <InputNumber
+                    defaultValue={10}
+                    max={1000}
+                    min={1}
+                    onChange={changeAmount}
+                  />
                 </div>
                 <Whisper placement="left" trigger="hover" speaker={delToolTip}>
                   <IconButton
                     icon={<Icon icon="minus" />}
+                    style={{ float: 'right' }}
                     color="red"
                     circle
                     onClick={openConfirmModal}
