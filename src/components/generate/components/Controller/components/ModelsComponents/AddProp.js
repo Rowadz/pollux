@@ -21,7 +21,7 @@ const AddProp = ({
     propName: mode === 'edit' ? propNameProp : '',
     valid: true,
   })
-  const inputChange = (str) => setState({ ...state, propName: str.trim('') })
+  const inputChange = (str) => setState({ propName: str.trim(''), valid: true })
   const addButtonClick = () => {
     if (propNamesForThisModel) {
       // TODO: tell the user to stfu if the same prop exists
@@ -41,11 +41,15 @@ const AddProp = ({
     }
     closeConfirmModal()
   }
+  const close = () => {
+    setState({ ...state, valid: true })
+    closeConfirmModal()
+  }
   return (
     <Modal
       backdrop="static"
       show={showPropNameModal}
-      onHide={closeConfirmModal}
+      onHide={close}
       style={{ maxWidth: '100%' }}
       size="lg"
     >
@@ -87,7 +91,7 @@ const AddProp = ({
         >
           Ok
         </Button>
-        <Button onClick={closeConfirmModal} appearance="subtle">
+        <Button onClick={close} appearance="subtle">
           Cancel
         </Button>
       </Footer>
