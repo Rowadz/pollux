@@ -9,9 +9,9 @@ function Controller() {
       <Row>
         <Col xs={24} sm={24} md={6}>
           <AddModelBtn />
-          <div style={{ marginTop: '10px' }}>
+          {/* <div style={{ marginTop: '10px' }}>
             <SaveModel />
-          </div>
+          </div> */}
         </Col>
         <Col xs={24} sm={24} md={18}>
           <Models />
