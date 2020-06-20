@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Input, Button, Modal, Message } from 'rsuite'
 import { connect } from 'react-redux'
+import { editProp } from 'redux/actions'
+
 const { Body, Footer, Header, Title } = Modal
 
 const AddProp = ({
@@ -10,8 +12,15 @@ const AddProp = ({
   addProp,
   propNamesForThisModel,
   id,
+  mode,
+  propNameProp,
+  dispatch,
+  propId,
 }) => {
-  const [state, setState] = useState({ propName: '', valid: true })
+  const [state, setState] = useState({
+    propName: mode === 'edit' ? propNameProp : '',
+    valid: true,
+  })
   const inputChange = (str) => setState({ ...state, propName: str.trim('') })
   const addButtonClick = () => {
     console.log(propNamesForThisModel)
@@ -25,7 +34,9 @@ const AddProp = ({
         return
       }
     }
-    addProp(state.propName)
+    if (mode === 'edit')
+      dispatch(editProp({ newName: state.propName, id, propId }))
+    else addProp(state.propName)
     closeConfirmModal()
   }
   return (
@@ -38,7 +49,9 @@ const AddProp = ({
     >
       <Header>
         <Title>
-          Please enter the property name, you can change that later{' '}
+          {mode === 'edit'
+            ? `Edit ${propNameProp} property`
+            : 'Please enter the property name, you can change that later'}
         </Title>
       </Header>
       <Body>
@@ -59,6 +72,7 @@ const AddProp = ({
           style={{ width: '100%' }}
           placeholder="Enter prop name"
           onChange={inputChange}
+          value={state.propName}
         />
       </Body>
       <Footer>

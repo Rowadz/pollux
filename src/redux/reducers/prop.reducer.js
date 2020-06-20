@@ -1,4 +1,4 @@
-import { ADD_RPOP_NAME, REMOVE_ALL_RPOPS } from '../actionTypes'
+import { ADD_RPOP_NAME, REMOVE_ALL_RPOPS, EDIT_PROP } from '../actionTypes'
 import { v4 } from 'uuid'
 
 const initialState = {}
@@ -16,6 +16,20 @@ export default function (state = initialState, action) {
       const uuid = action.payload
       delete state[uuid]
       return { ...state }
+    }
+    case EDIT_PROP: {
+      const { newName, id: modelUuid, propId } = action.payload
+      const findProp = {
+        ...state[modelUuid].find(({ id }) => id === propId),
+        propName: newName,
+      }
+      return {
+        ...state,
+        [modelUuid]: [
+          ...state[modelUuid].filter(({ id }) => id !== propId),
+          findProp,
+        ],
+      }
     }
     default:
       return state

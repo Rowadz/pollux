@@ -96,8 +96,13 @@ const Model = ({ dispatch, model: { id, name }, propsCount }) => {
                   addProp={addProp}
                 />
               </Col>
-              <Col xs={24} sm={24} md={24} style={{ textAlign: 'right' }}>
-                <PropsDisplay id={id} />
+              <Col
+                xs={24}
+                sm={24}
+                md={24}
+                style={{ textAlign: 'right', marginTop: '10px' }}
+              >
+                <PropsDisplay id={id} modelName={name} />
               </Col>
             </Row>
           </Grid>
