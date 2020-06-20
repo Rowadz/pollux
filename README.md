@@ -2,7 +2,7 @@
 
 This react app will create a fake date based on prototypes you define,
 
-- check this video -> [here]()
+- check this video -> [here](https://youtu.be/Vh0M0oNo7Gc)
 - link to use it -> [here](https://mohammedal-rowad.github.io/pollux/)
 
 # install
