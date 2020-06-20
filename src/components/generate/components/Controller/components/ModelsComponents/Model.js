@@ -59,7 +59,7 @@ const Model = ({ dispatch, model: { id, name }, propsCount }) => {
   )
   return (
     <section>
-      <PanelGroup bordered accordion>
+      <PanelGroup bordered>
         <Panel shaded header={dynamicHeder}>
           <Grid fluid>
             <Row>

@@ -10,7 +10,7 @@ const Prop = ({ i, name, id, modelName, modelId }) => {
     <List.Item key={i} index={i}>
       <FlexboxGrid>
         {/*icon*/}
-        <FlexboxGrid.Item colspan={6}>
+        <FlexboxGrid.Item colspan={6} style={{ textAlign: 'left' }}>
           <h4>
             <Icon icon="circle" /> {name}
           </h4>

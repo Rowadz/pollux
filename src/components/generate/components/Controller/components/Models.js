@@ -19,7 +19,7 @@ const Models = ({ models }) => {
     )
   return (
     <section>
-      <PanelGroup accordion={modelsEls.length > 0}>{modelsEls}</PanelGroup>
+      <PanelGroup>{modelsEls}</PanelGroup>
     </section>
   )
 }
