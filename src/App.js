@@ -8,13 +8,13 @@ function App() {
   return (
     <Router>
       <Header />
-      <Route path="/" exact={true}>
+      <Route path="/pollux" exact={true}>
         <main>
           <Content />
           <Footer />
         </main>
       </Route>
-      <Route path="/generate">
+      <Route path="/pollux/generate">
         <Generate />
         <Footer />
       </Route>
