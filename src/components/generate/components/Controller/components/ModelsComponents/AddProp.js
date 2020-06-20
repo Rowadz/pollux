@@ -23,7 +23,6 @@ const AddProp = ({
   })
   const inputChange = (str) => setState({ ...state, propName: str.trim('') })
   const addButtonClick = () => {
-    console.log(propNamesForThisModel)
     if (propNamesForThisModel) {
       // TODO: tell the user to stfu if the same prop exists
       const exists = propNamesForThisModel.find(

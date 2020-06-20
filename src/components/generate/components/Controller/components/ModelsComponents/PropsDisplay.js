@@ -5,7 +5,6 @@ import { List } from 'rsuite'
 import Prop from './Prop'
 
 const PropsDisplay = ({ id, props, modelName }) => {
-  console.log({ props })
   const propsEl =
     props && props?.length > 0 ? (
       <List hover>

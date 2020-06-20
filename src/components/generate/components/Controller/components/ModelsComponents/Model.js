@@ -33,10 +33,7 @@ const Model = ({ dispatch, model: { id, name }, propsCount }) => {
   const addKeyTip = <Tooltip>Click here to add an attribute.</Tooltip>
   const closeConfirmModal = () =>
     setState({ ...state, showConfirmModal: false, showPropNameModal: false })
-  const openConfirmModal = () => {
-    console.log('d')
-    setState({ ...state, showConfirmModal: true })
-  }
+  const openConfirmModal = () => setState({ ...state, showConfirmModal: true })
   const openPropNameModal = () =>
     setState({ ...state, showConfirmModal: false, showPropNameModal: true })
 

@@ -14,7 +14,6 @@ const Prop = ({
   inputData,
   func,
 }) => {
-  console.log({ func })
   const [state, setState] = useState({ showPropNameModal: false, func })
   const closeModal = () => setState({ ...state, showPropNameModal: false })
   const openModal = () => setState({ ...state, showPropNameModal: true })
