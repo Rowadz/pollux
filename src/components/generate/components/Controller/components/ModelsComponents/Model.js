@@ -10,13 +10,16 @@ import {
   Col,
   Whisper,
   Tooltip,
+  Badge,
 } from 'rsuite'
 import ConfirmDel from './ConfirmDel'
+import PropsDisplay from './PropsDisplay'
 import AddProp from './AddProp'
+import { normal } from 'colors'
 
 import { deleteModel, addPropName, removeAllProps } from 'redux/actions'
 
-const Model = ({ dispatch, model: { id, name } }) => {
+const Model = ({ dispatch, model: { id, name }, propsCount }) => {
   const [state, setState] = useState({
     showConfirmModal: false,
     showPropNameModal: false,
@@ -45,11 +48,21 @@ const Model = ({ dispatch, model: { id, name } }) => {
   }
 
   const addProp = (name) => dispatch(addPropName({ propName: name, uuid: id }))
-
+  const dynamicHeder = (
+    <div>
+      Model name {name}
+      {
+        <Badge
+          content={propsCount}
+          style={{ marginLeft: '5px', background: normal }}
+        />
+      }
+    </div>
+  )
   return (
     <section>
       <PanelGroup bordered accordion>
-        <Panel bordered header={`Model name ${name}`}>
+        <Panel shaded header={dynamicHeder}>
           <Grid fluid>
             <Row>
               <Col xs={24} sm={24} md={24} style={{ textAlign: 'right' }}>
@@ -85,6 +98,9 @@ const Model = ({ dispatch, model: { id, name } }) => {
                   addProp={addProp}
                 />
               </Col>
+              <Col xs={24} sm={24} md={24} style={{ textAlign: 'right' }}>
+                <PropsDisplay id={id} />
+              </Col>
             </Row>
           </Grid>
         </Panel>
@@ -93,6 +109,7 @@ const Model = ({ dispatch, model: { id, name } }) => {
   )
 }
 
-export default connect((dispatch, ownProps) => ({ ...ownProps, dispatch }))(
-  Model
-)
+export default connect((state, ownProps) => ({
+  ...ownProps,
+  propsCount: (state.prop[ownProps.model.id] || []).length,
+}))(Model)
