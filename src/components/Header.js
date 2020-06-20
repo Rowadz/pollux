@@ -9,7 +9,7 @@ function HeaderComp() {
     <Navbar>
       <Body>
         <Nav>
-          <NavLink to="/" activeClassName="active-route" exact={true}>
+          <NavLink to="/pollux" activeClassName="active-route" exact={true}>
             <Item
               renderItem={() => (
                 <span className="rs-nav-item-content">
