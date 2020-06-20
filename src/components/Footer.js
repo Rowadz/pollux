@@ -1,28 +1,34 @@
 import React from 'react'
-import { GithubOutlined, LinkedinOutlined } from '@ant-design/icons'
-import { Layout } from 'antd'
-const { Footer } = Layout
+import { IconButton, Icon } from 'rsuite'
 
-function FooterComp() {
+const FooterComp = () => {
   return (
-    <Footer style={{ textAlign: 'center' }}>
-      Made by <b>Rowad</b>
+    <section style={{ textAlign: 'center' }}>
+      Made by <b>Rowad</b>{' '}
       <a
         href="https://github.com/MohammedAl-Rowad"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <GithubOutlined style={{ fontSize: '20px', color: '#08c' }} />
+        <IconButton size="xs" icon={<Icon icon="linkedin-square" />} />
       </a>
-      <b>/</b>
+      {'  '}
       <a
         href="https://www.linkedin.com/in/mohammed-al-rowad/"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <LinkedinOutlined style={{ fontSize: '20px', color: '#08c' }} />
+        <IconButton size="xs" icon={<Icon icon="github-alt" />} />
       </a>
-    </Footer>
+      {'  '}
+      <a
+        href="https://www.youtube.com/channel/UC1Uw_GN4sodGisimwZNzMoA?view_as=subscriber"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <IconButton size="xs" icon={<Icon icon="youtube-play" />} />
+      </a>
+    </section>
   )
 }
 

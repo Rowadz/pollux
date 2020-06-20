@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Row, Col } from 'rsuite'
 // import { IconButton, Icon } from 'rsuite'
-import { AddModelBtn, Models, SaveModel } from './components'
+import { AddModelBtn, Models } from './components'
 function Controller() {
   // const [state, setState] = useState()
   return (
