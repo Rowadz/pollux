@@ -1,6 +1,6 @@
 # Welomce to Pollux
 
-This react app will create a fake date based on a prototypes you define,
+This react app will create a fake date based on prototypes you define,
 
 - check this video -> [here]()
 - link to use it -> [here]()
