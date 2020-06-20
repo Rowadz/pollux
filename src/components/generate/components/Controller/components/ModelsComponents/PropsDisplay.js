@@ -9,10 +9,11 @@ const PropsDisplay = ({ id, props, modelName }) => {
   const propsEl =
     props && props?.length > 0 ? (
       <List hover>
-        {props.map(({ propName, id: uuid }, i) => (
+        {props.map(({ propName, id: uuid, func }, i) => (
           <Prop
             i={i}
             key={i}
+            func={func}
             name={propName}
             id={uuid}
             modelId={id}

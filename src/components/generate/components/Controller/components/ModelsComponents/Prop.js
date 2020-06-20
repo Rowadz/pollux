@@ -2,14 +2,28 @@ import React, { useState } from 'react'
 import { InputPicker, List, FlexboxGrid, Icon, IconButton } from 'rsuite'
 import AddProp from './AddProp'
 import { connect } from 'react-redux'
-import { delProp } from 'redux/actions'
+import { delProp, editProp } from 'redux/actions'
 
-const Prop = ({ i, name, id, modelName, modelId, dispatch, inputData }) => {
-  console.log({ inputData })
-  const [state, setState] = useState({ showPropNameModal: false })
+const Prop = ({
+  i,
+  name,
+  id,
+  modelName,
+  modelId,
+  dispatch,
+  inputData,
+  func,
+}) => {
+  console.log({ func })
+  const [state, setState] = useState({ showPropNameModal: false, func })
   const closeModal = () => setState({ ...state, showPropNameModal: false })
   const openModal = () => setState({ ...state, showPropNameModal: true })
   const del = () => dispatch(delProp({ propId: id, modelId }))
+  const onFuncSelect = (value) => {
+    setState({ ...state, func: value })
+    dispatch(editProp({ editProp: name, id: modelId, propId: id, func: value }))
+  }
+
   return (
     <List.Item key={i} index={i}>
       <FlexboxGrid>
@@ -20,7 +34,9 @@ const Prop = ({ i, name, id, modelName, modelId, dispatch, inputData }) => {
         </FlexboxGrid.Item>
         <FlexboxGrid.Item colspan={12} style={{ textAlign: 'left' }}>
           <InputPicker
+            onChange={onFuncSelect}
             data={inputData}
+            defaultValue={state.func}
             groupBy="groupName"
             placeholder="Select a function"
             style={{ width: '100%' }}

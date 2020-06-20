@@ -35,7 +35,7 @@ const AddProp = ({
       }
     }
     if (mode === 'edit')
-      dispatch(editProp({ newName: state.propName, id, propId }))
+      dispatch(editProp({ propName: state.propName, id, propId }))
     else {
       addProp(state.propName)
       setState({ ...state, propName: '' })
