@@ -65,7 +65,6 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
       .map(({ propName }) => propName)
     const len = atLeastOneWithoutFunc.length
     if (len > 0) {
-      console.log(atLeastOneWithoutFunc)
       Alert.warning(
         `There is ${len} ${
           len === 1 ? 'property' : 'properties'
