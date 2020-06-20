@@ -10,12 +10,11 @@ import {
   Col,
   Whisper,
   Tooltip,
-  Badge,
+  Tag,
 } from 'rsuite'
 import ConfirmDel from './ConfirmDel'
 import PropsDisplay from './PropsDisplay'
 import AddProp from './AddProp'
-import { normal } from 'colors'
 
 import { deleteModel, addPropName, removeAllProps } from 'redux/actions'
 
@@ -52,10 +51,9 @@ const Model = ({ dispatch, model: { id, name }, propsCount }) => {
     <div>
       Model name {name}
       {
-        <Badge
-          content={propsCount}
-          style={{ marginLeft: '5px', background: normal }}
-        />
+        <Tag color="cyan" style={{ marginLeft: '5px' }}>
+          {propsCount}
+        </Tag>
       }
     </div>
   )
