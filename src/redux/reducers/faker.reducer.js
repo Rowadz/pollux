@@ -13,7 +13,6 @@ import {
   lorem,
   phone,
 } from 'faker'
-import { v4 } from 'uuid'
 
 const objects = {
   random,
@@ -40,7 +39,6 @@ const initialState = Object.keys(objects)
         return `${res.charAt(0).toUpperCase()}${res.slice(1)}`
       })(),
       value: funName,
-      id: v4(),
     })),
   ])
   .reduce((prevArr, currArr) => [...prevArr, ...currArr], [])
