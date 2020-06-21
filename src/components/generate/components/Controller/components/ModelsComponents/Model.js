@@ -128,7 +128,7 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
                 </Whisper>
                 <div
                   style={{
-                    width: 100,
+                    width: 80,
                     display: 'inline',
                     position: 'absolute',
                     paddingLeft: 10,
