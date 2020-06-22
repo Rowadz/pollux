@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Input, Button, Modal, Message } from 'rsuite'
+import { Input, TagPicker, Button, Modal, Message } from 'rsuite'
 import { connect } from 'react-redux'
 import { editProp } from 'redux/actions'
 
@@ -21,10 +21,15 @@ const AddProp = ({
     propName: mode === 'edit' ? propNameProp : '',
     valid: true,
   })
-  const inputChange = (str) => setState({ propName: str.trim(''), valid: true })
+  const inputChange = (strOrArrayOfStrings) => {
+    if (mode === 'edit') {
+      setState({ propName: strOrArrayOfStrings.trim(''), valid: true })
+    } else {
+      setState({ propName: strOrArrayOfStrings, valid: true })
+    }
+  }
   const addButtonClick = () => {
     if (propNamesForThisModel) {
-      // TODO: tell the user to stfu if the same prop exists
       const exists = propNamesForThisModel.find(
         ({ propName }) => propName === state.propName
       )
@@ -36,7 +41,7 @@ const AddProp = ({
     if (mode === 'edit')
       dispatch(editProp({ propName: state.propName, id, propId }))
     else {
-      addProp(state.propName)
+      state.propName.forEach((name) => addProp(name))
       setState({ ...state, propName: '' })
     }
     closeConfirmModal()
@@ -57,7 +62,7 @@ const AddProp = ({
         <Title>
           {mode === 'edit'
             ? `Edit ${propNameProp} property`
-            : 'Please enter the property name, you can change that later'}
+            : 'Enter the properties names'}
         </Title>
       </Header>
       <Body>
@@ -73,14 +78,24 @@ const AddProp = ({
             description={`The Property "${state.propName}" is already exists in this model (${name})`}
           />
         </div>
-
-        <Input
-          style={{ width: '100%' }}
-          placeholder={mode === 'edit' ? 'Change prop name' : 'Enter prop name'}
-          onChange={inputChange}
-          // defaultValue={propNameProp}
-          // value={state.propName}
-        />
+        <p>
+          <b>You can create many properies now, enter name then press enter</b>
+        </p>
+        {mode === 'edit' ? (
+          <Input
+            style={{ width: '100%' }}
+            placeholder="Change prop name"
+            onChange={inputChange}
+          />
+        ) : (
+          <TagPicker
+            creatable
+            placeholder="add as many properties you want here"
+            style={{ width: '100%' }}
+            onChange={inputChange}
+            menuStyle={{ width: 300 }}
+          />
+        )}
       </Body>
       <Footer>
         <Button
