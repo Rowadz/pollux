@@ -2,15 +2,24 @@ import React, { useState } from 'react'
 import { IconButton, Icon, Modal, Button, Checkbox } from 'rsuite'
 import { connect } from 'react-redux'
 import emptySave from './emptySave.svg'
-
+import { Alert } from 'rsuite'
 const { Header, Body, Footer, Title } = Modal
 
 const SaveModel = ({ models, prop }) => {
   const [state, setState] = useState({ showModalSave: false, toSave: [] })
-  const showModalSave = () => setState({ ...state, showModalSave: true })
+  const showModalSave = () =>
+    setState({ ...state, toSave: [], showModalSave: true })
   const close = () => setState({ ...state, showModalSave: false })
   const save = () => {
-    console.log('save?')
+    const toSave = models.map(({ id, ...rest }) => ({
+      props: prop[id],
+      id,
+      ...rest,
+    }))
+    localStorage.setItem('models', JSON.stringify(toSave))
+    Alert.success(
+      `Saved models [ ${toSave.map(({ name }) => name).join(' || ')} ]`
+    )
   }
   const toSave = (model, checked) => {
     if (checked) {
