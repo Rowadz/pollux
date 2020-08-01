@@ -24,3 +24,7 @@ main {
   color: rgb(27, 155, 176);
   font-weight: bold;
 }
+
+pre {
+  overflow: hidden !important;
+}
