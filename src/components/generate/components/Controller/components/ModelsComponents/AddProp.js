@@ -93,7 +93,7 @@ const AddProp = ({
             placeholder="add as many properties you want here"
             style={{ width: '100%' }}
             onChange={inputChange}
-            menuStyle={{ width: 300 }}
+            menuStyle={{ width: 300, display: 'none' }}
           />
         )}
       </Body>
