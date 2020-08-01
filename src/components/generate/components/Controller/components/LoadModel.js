@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { IconButton, Icon, Modal, Button, Divider } from 'rsuite'
 import { connect } from 'react-redux'
 import { Alert } from 'rsuite'
+import loadModelsEmpty from './loadModels.svg'
 import { addModel, justAddProp } from 'redux/actions'
 const { Header, Body, Footer, Title } = Modal
 
@@ -43,22 +44,34 @@ const LoadModel = ({ dispatch, models }) => {
           <Title>Load your saved models!</Title>
         </Header>
         <Body>
-          {state.models.map((m, i) => (
-            <div key={i}>
-              <h3>
-                <strong>{m.name}</strong>
-              </h3>
-              <Button
-                style={{ float: 'right' }}
-                appearance="ghost"
-                onClick={() => load(m)}
-              >
-                Click to Load {m.name}
-              </Button>
-              <pre>{JSON.stringify(m, null, 2)}</pre>
-              <Divider />
+          {state.models.length === 0 ? (
+            <div style={{ textAlign: 'center' }}>
+              <img
+                src={loadModelsEmpty}
+                height="240"
+                width={'100%'}
+                alt="empty models"
+              />
+              <p>Your saved models will appear here!</p>
             </div>
-          ))}
+          ) : (
+            state.models.map((m, i) => (
+              <div key={i}>
+                <h3>
+                  <strong>{m.name}</strong>
+                </h3>
+                <Button
+                  style={{ float: 'right' }}
+                  appearance="ghost"
+                  onClick={() => load(m)}
+                >
+                  Click to Load {m.name}
+                </Button>
+                <pre>{JSON.stringify(m, null, 2)}</pre>
+                <Divider />
+              </div>
+            ))
+          )}
         </Body>
         <Footer>
           <Button onClick={close} appearance="subtle">
