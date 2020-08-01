@@ -54,6 +54,7 @@ const AddModelBtn = ({ dispatch }) => {
           <Input
             onPressEnter={onEnter}
             onChange={inputChange}
+            autoFocus={true}
             style={{ width: '100%' }}
             placeholder="Your model name"
             size="lg"
