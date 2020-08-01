@@ -20,7 +20,7 @@ delete randomCpy.objectElement
 delete randomCpy.arrayElement
 delete dateCpy.between
 
-const names = {...name}
+const names = { ...name }
 names.fullName = name.findName
 delete names.findName
 const objects = {

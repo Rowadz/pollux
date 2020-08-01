@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import { connect } from "react-redux"
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import {
   Icon,
   IconButton,
@@ -13,14 +13,14 @@ import {
   Tag,
   InputNumber,
   Alert,
-} from "rsuite"
-import ConfirmDel from "./ConfirmDel"
-import PropsDisplay from "./PropsDisplay"
-import AddProp from "./AddProp"
-import * as faker from "faker"
-import { saveAs } from "file-saver"
+} from 'rsuite'
+import ConfirmDel from './ConfirmDel'
+import PropsDisplay from './PropsDisplay'
+import AddProp from './AddProp'
+import * as faker from 'faker'
+import { saveAs } from 'file-saver'
 
-import { deleteModel, addPropName, removeAllProps } from "redux/actions"
+import { deleteModel, addPropName, removeAllProps } from 'redux/actions'
 
 const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
   const [state, setState] = useState({
@@ -30,9 +30,9 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
   })
   const delToolTip = (
     <Tooltip>
-      Click here to <b>Delete</b> this model {"`"}
+      Click here to <b>Delete</b> this model {'`'}
       {name}
-      {"`"}.
+      {'`'}.
     </Tooltip>
   )
   const addKeyTip = <Tooltip>Click here to add an attribute.</Tooltip>
@@ -67,8 +67,8 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
     if (len > 0) {
       Alert.warning(
         `There is ${len} ${
-          len === 1 ? "property" : "properties"
-        } without function ${atLeastOneWithoutFunc.join(" || ")}`
+          len === 1 ? 'property' : 'properties'
+        } without function ${atLeastOneWithoutFunc.join(' || ')}`
       )
       return
     }
@@ -77,14 +77,14 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
         (prev, { propName, groupName, func }) => ({
           ...prev,
           [propName]: faker[groupName][
-            func === "fullName" ? "findName" : func
+            func === 'fullName' ? 'findName' : func
           ](),
         }),
         {}
       )
     })
     saveAs(
-      new Blob([JSON.stringify(res, null, 2)], { type: "application/json" }),
+      new Blob([JSON.stringify(res, null, 2)], { type: 'application/json' }),
       name
     )
   }
@@ -94,7 +94,7 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
     <div>
       Model name {name}
       {
-        <Tag color="cyan" style={{ marginLeft: "5px" }}>
+        <Tag color="cyan" style={{ marginLeft: '5px' }}>
           {propsCount}
         </Tag>
       }
@@ -121,7 +121,7 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
                   speaker={generateTip}
                 >
                   <IconButton
-                    style={{ marginLeft: "5px" }}
+                    style={{ marginLeft: '5px' }}
                     icon={<Icon icon="magic2" />}
                     color="orange"
                     circle
@@ -131,8 +131,8 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
                 <div
                   style={{
                     width: 80,
-                    display: "inline",
-                    position: "absolute",
+                    display: 'inline',
+                    position: 'absolute',
                     paddingLeft: 10,
                   }}
                 >
@@ -146,7 +146,7 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
                 <Whisper placement="left" trigger="hover" speaker={delToolTip}>
                   <IconButton
                     icon={<Icon icon="minus" />}
-                    style={{ float: "right" }}
+                    style={{ float: 'right' }}
                     color="red"
                     circle
                     onClick={openConfirmModal}
@@ -171,7 +171,7 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
                 xs={24}
                 sm={24}
                 md={24}
-                style={{ textAlign: "right", marginTop: "10px" }}
+                style={{ textAlign: 'right', marginTop: '10px' }}
               >
                 <PropsDisplay id={id} modelName={name} />
               </Col>
