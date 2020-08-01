@@ -79,7 +79,7 @@ const AddProp = ({
           />
         </div>
         <p>
-          <b>You can create many properies now, enter name then press enter</b>
+          <b>Type the prop name then press enter to add them</b>
         </p>
         {mode === 'edit' ? (
           <Input
