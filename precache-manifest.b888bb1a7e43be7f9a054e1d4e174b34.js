@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "3d43fb91359a7b10cf94fdf9db50e784",
+    "revision": "5db3c6d93296f3b6c29379f250b16a6c",
     "url": "/pollux/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/pollux/static/css/2.a088a298.chunk.css"
   },
   {
-    "revision": "f23bf4752d004a2c9c8e",
-    "url": "/pollux/static/css/main.73db4fbf.chunk.css"
+    "revision": "7f6a563a3a4a1b4489f4",
+    "url": "/pollux/static/css/main.11a4c721.chunk.css"
   },
   {
     "revision": "13ec214d06937f622885",
@@ -20,7 +20,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/pollux/static/js/2.e40beab0.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "f23bf4752d004a2c9c8e",
+    "revision": "7f6a563a3a4a1b4489f4",
     "url": "/pollux/static/js/main.7995cdc7.chunk.js"
   },
   {
