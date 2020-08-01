@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { IconButton, Icon, Modal, Button, Checkbox } from 'rsuite'
 import { connect } from 'react-redux'
+import emptySave from './emptySave.svg'
 
 const { Header, Body, Footer, Title } = Modal
 
@@ -9,30 +10,7 @@ const SaveModel = ({ models, prop }) => {
   const showModalSave = () => setState({ ...state, showModalSave: true })
   const close = () => setState({ ...state, showModalSave: false })
   const save = () => {
-    const alreadySavedMayHaveDuplicate = JSON.parse(
-      localStorage.getItem('models')
-    )
-    let alreadySaved = []
-    let alreadySavedSet = new Set()
-    if (alreadySavedMayHaveDuplicate) {
-      const set = new Set(...state.toSave.map(({ id }) => id))
-      alreadySaved = alreadySavedMayHaveDuplicate.filter(
-        ({ id }) => !set.has(id)
-      )
-      alreadySavedSet = new Set(alreadySaved.map(({ id }) => id))
-      localStorage.removeItem('models')
-    }
-    localStorage.setItem(
-      'models',
-      JSON.stringify([
-        ...state.toSave.filter(({ id }) => !alreadySavedSet.has(id)),
-        ...alreadySaved,
-      ])
-    )
-    if (Object.keys(prop).length > 0) {
-      const toSaveProps = state.toSave.map(({ id }) => prop[id])
-      localStorage.setItem('props', JSON.stringify(toSaveProps))
-    }
+    console.log('save?')
   }
   const toSave = (model, checked) => {
     if (checked) {
@@ -44,13 +22,18 @@ const SaveModel = ({ models, prop }) => {
       })
     }
   }
-  const modelsEl = models.length
-    ? models.map(({ name, id }) => (
-        <Checkbox name={name} onChange={toSave} key={id} value={{ name, id }}>
-          {name}
-        </Checkbox>
-      ))
-    : 'You need to create some models to save them'
+  const modelsEl = models.length ? (
+    models.map(({ name, id }) => (
+      <Checkbox name={name} onChange={toSave} key={id} value={{ name, id }}>
+        {name}
+      </Checkbox>
+    ))
+  ) : (
+    <div style={{ textAlign: 'center' }}>
+      <img src={emptySave} height="100" width={'100%'} alt="no models img" />
+      <p>You need to create some models to save them </p>
+    </div>
+  )
   return (
     <section>
       <IconButton
