@@ -1,4 +1,3 @@
-import React from 'react'
 import React, { useState } from 'react'
 import { IconButton, Icon, Modal, Button, Checkbox } from 'rsuite'
 import { connect } from 'react-redux'
@@ -7,14 +6,31 @@ import { Alert } from 'rsuite'
 const { Header, Body, Footer, Title } = Modal
 
 export default function LoadModel() {
+  const [state, setState] = useState({ showTheModalOfModels: false })
+  const close = () => setState({ ...state, showTheModalOfModels: false })
   return (
-    <div>
+    <section style={{ display: 'inline', marginLeft: 10 }}>
       <IconButton
-        color="cyan"
-        onClick={showModalSave}
+        color="yellow"
+        onClick={() => setState({ ...state, showTheModalOfModels: true })}
         circle
-        icon={<Icon icon="save" />}
+        icon={<Icon icon="tasks" />}
       />
-    </div>
+      <Modal
+        show={state.showTheModalOfModels}
+        onHide={close}
+        style={{ maxWidth: '100%' }}
+      >
+        <Header>
+          <Title>Load your saved models!</Title>
+        </Header>
+        <Body></Body>
+        <Footer>
+          <Button onClick={close} appearance="subtle">
+            Close
+          </Button>
+        </Footer>
+      </Modal>
+    </section>
   )
 }

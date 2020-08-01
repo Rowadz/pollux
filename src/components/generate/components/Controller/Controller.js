@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Row, Col } from 'rsuite'
 // import { IconButton, Icon } from 'rsuite'
-import { AddModelBtn, Models, SaveModel } from './components'
+import { AddModelBtn, Models, SaveModel, LoadModel } from './components'
 function Controller() {
   // const [state, setState] = useState()
   return (
@@ -11,6 +11,7 @@ function Controller() {
           <AddModelBtn />
           <div style={{ marginTop: '10px' }}>
             <SaveModel />
+            <LoadModel />
           </div>
         </Col>
         <Col xs={24} sm={24} md={18}>

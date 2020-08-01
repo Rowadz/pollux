@@ -54,7 +54,7 @@ const SaveModel = ({ models, prop }) => {
     </div>
   )
   return (
-    <section>
+    <section style={{ display: 'inline' }}>
       <IconButton
         color="cyan"
         onClick={showModalSave}
