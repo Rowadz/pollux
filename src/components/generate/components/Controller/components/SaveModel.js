@@ -6,7 +6,11 @@ import { Alert } from 'rsuite'
 const { Header, Body, Footer, Title } = Modal
 
 const SaveModel = ({ models, prop }) => {
-  const [state, setState] = useState({ showModalSave: false, toSave: [] })
+  const [state, setState] = useState({
+    showModalSave: false,
+    toSave: [],
+    modelsKey: 'models',
+  })
   const showModalSave = () =>
     setState({ ...state, toSave: [], showModalSave: true })
   const close = () => setState({ ...state, showModalSave: false })
@@ -16,7 +20,14 @@ const SaveModel = ({ models, prop }) => {
       id,
       ...rest,
     }))
-    localStorage.setItem('models', JSON.stringify(toSave))
+    const toSaveSet = new Set(toSave.map(({ id }) => id))
+    // to preserve the old models and override if the user changed the same one!
+    const saved = (
+      JSON.parse(localStorage.getItem(state.modelsKey)) || []
+    ).filter(({ id }) => !toSaveSet.has(id))
+    const realToSave = [...saved, ...toSave]
+    console.log({ saved, toSaveSet, realToSave, toSave })
+    localStorage.setItem(state.modelsKey, JSON.stringify(realToSave))
     Alert.success(
       `Saved models [ ${toSave.map(({ name }) => name).join(' || ')} ]`
     )
