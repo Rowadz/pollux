@@ -20,3 +20,7 @@ main {
   color: #fff !important;
   /* background-color: #d9d9d9; */
 }
+.note {
+  color: rgb(27, 155, 176);
+  font-weight: bold;
+}

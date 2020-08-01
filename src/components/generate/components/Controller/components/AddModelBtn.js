@@ -24,6 +24,11 @@ const AddModelBtn = ({ dispatch }) => {
    * @param {string} str
    */
   const inputChange = (str) => setState({ ...state, modelName: str.trim('') })
+
+  const onEnter = () => {
+    inputChange(state.modelName)
+    create()
+  }
   return (
     <section>
       <IconButton
@@ -44,7 +49,10 @@ const AddModelBtn = ({ dispatch }) => {
           <Title>Choose the model name</Title>
         </Header>
         <Body>
+          <p>Click <span className="note">`Enter`</span> to create the model or 
+          <span className="note">`esc`</span> to close this model</p>
           <Input
+            onPressEnter={onEnter}
             onChange={inputChange}
             style={{ width: '100%' }}
             placeholder="Your model name"
