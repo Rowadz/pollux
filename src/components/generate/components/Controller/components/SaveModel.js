@@ -26,7 +26,6 @@ const SaveModel = ({ models, prop }) => {
       JSON.parse(localStorage.getItem(state.modelsKey)) || []
     ).filter(({ id }) => !toSaveSet.has(id))
     const realToSave = [...saved, ...toSave]
-    console.log({ saved, toSaveSet, realToSave, toSave })
     localStorage.setItem(state.modelsKey, JSON.stringify(realToSave))
     Alert.success(
       `Saved models [ ${toSave.map(({ name }) => name).join(' || ')} ]`
