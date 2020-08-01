@@ -5,6 +5,7 @@ import {
   REMOVE_ALL_RPOPS,
   EDIT_PROP,
   DELETE_PROP,
+  JUST_ADD_PROP,
 } from './actionTypes'
 
 /**
@@ -32,11 +33,25 @@ export const deleteModel = (uuid) => ({
 /**
  *
  * @param {Object} props - the props object
- * @param {string} props.uuid - the props uuid
+ * @param {string} props.uuid - the model uuid
  * @param {string} props.propName - the props name
  */
 export const addPropName = (props) => ({
   type: ADD_RPOP_NAME,
+  payload: props,
+})
+
+/**
+ *
+ * @param {Object} props - object
+ * @param {Object} props.id - the props id
+ * @param {string} props.uuid - the model uuid
+ * @param {string} props.propName - the props name
+ * @param {string} props.func - the props random func
+ * @param {string} props.groupName - the props groupName for the random func
+ */
+export const justAddProp = (props) => ({
+  type: JUST_ADD_PROP,
   payload: props,
 })
 

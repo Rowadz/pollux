@@ -3,6 +3,7 @@ import {
   REMOVE_ALL_RPOPS,
   EDIT_PROP,
   DELETE_PROP,
+  JUST_ADD_PROP,
 } from '../actionTypes'
 import { v4 } from 'uuid'
 
@@ -15,6 +16,13 @@ export default function (state = initialState, action) {
       return {
         ...state,
         [uuid]: [...(state[uuid] || []), { propName, id: v4() }],
+      }
+    }
+    case JUST_ADD_PROP: {
+      const { uuid: modelUuid, props } = action.payload
+      return {
+        ...state,
+        [modelUuid]: props,
       }
     }
     case REMOVE_ALL_RPOPS: {

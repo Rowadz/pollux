@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { IconButton, Icon, Modal, Button, Divider } from 'rsuite'
+import { connect } from 'react-redux'
 import { Alert } from 'rsuite'
+import { addModel, justAddProp } from 'redux/actions'
 const { Header, Body, Footer, Title } = Modal
 
-export default function LoadModel() {
+const LoadModel = ({ dispatch, models }) => {
   const [state, setState] = useState({
     showTheModalOfModels: false,
     models: [],
@@ -15,8 +17,14 @@ export default function LoadModel() {
       showTheModalOfModels: true,
       models: JSON.parse(localStorage.getItem('models')) || [],
     })
-  const load = (model) => {
-    console.log(model)
+  const load = ({ id, name, createdAt, ...props }) => {
+    // check if we already loaded the model
+    if ((models.find(({ id: modelId }) => id === modelId) || []).length === 0) {
+      dispatch(addModel({ id, name, createdAt }))
+      dispatch(justAddProp({ uuid: id, ...props }))
+    } else {
+      Alert.warning(`We already loaded ${name} - id[${id}]`)
+    }
   }
   return (
     <section style={{ display: 'inline', marginLeft: 10 }}>
@@ -61,3 +69,8 @@ export default function LoadModel() {
     </section>
   )
 }
+
+export default connect(({ models }, ownProps) => ({
+  ...ownProps,
+  models,
+}))(LoadModel)
