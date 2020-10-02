@@ -204,7 +204,11 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
                   name={name}
                   addProp={addProp}
                 />
-                <CreateRel showCreateRel={state.showCreateRel} id={id} />
+                <CreateRel
+                  showCreateRel={state.showCreateRel}
+                  id={id}
+                  close={closeConfirmModal}
+                />
               </Col>
               <Col
                 xs={24}
