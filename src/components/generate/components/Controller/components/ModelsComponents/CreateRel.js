@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { Button, Modal } from 'rsuite'
 const { Body, Footer, Header, Title } = Modal
 
-const CreateRel = ({ showCreateRel, id, close }) => {
-  console.log(id)
+const CreateRel = ({ showCreateRel, mainModel, close, eligibleModels }) => {
+  console.log({ eligibleModels, mainModel })
   return (
     <Modal
       backdrop="static"
@@ -14,9 +14,17 @@ const CreateRel = ({ showCreateRel, id, close }) => {
       size="lg"
     >
       <Header>
-        <Title>Create Rel</Title>
+        <Title>
+          Create Relation for{' '}
+          <span style={{ color: '#1b9cb0' }}>
+            {mainModel.name.toUpperCase()}
+          </span>{' '}
+          model
+        </Title>
       </Header>
-      <Body></Body>
+      <Body>
+        <h4>Eligible Models:</h4>
+      </Body>
       <Footer>
         <Button appearance="primary" color="cyan">
           Ok
@@ -30,6 +38,11 @@ const CreateRel = ({ showCreateRel, id, close }) => {
 }
 
 export default connect((state, ownProps) => {
-  console.log(state)
-  return { ...ownProps }
+  const { models } = state
+
+  return {
+    ...ownProps,
+    eligibleModels: (models || []).filter(({ id }) => id !== ownProps.id),
+    mainModel: (models || []).filter(({ id }) => id === ownProps.id)[0],
+  }
 })(CreateRel)
