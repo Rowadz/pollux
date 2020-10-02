@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Button, Modal } from 'rsuite'
+import { Grid, Row, Col } from 'rsuite'
+import { Toggle } from 'rsuite'
 const { Body, Footer, Header, Title } = Modal
 
 const CreateRel = ({ showCreateRel, mainModel, close, eligibleModels }) => {
@@ -24,6 +26,16 @@ const CreateRel = ({ showCreateRel, mainModel, close, eligibleModels }) => {
       </Header>
       <Body>
         <h4>Eligible Models:</h4>
+        <Grid fluid style={{ marginTop: 20 }}>
+          <Row>
+            {(eligibleModels || []).map(({ name }) => (
+              <Col xs={24} sm={24} md={6}>
+                <span style={{ color: '#1b9cb0' }}>{name.toUpperCase()}</span>{' '}
+                <Toggle style={{ marginLeft: 5 }} />
+              </Col>
+            ))}
+          </Row>
+        </Grid>
       </Body>
       <Footer>
         <Button appearance="primary" color="cyan">
