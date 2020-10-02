@@ -17,6 +17,7 @@ import {
 import ConfirmDel from './ConfirmDel'
 import PropsDisplay from './PropsDisplay'
 import AddProp from './AddProp'
+import CreateRel from './CreateRel'
 import * as faker from 'faker'
 import { saveAs } from 'file-saver'
 
@@ -26,6 +27,7 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
   const [state, setState] = useState({
     showConfirmModal: false,
     showPropNameModal: false,
+    showCreateRel: false,
     amount: 10,
   })
   const delToolTip = (
@@ -42,10 +44,29 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
     </Tooltip>
   )
   const closeConfirmModal = () =>
-    setState({ ...state, showConfirmModal: false, showPropNameModal: false })
-  const openConfirmModal = () => setState({ ...state, showConfirmModal: true })
+    setState({
+      ...state,
+      showConfirmModal: false,
+      showPropNameModal: false,
+      showCreateRel: false,
+    })
+  const openConfirmModal = () =>
+    setState({ ...state, showConfirmModal: true, showCreateRel: false })
   const openPropNameModal = () =>
-    setState({ ...state, showConfirmModal: false, showPropNameModal: true })
+    setState({
+      ...state,
+      showConfirmModal: false,
+      showCreateRel: false,
+      showPropNameModal: true,
+    })
+
+  const openCreateRelModal = () =>
+    setState({
+      ...state,
+      showConfirmModal: false,
+      showPropNameModal: false,
+      showCreateRel: true,
+    })
 
   const del = (id) => {
     closeConfirmModal()
@@ -111,6 +132,7 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
           icon={<Icon icon="link" />}
           style={{ marginLeft: '5px' }}
           color="violet"
+          onClick={openCreateRelModal}
           circle
         />
       </Whisper>
@@ -182,6 +204,7 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
                   name={name}
                   addProp={addProp}
                 />
+                <CreateRel showCreateRel={state.showCreateRel} id={id} />
               </Col>
               <Col
                 xs={24}
