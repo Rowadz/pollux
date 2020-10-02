@@ -18,7 +18,7 @@ const CreateRel = ({
 }) => {
   const toggleRel = (checked, distId) => {
     if (checked) {
-      Alert.success(`created the link with ${mainModel.name} (1:m)/(1:1)`)
+      Alert.success(`created the link with ${mainModel.name} (1:m)`)
       dispatch(addRelation({ distId, modelId: id }))
     } else {
       Alert.info(`removed the link with ${mainModel.name}`)

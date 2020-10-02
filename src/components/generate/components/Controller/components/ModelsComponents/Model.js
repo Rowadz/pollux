@@ -23,7 +23,14 @@ import { saveAs } from 'file-saver'
 
 import { deleteModel, addPropName, removeAllProps } from 'redux/actions'
 
-const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
+const Model = ({
+  dispatch,
+  model: { id, name },
+  propsCount,
+  props,
+  relations,
+  relationsProps,
+}) => {
   const [state, setState] = useState({
     showConfirmModal: false,
     showPropNameModal: false,
@@ -93,7 +100,33 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
       )
       return
     }
-    const res = Array.from({ length: state.amount }).map(() => {
+    const res = generateFakeData(props)
+    if (relations) {
+      const resWithRelations = res.map((obj) => ({
+        ...obj,
+        ...relations.reduce(
+          (prev, { name, id }) => ({
+            ...prev,
+            [name]: generateFakeData(relationsProps[id]),
+          }),
+          {}
+        ),
+      }))
+      downloadData(resWithRelations)
+    } else {
+      downloadData(res)
+    }
+  }
+
+  const downloadData = (data) => {
+    saveAs(
+      new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }),
+      name
+    )
+  }
+
+  const generateFakeData = (props) =>
+    Array.from({ length: state.amount }).map(() => {
       return props.reduce(
         (prev, { propName, groupName, func }) => ({
           ...prev,
@@ -104,11 +137,6 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
         {}
       )
     })
-    saveAs(
-      new Blob([JSON.stringify(res, null, 2)], { type: 'application/json' }),
-      name
-    )
-  }
 
   const addProp = (name) => dispatch(addPropName({ propName: name, uuid: id }))
   const dynamicHeder = (
@@ -230,4 +258,11 @@ export default connect((state, ownProps) => ({
   ...ownProps,
   propsCount: (state.prop[ownProps.model.id] || []).length,
   props: state.prop[ownProps.model.id],
+  relations: (state.relations[ownProps.model.id] || []).map((uuid) =>
+    state.models.find(({ id }) => uuid === id)
+  ),
+  relationsProps: (state.relations[ownProps.model.id] || []).reduce(
+    (prev, id) => ({ ...prev, [id]: state.prop[id] }),
+    {}
+  ),
 }))(Model)
