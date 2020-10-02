@@ -6,6 +6,8 @@ import {
   EDIT_PROP,
   DELETE_PROP,
   JUST_ADD_PROP,
+  ADD_RELATION,
+  REMOVE_RELATION,
 } from './actionTypes'
 
 /**
@@ -86,5 +88,27 @@ export const editProp = (props) => ({
  */
 export const delProp = (props) => ({
   type: DELETE_PROP,
+  payload: props,
+})
+
+/**
+ *
+ * @param {Object} props - the prop object
+ * @param {string} props.distId - the model uuid to create relation with
+ * @param {string} props.modelId - the model uuid
+ */
+export const addRelation = (props) => ({
+  type: ADD_RELATION,
+  payload: props,
+})
+
+/**
+ *
+ * @param {Object} props - the prop object
+ * @param {string} props.distId - the model uuid to remove from the relation
+ * @param {string} props.modelId - the model uuid
+ */
+export const removeRelation = (props) => ({
+  type: REMOVE_RELATION,
   payload: props,
 })
