@@ -5,6 +5,7 @@ import { Grid, Row, Col } from 'rsuite'
 import { Toggle } from 'rsuite'
 import { addRelation, removeRelation } from 'redux/actions'
 import { Alert } from 'rsuite'
+import cat from './cat.svg'
 const { Body, Footer, Header, Title } = Modal
 
 const CreateRel = ({
@@ -46,16 +47,28 @@ const CreateRel = ({
         <h4>Eligible Models:</h4>
         <Grid fluid style={{ marginTop: 20 }}>
           <Row>
-            {(eligibleModels || []).map(({ name, id }) => (
-              <Col xs={24} sm={24} md={6}>
-                <span style={{ color: '#1b9cb0' }}>{name.toUpperCase()}</span>{' '}
-                <Toggle
-                  style={{ marginLeft: 5 }}
-                  onChange={(checked) => toggleRel(checked, id)}
-                  checked={checkedModels.has(id)}
+            {eligibleModels.length === 0 ? (
+              <section style={{ width: '100%', textAlign: 'center' }}>
+                <h5>There is no eligible models, create models to link them!</h5>
+                <img
+                  src={cat}
+                  alt="cat waiting"
+                  width={'100px'}
+                  height={'100px'}
                 />
-              </Col>
-            ))}
+              </section>
+            ) : (
+              (eligibleModels || []).map(({ name, id }) => (
+                <Col xs={24} sm={24} md={6}>
+                  <span style={{ color: '#1b9cb0' }}>{name.toUpperCase()}</span>{' '}
+                  <Toggle
+                    style={{ marginLeft: 5 }}
+                    onChange={(checked) => toggleRel(checked, id)}
+                    checked={checkedModels.has(id)}
+                  />
+                </Col>
+              ))
+            )}
           </Row>
         </Grid>
       </Body>
