@@ -98,6 +98,22 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
           {propsCount}
         </Tag>
       }
+      <Whisper
+        placement="right"
+        trigger="hover"
+        speaker={
+          <Tooltip>
+            Click here to create a relationship with other models
+          </Tooltip>
+        }
+      >
+        <IconButton
+          icon={<Icon icon="link" />}
+          style={{ marginLeft: '5px' }}
+          color="violet"
+          circle
+        />
+      </Whisper>
     </div>
   )
   return (
@@ -130,7 +146,7 @@ const Model = ({ dispatch, model: { id, name }, propsCount, props }) => {
                 </Whisper>
                 <div
                   style={{
-                    width: 80,
+                    width: 100,
                     display: 'inline',
                     position: 'absolute',
                     paddingLeft: 10,
