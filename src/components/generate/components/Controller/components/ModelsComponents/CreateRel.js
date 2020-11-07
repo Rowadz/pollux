@@ -59,7 +59,7 @@ const CreateRel = ({
               </section>
             ) : (
               (eligibleModels || []).map(({ name, id }) => (
-                <Col xs={24} sm={24} md={6}>
+                <Col xs={24} sm={24} md={6} key={id}>
                   <span style={{ color: '#1b9cb0' }}>{name.toUpperCase()}</span>{' '}
                   <Toggle
                     style={{ marginLeft: 5 }}

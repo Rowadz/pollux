@@ -18,10 +18,10 @@ const LoadModel = ({ dispatch, models }) => {
       showTheModalOfModels: true,
       models: JSON.parse(localStorage.getItem('models')) || [],
     })
-  const load = ({ id, name, createdAt, ...props }) => {
+  const load = ({ id, name, createdAt, amount, ...props }) => {
     // check if we already loaded the model
     if ((models.find(({ id: modelId }) => id === modelId) || []).length === 0) {
-      dispatch(addModel({ id, name, createdAt }))
+      dispatch(addModel({ id, name, createdAt, amount: +amount }))
       dispatch(justAddProp({ uuid: id, ...props }))
     } else {
       Alert.warning(`We already loaded ${name} - id[${id}]`)
@@ -33,6 +33,7 @@ const LoadModel = ({ dispatch, models }) => {
         color="yellow"
         onClick={open}
         circle
+        id="load-model-btn"
         icon={<Icon icon="tasks" />}
       />
       <Modal

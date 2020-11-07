@@ -4,7 +4,7 @@ import { Panel, PanelGroup } from 'rsuite'
 import empty from './empty.svg'
 import Model from './ModelsComponents/Model'
 
-const Models = ({ models }) => {
+const Models = ({ models, isTourOpen }) => {
   const modelsEls =
     models.length > 0 ? (
       models.map((model, i) => <Model model={model} key={i} />)
@@ -18,8 +18,15 @@ const Models = ({ models }) => {
       </Panel>
     )
   return (
-    <section>
-      <PanelGroup>{modelsEls}</PanelGroup>
+    <section id="models-section">
+      {isTourOpen ? (
+        <Model
+          model={{ id: '', name: 'Demo', createdAt: +new Date() }}
+          isTourOpen={isTourOpen}
+        />
+      ) : (
+        <PanelGroup>{modelsEls}</PanelGroup>
+      )}
     </section>
   )
 }

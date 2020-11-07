@@ -33,7 +33,7 @@ const Prop = ({
     <List.Item key={i} index={i}>
       <Grid fluid>
         <Row
-          colspan={6}
+          colSpan={6}
           style={{ textAlign: checkIfMobile() ? 'center' : 'left' }}
         >
           <Col xs={24} sm={24} md={8}>

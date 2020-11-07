@@ -15,9 +15,11 @@
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "reactour": "^1.18.0",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "rsuite": "^4.7.3",
+    "styled-components": "^4.4.1",
     "uuid": "^8.1.0"
   },
   "scripts": {

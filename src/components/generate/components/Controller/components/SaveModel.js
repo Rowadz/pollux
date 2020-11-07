@@ -57,6 +57,7 @@ const SaveModel = ({ models, prop }) => {
     <section style={{ display: 'inline' }}>
       <IconButton
         color="cyan"
+        id="save-model-btn"
         onClick={showModalSave}
         circle
         icon={<Icon icon="save" />}

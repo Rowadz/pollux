@@ -32,6 +32,7 @@ const AddModelBtn = ({ dispatch }) => {
   return (
     <section>
       <IconButton
+        id="add-prototype-btn"
         color="cyan"
         onClick={showNameModal}
         appearance="ghost"

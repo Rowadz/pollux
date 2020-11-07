@@ -5,7 +5,7 @@ const initialState = []
 export default function (state = initialState, { type, payload }) {
   switch (type) {
     case ADD_MODEL: {
-      return [...state, { ...payload, amount: 10 }]
+      return [...state, { ...payload, amount: payload.amount || 10 }]
     }
     case DELETE_MODEL: {
       return state.filter(({ id }) => id !== payload)

@@ -35,6 +35,7 @@ const Model = ({
   props,
   relations,
   relationsProps,
+  isTourOpen,
 }) => {
   const [state, setState] = useState({
     showConfirmModal: false,
@@ -159,7 +160,7 @@ const Model = ({
     <div>
       Model name {name}
       {
-        <Tag color="cyan" style={{ marginLeft: '5px' }}>
+        <Tag color="cyan" style={{ marginLeft: '5px' }} id={isTourOpen ? 'prop-tag-count' : null}>
           {propsCount}
         </Tag>
       }
@@ -173,6 +174,7 @@ const Model = ({
         }
       >
         <IconButton
+          id={isTourOpen ? 'create-a-relationship-btn' : null}
           icon={<Icon icon="link" />}
           style={{ marginLeft: '5px' }}
           color="violet"
@@ -192,6 +194,7 @@ const Model = ({
                 <Whisper placement="right" trigger="hover" speaker={addKeyTip}>
                   <IconButton
                     icon={<Icon icon="plus" />}
+                    id={isTourOpen ? 'add-attribute-btn' : null}
                     color="cyan"
                     circle
                     onClick={openPropNameModal}
@@ -203,6 +206,7 @@ const Model = ({
                   speaker={generateTip}
                 >
                   <IconButton
+                  id={isTourOpen ? 'generate-data-btn' : null}
                     style={{ marginLeft: '5px' }}
                     icon={<Icon icon="magic2" />}
                     color="orange"
@@ -219,7 +223,7 @@ const Model = ({
                   }}
                 >
                   <InputNumber
-                    defaultValue={10}
+                    defaultValue={amount}
                     max={500}
                     min={1}
                     onChange={changeAmount}
@@ -248,11 +252,15 @@ const Model = ({
                   name={name}
                   addProp={addProp}
                 />
-                <CreateRel
-                  showCreateRel={state.showCreateRel}
-                  id={id}
-                  close={closeConfirmModal}
-                />
+                {isTourOpen ? (
+                  ''
+                ) : (
+                  <CreateRel
+                    showCreateRel={state.showCreateRel}
+                    id={id}
+                    close={closeConfirmModal}
+                  />
+                )}
               </Col>
               <Col
                 xs={24}
