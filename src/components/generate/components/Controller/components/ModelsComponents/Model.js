@@ -21,11 +21,16 @@ import CreateRel from './CreateRel'
 import * as faker from 'faker'
 import { saveAs } from 'file-saver'
 
-import { deleteModel, addPropName, removeAllProps } from 'redux/actions'
+import {
+  deleteModel,
+  addPropName,
+  removeAllProps,
+  updateAmount,
+} from 'redux/actions'
 
 const Model = ({
   dispatch,
-  model: { id, name },
+  model: { id, name, amount },
   propsCount,
   props,
   relations,
@@ -81,7 +86,10 @@ const Model = ({
     dispatch(deleteModel(id))
   }
 
-  const changeAmount = (val) => setState({ ...state, amount: +val })
+  const changeAmount = (val) => {
+    setState({ ...state, amount: +val })
+    dispatch(updateAmount({ modelId: id, amount: +val }))
+  }
 
   const generate = () => {
     if (!props) {
@@ -100,18 +108,26 @@ const Model = ({
       )
       return
     }
-    const res = generateFakeData(props)
+    const res = generateFakeData(props, amount)
     if (relations) {
-      const resWithRelations = res.map((obj) => ({
-        ...obj,
-        ...relations.reduce(
-          (prev, { name, id }) => ({
-            ...prev,
-            [name]: generateFakeData(relationsProps[id]),
-          }),
-          {}
-        ),
-      }))
+      const relData = relations.reduce(
+        (prevObj, { id, name, amount }) => ({
+          ...prevObj,
+          [name]: generateFakeData(relationsProps[id], amount),
+        }),
+        {}
+      )
+      const resWithRelations = res.map((obj) => ({ ...obj, ...relData }))
+      // const resWithRelations = res.map((obj) => ({
+      //   ...obj,
+      //   ...relations.reduce(
+      //     (prev, { name, id }) => ({
+      //       ...prev,
+      //       [name]: generateFakeData(relationsProps[id]),
+      //     }),
+      //     {}
+      //   ),
+      // }))
       downloadData(resWithRelations)
     } else {
       downloadData(res)
@@ -125,8 +141,8 @@ const Model = ({
     )
   }
 
-  const generateFakeData = (props) =>
-    Array.from({ length: state.amount }).map(() => {
+  const generateFakeData = (props, amount) =>
+    Array.from({ length: amount }).map(() => {
       return props.reduce(
         (prev, { propName, groupName, func }) => ({
           ...prev,
@@ -204,7 +220,7 @@ const Model = ({
                 >
                   <InputNumber
                     defaultValue={10}
-                    max={1000}
+                    max={500}
                     min={1}
                     onChange={changeAmount}
                   />

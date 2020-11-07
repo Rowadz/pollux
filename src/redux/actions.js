@@ -8,6 +8,7 @@ import {
   JUST_ADD_PROP,
   ADD_RELATION,
   REMOVE_RELATION,
+  UPDATE_AMOUNT,
 } from './actionTypes'
 
 /**
@@ -110,5 +111,18 @@ export const addRelation = (props) => ({
  */
 export const removeRelation = (props) => ({
   type: REMOVE_RELATION,
+  payload: props,
+})
+
+
+
+/**
+ *
+ * @param {Object} props - the prop object
+ * @param {string} props.amount - the amount of data to generate
+ * @param {string} props.modelId - the model uuid
+ */
+export const updateAmount = (props) => ({
+  type: UPDATE_AMOUNT,
   payload: props,
 })
