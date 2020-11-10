@@ -1,8 +1,23 @@
 import React, { useState } from 'react'
-import { Grid, Row, Col, IconButton, Icon } from 'rsuite'
-// import { IconButton, Icon } from 'rsuite'
+import {
+  Grid,
+  Row,
+  Col,
+  IconButton,
+  Icon,
+  Whisper,
+  Tooltip,
+  Alert,
+} from 'rsuite'
 import Tour from 'reactour'
+import { connect } from 'react-redux'
 import { AddModelBtn, Models, SaveModel, LoadModel } from './components'
+import {
+  relationsPropsGetter,
+  generate,
+  relationsGetter,
+  generateAPI,
+} from './util'
 
 const steps = [
   {
@@ -16,6 +31,23 @@ const steps = [
   {
     selector: '#load-model-btn',
     content: 'Click here to load your saved models after you save them',
+  },
+  {
+    selector: '#create-a-api-btn-for-all',
+    content: () => (
+      <>
+        <p>
+          Click here to generate an API with all the models in the model section (this might take some time....).
+        </p>
+        <p>After generation you just need to</p>
+        <ul>
+          <li>unzip the folder</li>
+          <li>`cd pollux-api`</li>
+          <li>`npm i`</li>
+        </ul>
+        <p>then you are done</p>
+      </>
+    )
   },
   {
     selector: '#models-section',
@@ -62,7 +94,35 @@ const steps = [
   },
 }))
 
-function Controller() {
+const generateAPIForAll = (models, prop, relations) => {
+  if (models.length === 0) {
+    Alert.warning('Plz load/create some models first')
+    return
+  }
+  const data = models.reduce((prev, { name, amount, id }) => {
+    return {
+      ...prev,
+      [name]: generate(
+        prop[id],
+        name,
+        amount,
+        relationsGetter({ relations, models }, id),
+        relationsPropsGetter({ relations, prop }, id),
+        true
+      ),
+    }
+  }, {})
+  generateAPI(
+    models.map(({ name }) => name).join(' || '),
+    null,
+    null,
+    null,
+    null,
+    data
+  )
+}
+
+function Controller({ models, prop, relations }) {
   const [isTourOpen, setIsTourOpen] = useState(false)
 
   return (
@@ -85,6 +145,24 @@ function Controller() {
             />
             <SaveModel />
             <LoadModel />
+            <Whisper
+              placement="right"
+              trigger="hover"
+              speaker={
+                <Tooltip>
+                  Click here to generate a json-server API from this model
+                </Tooltip>
+              }
+            >
+              <IconButton
+                id="create-a-api-btn-for-all"
+                icon={<Icon icon="twinkle-star" />}
+                style={{ marginLeft: '5px' }}
+                color="blue"
+                circle
+                onClick={() => generateAPIForAll(models, prop, relations)}
+              />
+            </Whisper>
           </div>
         </Col>
         <Col xs={24} sm={24} md={18}>
@@ -95,4 +173,9 @@ function Controller() {
   )
 }
 
-export default Controller
+export default connect(({ models, prop, relations }, ownProps) => ({
+  ...ownProps,
+  models,
+  prop,
+  relations,
+}))(Controller)

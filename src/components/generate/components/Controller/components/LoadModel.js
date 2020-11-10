@@ -23,6 +23,7 @@ const LoadModel = ({ dispatch, models }) => {
     if ((models.find(({ id: modelId }) => id === modelId) || []).length === 0) {
       dispatch(addModel({ id, name, createdAt, amount: +amount }))
       dispatch(justAddProp({ uuid: id, ...props }))
+      Alert.info(`Loaded ${name} model 👍`)
     } else {
       Alert.warning(`We already loaded ${name} - id[${id}]`)
     }
