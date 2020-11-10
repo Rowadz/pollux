@@ -182,6 +182,23 @@ const Model = ({
           circle
         />
       </Whisper>
+      <Whisper
+        placement="right"
+        trigger="hover"
+        speaker={
+          <Tooltip>
+            Click here to generate a json-server API from this model
+          </Tooltip>
+        }
+      >
+        <IconButton
+          id={isTourOpen ? 'create-a-api-btn' : null}
+          icon={<Icon icon="related-map" />}
+          style={{ marginLeft: '5px' }}
+          color="blue"
+          circle
+        />
+      </Whisper>
     </div>
   )
   return (

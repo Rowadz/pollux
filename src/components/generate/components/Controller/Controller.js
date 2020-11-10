@@ -38,17 +38,33 @@ const steps = [
     selector: '#create-a-relationship-btn',
     content: 'Click here to create a 1:m relation with another model',
   },
+  {
+    selector: '#create-a-api-btn',
+    content: () => (
+      <>
+        <p>
+          Click here to generate a json-server API from this model, after
+          generation you just need to
+        </p>
+        <ul>
+          <li>unzip the folder</li>
+          <li>`cd pollux-api`</li>
+          <li>`npm i`</li>
+        </ul>
+        <p>then you are done</p>
+      </>
+    ),
+  },
 ].map((obj) => ({
   ...obj,
   style: {
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: '#0f131a',
   },
 }))
 
 function Controller() {
   const [isTourOpen, setIsTourOpen] = useState(false)
 
-  // const { tour } = state
   return (
     <Grid fluid>
       <Row>
