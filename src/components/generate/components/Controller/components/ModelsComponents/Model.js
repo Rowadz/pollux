@@ -20,6 +20,9 @@ import AddProp from './AddProp'
 import CreateRel from './CreateRel'
 import * as faker from 'faker'
 import { saveAs } from 'file-saver'
+import JSZip from 'jszip'
+import npmCongif from '../../../../../../zipFileContent/package.json'
+import apiReadme from '../../../../../../zipFileContent/readme.md'
 
 import {
   deleteModel,
@@ -27,6 +30,8 @@ import {
   removeAllProps,
   updateAmount,
 } from 'redux/actions'
+
+const toJSONPritty = (data) => JSON.stringify(data, null, 2)
 
 const Model = ({
   dispatch,
@@ -92,7 +97,7 @@ const Model = ({
     dispatch(updateAmount({ modelId: id, amount: +val }))
   }
 
-  const generate = () => {
+  const generate = (justReturn) => {
     if (!props) {
       Alert.warning(`plz add some properties to this model (${name})`)
       return
@@ -129,17 +134,20 @@ const Model = ({
       //     {}
       //   ),
       // }))
+      if (justReturn) {
+        return resWithRelations
+      }
       downloadData(resWithRelations)
     } else {
+      if (justReturn) {
+        return res
+      }
       downloadData(res)
     }
   }
 
   const downloadData = (data) => {
-    saveAs(
-      new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }),
-      name
-    )
+    saveAs(new Blob([toJSONPritty(data)], { type: 'application/json' }), name)
   }
 
   const generateFakeData = (props, amount) =>
@@ -156,11 +164,34 @@ const Model = ({
     })
 
   const addProp = (name) => dispatch(addPropName({ propName: name, uuid: id }))
+  const generateAPI = async () => {
+    try {
+      const zip = new JSZip()
+      zip.file('package.json', toJSONPritty(npmCongif))
+      zip.file('db.json', toJSONPritty({ [name]: generate(true) }))
+      zip.file('README.md', apiReadme(name))
+      const zipContent = await zip.generateAsync({ type: 'blob' })
+      saveAs(zipContent, 'pollux-api.zip')
+    } catch (error) {
+      Alert.error('Something went wrong while generating your API, please checkout the console')
+      console.group('Error generating the API')
+      console.log('the error object')
+      console.error(error)
+      console.log('you can open an issue with this error in the link below')
+      console.log('https://github.com/MohammedAl-Rowad/pollux')
+      console.groupEnd()
+    }
+  }
+
   const dynamicHeder = (
     <div>
       Model name {name}
       {
-        <Tag color="cyan" style={{ marginLeft: '5px' }} id={isTourOpen ? 'prop-tag-count' : null}>
+        <Tag
+          color="cyan"
+          style={{ marginLeft: '5px' }}
+          id={isTourOpen ? 'prop-tag-count' : null}
+        >
           {propsCount}
         </Tag>
       }
@@ -197,6 +228,7 @@ const Model = ({
           style={{ marginLeft: '5px' }}
           color="blue"
           circle
+          onClick={generateAPI}
         />
       </Whisper>
     </div>
@@ -223,7 +255,7 @@ const Model = ({
                   speaker={generateTip}
                 >
                   <IconButton
-                  id={isTourOpen ? 'generate-data-btn' : null}
+                    id={isTourOpen ? 'generate-data-btn' : null}
                     style={{ marginLeft: '5px' }}
                     icon={<Icon icon="magic2" />}
                     color="orange"
