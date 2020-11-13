@@ -26,6 +26,9 @@ const CreateRel = ({
       dispatch(removeRelation({ distId, modelId: id }))
     }
   }
+  
+  if (!mainModel) return ''
+
   return (
     <Modal
       backdrop="static"
@@ -49,7 +52,9 @@ const CreateRel = ({
           <Row>
             {eligibleModels.length === 0 ? (
               <section style={{ width: '100%', textAlign: 'center' }}>
-                <h5>There is no eligible models, create models to link them!</h5>
+                <h5>
+                  There is no eligible models, create models to link them!
+                </h5>
                 <img
                   src={cat}
                   alt="cat waiting"
