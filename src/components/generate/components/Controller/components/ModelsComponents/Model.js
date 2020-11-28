@@ -150,7 +150,7 @@ const Model = ({
     </div>
   )
   return (
-    <section>
+    <section style={{marginTop: 20}}>
       <PanelGroup bordered>
         <Panel shaded header={dynamicHeder}>
           <Grid fluid>
