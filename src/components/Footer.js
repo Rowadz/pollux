@@ -6,7 +6,7 @@ const FooterComp = () => {
     <section style={{ textAlign: 'center' }}>
       Made by <b>Rowad</b>{' '}
       <a
-        href="https://github.com/MohammedAl-Rowad"
+        href="https://www.linkedin.com/in/mohammed-al-rowad/"
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -14,7 +14,7 @@ const FooterComp = () => {
       </a>
       {'  '}
       <a
-        href="https://www.linkedin.com/in/mohammed-al-rowad/"
+        href="https://github.com/MohammedAl-Rowad"
         target="_blank"
         rel="noopener noreferrer"
       >
