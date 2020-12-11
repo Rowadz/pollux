@@ -13,11 +13,13 @@ import {
   Tag,
   Badge,
   InputNumber,
+  Alert,
 } from 'rsuite'
 import ConfirmDel from './ConfirmDel'
 import PropsDisplay from './PropsDisplay'
 import AddProp from './AddProp'
 import CreateRel from './CreateRel'
+import { v4 } from 'uuid'
 import {
   generate,
   relationsPropsGetter,
@@ -30,6 +32,7 @@ import {
   addPropName,
   removeAllProps,
   updateAmount,
+  justAddProp,
 } from 'redux/actions'
 import { useDrop } from 'react-dnd'
 
@@ -69,8 +72,11 @@ const Model = ({
         hovered: monitor && monitor.isOver(),
       }
     },
+    drop({ data }) {
+      dispatch(justAddProp({ uuid: id, props: [{ ...data, id: v4() }] }))
+      Alert.success(`Added the ${data.propName} props`)
+    },
   })
-  console.log({ canDrop, hovered })
 
   const delToolTip = (
     <Tooltip>
@@ -180,7 +186,7 @@ const Model = ({
             backgroundColor: hovered ? '#8BCAD9' : canDrop ? '#5E6D8C' : '',
             height: 50,
             marginTop: 10,
-            color: hovered ? '#000' : '#fff'
+            color: hovered ? '#000' : '#fff',
           }}
         >
           <Badge style={{ background: '#1b9cb0' }} /> Drop Props Here{' '}

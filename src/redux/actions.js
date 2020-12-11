@@ -46,7 +46,7 @@ export const addPropName = (props) => ({
 
 /**
  *
- * @param {Object} props - object
+ * @param {Array<Object>} props - object
  * @param {Object} props.id - the props id
  * @param {string} props.uuid - the model uuid
  * @param {string} props.propName - the props name

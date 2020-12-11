@@ -22,7 +22,7 @@ export default function (state = initialState, action) {
       const { uuid: modelUuid, props } = action.payload
       return {
         ...state,
-        [modelUuid]: props,
+        [modelUuid]: [...(state[modelUuid] || []), ...props],
       }
     }
     case REMOVE_ALL_RPOPS: {
