@@ -11,6 +11,7 @@ import {
   Whisper,
   Tooltip,
   Tag,
+  Badge,
   InputNumber,
 } from 'rsuite'
 import ConfirmDel from './ConfirmDel'
@@ -30,6 +31,7 @@ import {
   removeAllProps,
   updateAmount,
 } from 'redux/actions'
+import { useDrop } from 'react-dnd'
 
 const Model = ({
   dispatch,
@@ -46,6 +48,30 @@ const Model = ({
     showCreateRel: false,
     amount: 10,
   })
+
+  const [{ canDrop, hovered }, drop] = useDrop({
+    accept: [
+      'UUID',
+      'Email',
+      'Password',
+      'Full Name',
+      'Paragraphs',
+      'Paragraph',
+      'IP',
+      'Image',
+    ], // TODO:: why hardcoded
+    canDrop() {
+      return true
+    },
+    collect(monitor) {
+      return {
+        canDrop: monitor && monitor.canDrop(),
+        hovered: monitor && monitor.isOver(),
+      }
+    },
+  })
+  console.log({ canDrop, hovered })
+
   const delToolTip = (
     <Tooltip>
       Click here to <b>Delete</b> this model {'`'}
@@ -147,10 +173,24 @@ const Model = ({
           }
         />
       </Whisper>
+      <div ref={drop}>
+        <Panel
+          shaded
+          style={{
+            backgroundColor: hovered ? '#8BCAD9' : canDrop ? '#5E6D8C' : '',
+            height: 50,
+            marginTop: 10,
+            color: hovered ? '#000' : '#fff'
+          }}
+        >
+          <Badge style={{ background: '#1b9cb0' }} /> Drop Props Here{' '}
+          <Badge style={{ background: '#1b9cb0' }} />
+        </Panel>
+      </div>
     </div>
   )
   return (
-    <section style={{marginTop: 20}}>
+    <section style={{ marginTop: 20 }}>
       <PanelGroup bordered>
         <Panel shaded header={dynamicHeder}>
           <Grid fluid>

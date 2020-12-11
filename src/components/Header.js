@@ -6,7 +6,7 @@ const { Body } = Navbar
 const { Item } = Nav
 
 function HeaderComp() {
-  const [state, setState] = useState({ show: true })
+  const [state, setState] = useState({ show: false })
   const toggleDrawer = useCallback((show) => setState({ show: !show }), [
     setState,
   ])
