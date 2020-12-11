@@ -1,0 +1,8 @@
+.item {
+  padding: 20px;
+  margin: 10px;
+}
+.item:hover {
+  cursor: grab;
+  filter: brightness(150%);
+}
