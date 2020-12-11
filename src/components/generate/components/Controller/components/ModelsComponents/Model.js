@@ -237,7 +237,7 @@ const Model = ({
                 >
                   <InputNumber
                     defaultValue={amount}
-                    max={500}
+                    max={100000}
                     min={1}
                     onChange={changeAmount}
                   />
