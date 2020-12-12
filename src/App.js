@@ -1,5 +1,5 @@
 import React from 'react'
-import 'rsuite/dist/styles/rsuite-dark.css'
+// import 'rsuite/dist/styles/rsuite-dark.css'
 import './App.css'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'

@@ -1,5 +1,10 @@
 /* @import '~antd/dist/antd.css'; */
 
+@import '~rsuite/dist/styles/rsuite-default.css' screen;
+/* Supersede dark mode when applicable */
+@import '~rsuite/dist/styles/rsuite-dark.css' screen and
+  (prefers-color-scheme: dark);
+
 main {
   min-height: 100vh;
 }

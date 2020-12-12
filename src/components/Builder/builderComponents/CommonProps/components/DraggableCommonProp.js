@@ -16,7 +16,11 @@ const DraggableCommonProp = ({ type, icon }) => {
     <div ref={dragRef}>
       <List.Item
         className={styles.item}
-        style={{ cursor: isDragging && 'grabbing' }}
+        style={{
+          cursor: isDragging && 'grabbing',
+          backgroundColor: 'transparent',
+          boxShadow: 'none',
+        }}
       >
         <Icon icon={icon} /> {type}
       </List.Item>

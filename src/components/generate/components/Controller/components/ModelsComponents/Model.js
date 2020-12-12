@@ -186,7 +186,7 @@ const Model = ({
             backgroundColor: hovered ? '#8BCAD9' : canDrop ? '#5E6D8C' : '',
             height: 50,
             marginTop: 10,
-            color: hovered ? '#000' : '#fff',
+            // color: hovered ? '#000' : '#fff',
           }}
         >
           <Badge style={{ background: '#1b9cb0' }} /> Drop Props Here{' '}
