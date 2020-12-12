@@ -4,9 +4,12 @@ import { List, Icon } from 'rsuite'
 import styles from './DraggableCommonProp.module.css'
 import { map } from 'components/Builder/maps'
 
-const DraggableCommonProp = ({ type, icon }) => {
+const DraggableCommonProp = ({ type, icon, label, func }) => {
   const [{ isDragging }, dragRef] = useDrag({
-    item: { type, data: map.get(type) },
+    item: {
+      type,
+      data: map.get(type) || { propName: label, groupName: type, func },
+    },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -22,7 +25,7 @@ const DraggableCommonProp = ({ type, icon }) => {
           boxShadow: 'none',
         }}
       >
-        <Icon icon={icon} /> {type}
+        <Icon icon={icon || 'circle-o'} /> {label || type}
       </List.Item>
     </div>
   )

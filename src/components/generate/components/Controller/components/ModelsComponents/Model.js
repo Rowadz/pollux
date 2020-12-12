@@ -44,6 +44,7 @@ const Model = ({
   relations,
   relationsProps,
   isTourOpen,
+  faker,
 }) => {
   const [state, setState] = useState({
     showConfirmModal: false,
@@ -62,6 +63,7 @@ const Model = ({
       'Paragraph',
       'IP',
       'Image',
+      ...faker.map(({ groupName }) => groupName),
     ], // TODO:: why hardcoded
     canDrop() {
       return true
@@ -297,4 +299,5 @@ export default connect((state, ownProps) => ({
   props: state.prop[ownProps.model.id],
   relations: relationsGetter(state, ownProps.model.id),
   relationsProps: relationsPropsGetter(state, ownProps.model.id),
+  faker: state.faker,
 }))(Model)
