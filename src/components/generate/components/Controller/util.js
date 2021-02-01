@@ -77,13 +77,25 @@ export const generate = (
  */
 const generateFakeData = (props, amount) =>
   Array.from({ length: amount }).map(() => {
-    return props.reduce(
-      (prev, { propName, groupName, func }) => ({
+    return props.reduce((prev, { propName, groupName, func }) => {
+      if (
+        groupName === 'image' ||
+        (groupName === 'random' && func === 'image')
+      ) {
+        return {
+          ...prev,
+          [propName]: faker.random.arrayElement([
+            'http://placekitten.com/500/600',
+            'http://placekitten.com/1200/600',
+            'http://placekitten.com/1200/1200',
+          ]),
+        }
+      }
+      return {
         ...prev,
         [propName]: faker[groupName][func === 'fullName' ? 'findName' : func](),
-      }),
-      {}
-    )
+      }
+    }, {})
   })
 
 /**
