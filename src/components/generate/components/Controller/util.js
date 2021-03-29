@@ -40,24 +40,26 @@ export const generate = (
   }
   const res = generateFakeData(props, amount)
   if (relations) {
-    const relData = relations.reduce(
-      (prevObj, { id, name, amount }) => ({
-        ...prevObj,
-        [name]: generateFakeData(relationsProps[id], amount),
-      }),
-      {}
-    )
-    const resWithRelations = res.map((obj) => ({ ...obj, ...relData }))
-    // const resWithRelations = res.map((obj) => ({
-    //   ...obj,
-    //   ...relations.reduce(
-    //     (prev, { name, id }) => ({
-    //       ...prev,
-    //       [name]: generateFakeData(relationsProps[id]),
-    //     }),
-    //     {}
-    //   ),
-    // }))
+    // const relData = relations.reduce(
+    //   (prevObj, { id, name, amount }) => ({
+    //     ...prevObj,
+    //     [name]: generateFakeData(relationsProps[id], amount),
+    //   }),
+    //   {}
+    // )
+
+    // const resWithRelations = res.map((obj) => ({ ...obj, ...relData }))
+
+    const resWithRelations = res.map((obj) => ({
+      ...obj,
+      ...relations.reduce(
+        (prev, { name, id }) => ({
+          ...prev,
+          [name]: generateFakeData(relationsProps[id], 10),
+        }),
+        {}
+      ),
+    }))
     if (justReturn) {
       return resWithRelations
     }
