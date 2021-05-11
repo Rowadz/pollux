@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/pollux/static/css/main.29c1d530.chunk.css",
-    "main.js": "/pollux/static/js/main.4b82993c.chunk.js",
-    "main.js.map": "/pollux/static/js/main.4b82993c.chunk.js.map",
+    "main.css": "/pollux/static/css/main.47af9ec1.chunk.css",
+    "main.js": "/pollux/static/js/main.10cc3843.chunk.js",
+    "main.js.map": "/pollux/static/js/main.10cc3843.chunk.js.map",
     "runtime-main.js": "/pollux/static/js/runtime-main.5df1e606.js",
     "runtime-main.js.map": "/pollux/static/js/runtime-main.5df1e606.js.map",
-    "static/css/2.6b60d655.chunk.css": "/pollux/static/css/2.6b60d655.chunk.css",
-    "static/js/2.7bdd7b04.chunk.js": "/pollux/static/js/2.7bdd7b04.chunk.js",
-    "static/js/2.7bdd7b04.chunk.js.map": "/pollux/static/js/2.7bdd7b04.chunk.js.map",
+    "static/css/2.e3b7bcda.chunk.css": "/pollux/static/css/2.e3b7bcda.chunk.css",
+    "static/js/2.32826ca8.chunk.js": "/pollux/static/js/2.32826ca8.chunk.js",
+    "static/js/2.32826ca8.chunk.js.map": "/pollux/static/js/2.32826ca8.chunk.js.map",
     "index.html": "/pollux/index.html",
-    "precache-manifest.00f3890085d7bb8bf6771d61c4c5d574.js": "/pollux/precache-manifest.00f3890085d7bb8bf6771d61c4c5d574.js",
+    "precache-manifest.aa978b0663d134b594addec962a869b3.js": "/pollux/precache-manifest.aa978b0663d134b594addec962a869b3.js",
     "service-worker.js": "/pollux/service-worker.js",
-    "static/css/2.6b60d655.chunk.css.map": "/pollux/static/css/2.6b60d655.chunk.css.map",
-    "static/css/main.29c1d530.chunk.css.map": "/pollux/static/css/main.29c1d530.chunk.css.map",
-    "static/js/2.7bdd7b04.chunk.js.LICENSE.txt": "/pollux/static/js/2.7bdd7b04.chunk.js.LICENSE.txt",
+    "static/css/2.e3b7bcda.chunk.css.map": "/pollux/static/css/2.e3b7bcda.chunk.css.map",
+    "static/css/main.47af9ec1.chunk.css.map": "/pollux/static/css/main.47af9ec1.chunk.css.map",
+    "static/js/2.32826ca8.chunk.js.LICENSE.txt": "/pollux/static/js/2.32826ca8.chunk.js.LICENSE.txt",
     "static/media/box.svg": "/pollux/static/media/box.d0bcb7b7.svg",
     "static/media/cat.svg": "/pollux/static/media/cat.4333af26.svg",
     "static/media/empty.svg": "/pollux/static/media/empty.7448158e.svg",
@@ -25,9 +25,9 @@
   },
   "entrypoints": [
     "static/js/runtime-main.5df1e606.js",
-    "static/css/2.6b60d655.chunk.css",
-    "static/js/2.7bdd7b04.chunk.js",
-    "static/css/main.29c1d530.chunk.css",
-    "static/js/main.4b82993c.chunk.js"
+    "static/css/2.e3b7bcda.chunk.css",
+    "static/js/2.32826ca8.chunk.js",
+    "static/css/main.47af9ec1.chunk.css",
+    "static/js/main.10cc3843.chunk.js"
   ]
 }
