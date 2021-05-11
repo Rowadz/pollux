@@ -179,6 +179,7 @@ export const generateAPI = async (
       )
     )
     zip.file('README.md', apiReadme(name))
+    zip.file('routes.json', toJSONPritty({ [name]: 660 }))
     const zipContent = await zip.generateAsync({ type: 'blob' })
     saveAs(zipContent, 'pollux-api.zip')
     Alert.success(`Downloaded pollux-api.zip 👍`)
