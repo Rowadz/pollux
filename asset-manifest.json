@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/pollux/static/css/main.47af9ec1.chunk.css",
-    "main.js": "/pollux/static/js/main.af58470a.chunk.js",
-    "main.js.map": "/pollux/static/js/main.af58470a.chunk.js.map",
+    "main.js": "/pollux/static/js/main.475d2087.chunk.js",
+    "main.js.map": "/pollux/static/js/main.475d2087.chunk.js.map",
     "runtime-main.js": "/pollux/static/js/runtime-main.5df1e606.js",
     "runtime-main.js.map": "/pollux/static/js/runtime-main.5df1e606.js.map",
     "static/css/2.214fe3a2.chunk.css": "/pollux/static/css/2.214fe3a2.chunk.css",
     "static/js/2.7391752b.chunk.js": "/pollux/static/js/2.7391752b.chunk.js",
     "static/js/2.7391752b.chunk.js.map": "/pollux/static/js/2.7391752b.chunk.js.map",
     "index.html": "/pollux/index.html",
-    "precache-manifest.6d56891627a39248e49d3a96a4689a2d.js": "/pollux/precache-manifest.6d56891627a39248e49d3a96a4689a2d.js",
+    "precache-manifest.6e941db71960d5149739da4dfd023fa3.js": "/pollux/precache-manifest.6e941db71960d5149739da4dfd023fa3.js",
     "service-worker.js": "/pollux/service-worker.js",
     "static/css/2.214fe3a2.chunk.css.map": "/pollux/static/css/2.214fe3a2.chunk.css.map",
     "static/css/main.47af9ec1.chunk.css.map": "/pollux/static/css/main.47af9ec1.chunk.css.map",
@@ -28,6 +28,6 @@
     "static/css/2.214fe3a2.chunk.css",
     "static/js/2.7391752b.chunk.js",
     "static/css/main.47af9ec1.chunk.css",
-    "static/js/main.af58470a.chunk.js"
+    "static/js/main.475d2087.chunk.js"
   ]
 }
