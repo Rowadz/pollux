@@ -53,6 +53,10 @@ const steps = [
     ),
   },
   {
+    selector: '#enable-jwt-auth',
+    content: () => <p>Toggle this to enable/disable JWT auth to any generated API</p>,
+  },
+  {
     selector: '#models-section',
     content: 'An empty model',
   },
@@ -122,7 +126,7 @@ const generateAPIForAll = (models, prop, relations, auth) => {
     null,
     null,
     data,
-    auth,
+    auth
   )
 }
 
@@ -167,7 +171,7 @@ function Controller({ models, prop, relations, auth, dispatch }) {
               />
             </Whisper>
           </div>
-          <div style={{ marginTop: 20 }}>
+          <div style={{ marginTop: 20 }} id="enable-jwt-auth">
             <Toggle
               // checked={auth}
               onChange={
