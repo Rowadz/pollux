@@ -145,6 +145,7 @@ export const relationsGetter = (state, modelId) =>
  * @param {Array<any>} relations
  * @param {object} relationsProps
  * @param {Array<any> | undefined} data
+ * @param {boolean} auth
  */
 export const generateAPI = async (
   name,
@@ -152,7 +153,8 @@ export const generateAPI = async (
   amount,
   relations,
   relationsProps,
-  data
+  data,
+  auth,
 ) => {
   try {
     if (!props && !data) {
@@ -160,7 +162,7 @@ export const generateAPI = async (
       return
     }
     const zip = new JSZip()
-    zip.file('package.json', toJSONPritty(npmCongif))
+    zip.file('package.json', toJSONPritty(npmCongif(auth)))
     zip.file(
       'db.json',
       toJSONPritty(

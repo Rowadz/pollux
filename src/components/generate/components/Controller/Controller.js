@@ -8,9 +8,11 @@ import {
   Whisper,
   Tooltip,
   Alert,
+  Toggle,
 } from 'rsuite'
 import Tour from 'reactour'
 import { connect } from 'react-redux'
+import { enableAuth, disableAuth } from 'redux/actions'
 import { AddModelBtn, Models, SaveModel, LoadModel } from './components'
 import {
   relationsPropsGetter,
@@ -37,7 +39,8 @@ const steps = [
     content: () => (
       <>
         <p>
-          Click here to generate an API with all the models in the model section (this might take some time....).
+          Click here to generate an API with all the models in the model section
+          (this might take some time....).
         </p>
         <p>After generation you just need to</p>
         <ul>
@@ -47,7 +50,7 @@ const steps = [
         </ul>
         <p>then you are done</p>
       </>
-    )
+    ),
   },
   {
     selector: '#models-section',
@@ -94,7 +97,7 @@ const steps = [
   },
 }))
 
-const generateAPIForAll = (models, prop, relations) => {
+const generateAPIForAll = (models, prop, relations, auth) => {
   if (models.length === 0) {
     Alert.warning('Plz load/create some models first')
     return
@@ -118,13 +121,13 @@ const generateAPIForAll = (models, prop, relations) => {
     null,
     null,
     null,
-    data
+    data,
+    auth,
   )
 }
 
-function Controller({ models, prop, relations }) {
+function Controller({ models, prop, relations, auth, dispatch }) {
   const [isTourOpen, setIsTourOpen] = useState(false)
-
   return (
     <Grid fluid>
       <Row>
@@ -160,11 +163,25 @@ function Controller({ models, prop, relations }) {
                 style={{ marginLeft: '5px' }}
                 color="blue"
                 circle
-                onClick={() => generateAPIForAll(models, prop, relations)}
+                onClick={() => generateAPIForAll(models, prop, relations, auth)}
               />
             </Whisper>
           </div>
+          <div style={{ marginTop: 20 }}>
+            <Toggle
+              // checked={auth}
+              onChange={
+                auth
+                  ? () => dispatch(disableAuth())
+                  : () => dispatch(enableAuth())
+              }
+              size="lg"
+              checkedChildren="Disable JWT Auth"
+              unCheckedChildren="Enable JWT Auth"
+            />
+          </div>
         </Col>
+
         <Col xs={24} sm={24} md={18}>
           <Models isTourOpen={isTourOpen} />
         </Col>
@@ -173,9 +190,10 @@ function Controller({ models, prop, relations }) {
   )
 }
 
-export default connect(({ models, prop, relations }, ownProps) => ({
+export default connect(({ models, prop, relations, auth }, ownProps) => ({
   ...ownProps,
   models,
   prop,
   relations,
+  auth,
 }))(Controller)

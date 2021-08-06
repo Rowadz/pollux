@@ -45,6 +45,7 @@ const Model = ({
   relationsProps,
   isTourOpen,
   faker,
+  auth,
 }) => {
   const [state, setState] = useState({
     showConfirmModal: false,
@@ -177,7 +178,15 @@ const Model = ({
           color="blue"
           circle
           onClick={() =>
-            generateAPI(name, props, amount, relations, relationsProps)
+            generateAPI(
+              name,
+              props,
+              amount,
+              relations,
+              relationsProps,
+              null,
+              auth
+            )
           }
         />
       </Whisper>
@@ -300,4 +309,5 @@ export default connect((state, ownProps) => ({
   relations: relationsGetter(state, ownProps.model.id),
   relationsProps: relationsPropsGetter(state, ownProps.model.id),
   faker: state.faker,
+  auth: state.auth,
 }))(Model)

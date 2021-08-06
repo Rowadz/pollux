@@ -9,6 +9,8 @@ import {
   ADD_RELATION,
   REMOVE_RELATION,
   UPDATE_AMOUNT,
+  ENABLE_AUTH,
+  DISABLE_AUTH,
 } from './actionTypes'
 
 /**
@@ -114,8 +116,6 @@ export const removeRelation = (props) => ({
   payload: props,
 })
 
-
-
 /**
  *
  * @param {Object} props - the prop object
@@ -126,3 +126,7 @@ export const updateAmount = (props) => ({
   type: UPDATE_AMOUNT,
   payload: props,
 })
+
+export const enableAuth = () => ({ type: ENABLE_AUTH })
+
+export const disableAuth = () => ({ type: DISABLE_AUTH })
