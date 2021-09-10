@@ -16,7 +16,6 @@ import {
   Alert,
 } from 'rsuite'
 import { format } from 'sql-formatter'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
 import ConfirmDel from './ConfirmDel'
 import PropsDisplay from './PropsDisplay'
 import AddProp from './AddProp'
