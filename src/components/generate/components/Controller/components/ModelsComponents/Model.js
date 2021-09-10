@@ -15,6 +15,8 @@ import {
   InputNumber,
   Alert,
 } from 'rsuite'
+import { format } from 'sql-formatter'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 import ConfirmDel from './ConfirmDel'
 import PropsDisplay from './PropsDisplay'
 import AddProp from './AddProp'
@@ -238,6 +240,67 @@ const Model = ({
                     }
                   />
                 </Whisper>
+
+                <Whisper
+                  placement="right"
+                  trigger="hover"
+                  speaker={
+                    <Tooltip>
+                      Click here to <b>generate</b> an SQL insert statement.
+                    </Tooltip>
+                  }
+                >
+                  <IconButton
+                    id={isTourOpen ? 'generate-ddl-btn' : null}
+                    style={{ marginLeft: '5px' }}
+                    icon={<Icon icon="database" />}
+                    color="yellow"
+                    circle
+                    onClick={() => {
+                      const data = generate(
+                        props,
+                        name,
+                        amount,
+                        relations,
+                        relationsProps,
+                        true
+                      )
+                      const values = data.map(Object.values)
+                      const res = []
+                      for (const list of values) {
+                        let str = '( '
+                        for (const [index, value] of list.entries()) {
+                          const comma = index === list.length - 1 ? ' ' : ', '
+                          if (isNaN(value)) {
+                            str += `"${value}"${comma}`
+                          } else {
+                            str += `${value}${comma}`
+                          }
+                        }
+                        str += ')'
+                        res.push(str)
+                      }
+                      const sqlValues = res.join(', ')
+                      const sql = `
+                          INSERT INTO ${name} 
+                          VALUES ${sqlValues}
+                        `
+                      const formattedSQL = format(sql)
+                      navigator.clipboard
+                        .writeText(formattedSQL)
+                        .then(() => {
+                          Alert.success('Copied, you can cehck the conosle too')
+                        })
+                        .catch(() => {
+                          console.log(formattedSQL)
+                          Alert.error(
+                            'Error, please cehck the console to copy the SQL'
+                          )
+                        })
+                    }}
+                  />
+                </Whisper>
+
                 <div
                   style={{
                     width: 100,
