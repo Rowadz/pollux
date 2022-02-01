@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d5a722d0ea6050d0518041fddab33ffe",
+    "revision": "560f8279db285c7f3b2f82e35413cf09",
     "url": "/pollux/index.html"
   },
   {
-    "revision": "1fa940f95a1180478559",
-    "url": "/pollux/static/css/2.a088a298.chunk.css"
+    "revision": "785afdadff66d364dff5",
+    "url": "/pollux/static/css/2.214fe3a2.chunk.css"
   },
   {
-    "revision": "dfed0a37b889decf2082",
-    "url": "/pollux/static/css/main.11a4c721.chunk.css"
+    "revision": "68698f89a6f93279b78d",
+    "url": "/pollux/static/css/main.3b38f867.chunk.css"
   },
   {
-    "revision": "1fa940f95a1180478559",
-    "url": "/pollux/static/js/2.8a02923d.chunk.js"
+    "revision": "785afdadff66d364dff5",
+    "url": "/pollux/static/js/2.969538e1.chunk.js"
   },
   {
-    "revision": "7e8661572dbf62ca66d7837115f59618",
-    "url": "/pollux/static/js/2.8a02923d.chunk.js.LICENSE.txt"
+    "revision": "e04c726df601fc820617ae0c3455793e",
+    "url": "/pollux/static/js/2.969538e1.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "dfed0a37b889decf2082",
-    "url": "/pollux/static/js/main.dbea52f3.chunk.js"
+    "revision": "68698f89a6f93279b78d",
+    "url": "/pollux/static/js/main.99c7bc71.chunk.js"
   },
   {
     "revision": "75eef6d78ae3f668e0c3",
@@ -44,6 +44,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/pollux/static/media/emptySave.10032122.svg"
   },
   {
+    "revision": "ac13338d2e8245ab4959fb344b73ba26",
+    "url": "/pollux/static/media/features.ac13338d.svg"
+  },
+  {
     "revision": "a2b0ac7738df7705aa2712b7f07b5f5e",
     "url": "/pollux/static/media/loadModels.a2b0ac77.svg"
   },
@@ -52,11 +56,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/pollux/static/media/prototype.ea2fca44.svg"
   },
   {
-    "revision": "e333d532ca2cb1bcaffc58da1a6c1359",
-    "url": "/pollux/static/media/reactimg.e333d532.svg"
-  },
-  {
-    "revision": "0151e99f6645698dee3034bacb3cbcb4",
-    "url": "/pollux/static/media/taken.0151e99f.svg"
+    "revision": "f4e51a2920e26618a8cd4916fdd2431f",
+    "url": "/pollux/static/media/prototype2.f4e51a29.svg"
   }
 ]);
