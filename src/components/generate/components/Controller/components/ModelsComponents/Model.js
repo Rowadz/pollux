@@ -288,7 +288,8 @@ const Model = ({
                       navigator.clipboard
                         .writeText(formattedSQL)
                         .then(() => {
-                          Alert.success('Copied, you can cehck the conosle too')
+                          Alert.success('Copied, you can check the console too.')
+                          console.log(`%c${formattedSQL}`, 'color: #00a0bd')
                         })
                         .catch(() => {
                           console.log(formattedSQL)
