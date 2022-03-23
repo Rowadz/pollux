@@ -1,5 +1,5 @@
 import React from 'react'
-import { List } from 'rsuite'
+import { Badge, List } from 'rsuite'
 import DraggableCommonProp from './components/DraggableCommonProp'
 
 const CommonProps = () => {
@@ -9,6 +9,9 @@ const CommonProps = () => {
       <List>
         <DraggableCommonProp type="UUID" icon="id-mapping" />
         <DraggableCommonProp type="Email" icon="envelope" />
+        <DraggableCommonProp type="REGEX" icon="creative">
+          <Badge style={{ marginLeft: '1rem' }} content="NEW" />
+        </DraggableCommonProp>
         <DraggableCommonProp type="Password" icon="eye-slash" />
         <DraggableCommonProp type="Full Name" icon="user" />
         <DraggableCommonProp type="Paragraphs" icon="file-text" />

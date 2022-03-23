@@ -62,6 +62,7 @@ const Model = ({
       'Password',
       'Full Name',
       'Paragraphs',
+      'REGEX',
       'Paragraph',
       'IP',
       'Image',

@@ -8,7 +8,7 @@ const PropsDisplay = ({ id, props, modelName }) => {
   const propsEl =
     props && props?.length > 0 ? (
       <List hover>
-        {props.map(({ propName, id: uuid, func }, i) => (
+        {props.map(({ propName, id: uuid, func, ...others }, i) => (
           <Prop
             i={i}
             key={i}
@@ -17,6 +17,7 @@ const PropsDisplay = ({ id, props, modelName }) => {
             id={uuid}
             modelId={id}
             modelName={modelName}
+            {...others}
           />
         ))}
       </List>

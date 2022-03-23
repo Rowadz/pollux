@@ -4,7 +4,7 @@ import { List, Icon } from 'rsuite'
 import styles from './DraggableCommonProp.module.css'
 import { map } from 'components/Builder/maps'
 
-const DraggableCommonProp = ({ type, icon, label, func }) => {
+const DraggableCommonProp = ({ type, icon, label, func, children }) => {
   const [{ isDragging }, dragRef] = useDrag({
     item: {
       type,
@@ -26,6 +26,7 @@ const DraggableCommonProp = ({ type, icon, label, func }) => {
         }}
       >
         <Icon icon={icon || 'circle-o'} /> {label || type}
+        {children}
       </List.Item>
     </div>
   )

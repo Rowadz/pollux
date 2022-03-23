@@ -11,6 +11,7 @@
     "file-saver": "^2.0.5",
     "jsoneditor-react": "^3.1.1",
     "jszip": "^3.7.1",
+    "randexp": "^0.5.3",
     "react": "^17.0.2",
     "react-dnd": "^11.1.3",
     "react-dnd-html5-backend": "^11.1.3",
@@ -24,6 +25,7 @@
     "rsuite": "^4.10.2",
     "sql-formatter": "^4.0.2",
     "styled-components": "^4.4.1",
+    "use-debounce": "^7.0.1",
     "uuid": "^8.3.2"
   },
   "scripts": {

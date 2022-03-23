@@ -3,6 +3,7 @@
 export const map = new Map([
   ['UUID', { groupName: 'random', func: 'uuid', propName: 'id' }],
   ['Email', { groupName: 'internet', func: 'email', propName: 'email' }],
+  ['REGEX', { groupName: 'regex', func: 'regex', propName: 'REGEX' }],
   [
     'Password',
     { groupName: 'internet', func: 'password', propName: 'password' },

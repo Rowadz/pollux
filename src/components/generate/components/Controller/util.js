@@ -1,6 +1,7 @@
 import { Alert } from 'rsuite'
 import * as faker from 'faker'
 import { saveAs } from 'file-saver'
+import RandExp from 'randexp'
 import JSZip from 'jszip'
 import npmCongif from '../../../../zipFileContent/package.json'
 import apiReadme from '../../../../zipFileContent/readme.md'
@@ -79,25 +80,37 @@ export const generate = (
  */
 const generateFakeData = (props, amount) =>
   Array.from({ length: amount }).map(() => {
-    return props.reduce((prev, { propName, groupName, func }) => {
-      if (
-        groupName === 'image' ||
-        (groupName === 'random' && func === 'image')
-      ) {
+    return props.reduce(
+      (prev, { propName, groupName, func, regex: regexStr }) => {
+        if (
+          groupName === 'image' ||
+          (groupName === 'random' && func === 'image')
+        ) {
+          return {
+            ...prev,
+            [propName]: faker.random.arrayElement([
+              'http://placekitten.com/500/600',
+              'http://placekitten.com/1200/600',
+              'http://placekitten.com/1200/1200',
+            ]),
+          }
+        }
+        const key = func === 'fullName' ? 'findName' : func
+        if (key === 'regex') {
+          const randexp = new RandExp(regexStr)
+          return {
+            ...prev,
+            [propName]: randexp.gen(),
+          }
+        }
+
         return {
           ...prev,
-          [propName]: faker.random.arrayElement([
-            'http://placekitten.com/500/600',
-            'http://placekitten.com/1200/600',
-            'http://placekitten.com/1200/1200',
-          ]),
+          [propName]: faker[groupName][key](),
         }
-      }
-      return {
-        ...prev,
-        [propName]: faker[groupName][func === 'fullName' ? 'findName' : func](),
-      }
-    }, {})
+      },
+      {}
+    )
   })
 
 /**
@@ -154,7 +167,7 @@ export const generateAPI = async (
   relations,
   relationsProps,
   data,
-  auth,
+  auth
 ) => {
   try {
     if (!props && !data) {
