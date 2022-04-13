@@ -1,0 +1,159 @@
+import React, { useState } from 'react'
+import {
+  InputPicker,
+  List,
+  Grid,
+  Col,
+  Row,
+  Icon,
+  IconButton,
+  Input,
+} from 'rsuite'
+import AddProp from './AddProp'
+import { connect } from 'react-redux'
+import { delProp, editProp } from 'redux/actions'
+import styled from 'styled-components'
+import { danger, normal } from 'colors'
+import { useDebouncedCallback } from 'use-debounce'
+
+const dangerClass = 'danger'
+
+const Wrapper = styled.div`
+  & .${dangerClass} {
+    border-color: ${danger};
+    color: ${danger};
+  }
+`
+Wrapper.dangerClass = dangerClass
+
+const checkIfMobile = () =>
+  /Mobi/.test(navigator.userAgent) || /Mobi|Android/i.test(navigator.userAgent)
+
+const Prop = ({
+  i,
+  name,
+  id,
+  regex,
+  modelName,
+  modelId,
+  dispatch,
+  inputData,
+  func,
+}) => {
+  const [state, setState] = useState({ showPropNameModal: false, func })
+  const [regexError, setRegexErrors] = useState(false)
+  const closeModal = () => setState({ ...state, showPropNameModal: false })
+  const openModal = () => setState({ ...state, showPropNameModal: true })
+  const del = () => dispatch(delProp({ propId: id, modelId }))
+  const onFuncSelect = (value) => {
+    const findRes = inputData.find(({ value: val }) => value === val)
+    if (!findRes) return
+    const { groupName } = findRes
+    setState({ ...state, func: value })
+    dispatch(editProp({ id: modelId, propId: id, func: value, groupName }))
+  }
+
+  const debouncedOnRegexUpdate = useDebouncedCallback((value) => {
+    try {
+      new RegExp(value)
+    } catch {
+      setRegexErrors(true)
+    } finally {
+      setRegexErrors(value === '')
+      dispatch(editProp({ id: modelId, regex: value, propId: id }))
+    }
+  }, 200)
+
+  const icon =
+    func !== 'regex' ? (
+      <Icon icon="circle" />
+    ) : (
+      <Icon icon="creative" style={{ color: normal }} />
+    )
+
+  return (
+    <List.Item key={i} index={i}>
+      <Grid fluid>
+        <Row
+          colSpan={6}
+          style={{ textAlign: checkIfMobile() ? 'center' : 'left' }}
+        >
+          <Col xs={24} sm={24} md={8}>
+            <h4>
+              {icon} {name} {checkIfMobile() ? <Icon icon="circle" /> : ''}
+            </h4>
+          </Col>
+
+          <Col xs={24} sm={24} md={10} style={{ textAlign: 'left' }}>
+            {state.func === 'regex' ? (
+              <Wrapper>
+                <Input
+                  className={regexError ? Wrapper.dangerClass : ''}
+                  placeholder="Type your regex here"
+                  onChange={debouncedOnRegexUpdate}
+                  defaultValue={regex}
+                />
+                {regexError ? (
+                  <p className={Wrapper.dangerClass}>
+                    The regex is not 🍋 JS 🍋 regex
+                  </p>
+                ) : (
+                  <p className={Wrapper.dangerClas}>
+                    Write a 🍋 JS 🍋 regex here!
+                  </p>
+                )}
+              </Wrapper>
+            ) : (
+              <InputPicker
+                onChange={onFuncSelect}
+                data={inputData}
+                defaultValue={state.func}
+                groupBy="groupName"
+                placeholder="Select a function"
+                style={{ width: '100%' }}
+              />
+            )}
+          </Col>
+          <AddProp
+            id={modelId}
+            showPropNameModal={state.showPropNameModal}
+            closeConfirmModal={closeModal}
+            propNameProp={name}
+            name={modelName}
+            propId={id}
+            mode={'edit'}
+          />
+          <Col
+            xs={12}
+            sm={12}
+            md={3}
+            style={{ textAlign: checkIfMobile() ? 'left' : 'right' }}
+          >
+            <IconButton
+              style={{ margin: '5px' }}
+              icon={<Icon icon="edit" />}
+              color="cyan"
+              circle
+              onClick={openModal}
+            />
+          </Col>
+
+          <Col xs={12} sm={12} md={1} style={{ textAlign: 'right' }}>
+            <IconButton
+              style={{ margin: '5px' }}
+              icon={<Icon icon="minus" />}
+              color="red"
+              circle
+              onClick={del}
+            />
+          </Col>
+        </Row>
+      </Grid>
+    </List.Item>
+  )
+}
+
+export default connect((state, ownProp) => ({
+  ...ownProp,
+  inputData: state.faker,
+}))(Prop)

@@ -1,0 +1,10 @@
+.item {
+  padding: 20px;
+  margin: 10px;
+  transition: all 0.2s ease-in-out;
+}
+.item:hover {
+  cursor: grab;
+  filter: brightness(150%);
+  transform: scale(1.1);
+}
