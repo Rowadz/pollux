@@ -5,6 +5,7 @@
   "type": "module",
   "homepage": "https://mohammedal-rowad.github.io/pollux/",
   "dependencies": {
+    "@babel/plugin-transform-for-of": "^7.16.7",
     "@codemirror/lang-javascript": "^0.19.7",
     "@codemirror/lang-php": "^0.19.1",
     "@codemirror/legacy-modes": "^0.19.1",
