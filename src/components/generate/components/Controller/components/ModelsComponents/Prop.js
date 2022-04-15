@@ -95,11 +95,27 @@ const Prop = ({
                 />
                 {regexError ? (
                   <p className={Wrapper.dangerClass}>
-                    The regex is not 🍋 JS 🍋 regex
+                    The regex is not
+                    <span role="img" aria-label="lemon">
+                      🍋
+                    </span>
+                    JS
+                    <span role="img" aria-label="lemon">
+                      🍋
+                    </span>
+                    regex
                   </p>
                 ) : (
                   <p className={Wrapper.dangerClas}>
-                    Write a 🍋 JS 🍋 regex here!
+                    Write a
+                    <span role="img" aria-label="lemon">
+                      🍋
+                    </span>
+                    JS
+                    <span role="img" aria-label="lemon">
+                      🍋
+                    </span>
+                    regex here!
                   </p>
                 )}
               </Wrapper>
