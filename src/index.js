@@ -5,6 +5,11 @@ import Pollux from './App'
 // import * as serviceWorker from './serviceWorker'
 import { Provider } from 'react-redux'
 import store from './redux/store'
+
+if(module.hot){
+  module.hot.accept()
+}
+
 // console.log(store.getState())
 // store.subscribe(() => console.log(store.getState()))
 ReactDOM.render(
