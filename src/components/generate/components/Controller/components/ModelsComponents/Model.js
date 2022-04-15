@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import { SiJavascript, SiPython, SiPhp, SiRuby } from 'react-icons/si'
+import { DiMysql } from 'react-icons/di'
 import {
   Icon,
   IconButton,
@@ -14,8 +16,10 @@ import {
   Badge,
   InputNumber,
   Alert,
+  ButtonGroup,
+  Button,
+  Dropdown,
 } from 'rsuite'
-import { format } from 'sql-formatter'
 import ConfirmDel from './ConfirmDel'
 import PropsDisplay from './PropsDisplay'
 import AddProp from './AddProp'
@@ -36,6 +40,8 @@ import {
   justAddProp,
 } from 'redux/actions'
 import { useDrop } from 'react-dnd'
+import CodeGenerator from './CodeGenerator'
+import RenderLangIcon from './RenderLangIcon'
 
 const Model = ({
   dispatch,
@@ -54,6 +60,9 @@ const Model = ({
     showCreateRel: false,
     amount: 10,
   })
+
+  const [lang, setLang] = useState('ruby')
+  const [showModal, setShowModal] = useState(false)
 
   const [{ canDrop, hovered }, drop] = useDrop({
     accept: [
@@ -159,10 +168,10 @@ const Model = ({
           id={isTourOpen ? 'create-a-relationship-btn' : null}
           icon={<Icon icon="link" />}
           style={{ marginLeft: '5px' }}
-          color="violet"
           onClick={openCreateRelModal}
-          circle
-        />
+        >
+          Create 1:m relations
+        </IconButton>
       </Whisper>
       <Whisper
         placement="right"
@@ -177,8 +186,6 @@ const Model = ({
           id={isTourOpen ? 'create-a-api-btn' : null}
           icon={<Icon icon="twinkle-star" />}
           style={{ marginLeft: '5px' }}
-          color="blue"
-          circle
           onClick={() =>
             generateAPI(
               name,
@@ -190,7 +197,9 @@ const Model = ({
               auth
             )
           }
-        />
+        >
+          Generate Restful API
+        </IconButton>
       </Whisper>
       <div ref={drop}>
         <Panel
@@ -219,10 +228,10 @@ const Model = ({
                   <IconButton
                     icon={<Icon icon="plus" />}
                     id={isTourOpen ? 'add-attribute-btn' : null}
-                    color="cyan"
-                    circle
                     onClick={openPropNameModal}
-                  />
+                  >
+                    Add attribute
+                  </IconButton>
                 </Whisper>
                 <Whisper
                   placement="right"
@@ -233,73 +242,62 @@ const Model = ({
                     id={isTourOpen ? 'generate-data-btn' : null}
                     style={{ marginLeft: '5px' }}
                     icon={<Icon icon="magic2" />}
-                    color="orange"
-                    circle
                     onClick={() =>
                       generate(props, name, amount, relations, relationsProps)
                     }
-                  />
+                  >
+                    Generate JSON
+                  </IconButton>
                 </Whisper>
-
                 <Whisper
                   placement="right"
                   trigger="hover"
                   speaker={
                     <Tooltip>
-                      Click here to <b>generate</b> an SQL insert statement.
+                      Click here to generate a <b>{lang}</b> code for this model
+                      for .
                     </Tooltip>
                   }
                 >
-                  <IconButton
-                    id={isTourOpen ? 'generate-ddl-btn' : null}
-                    style={{ marginLeft: '5px' }}
-                    icon={<Icon icon="database" />}
-                    color="yellow"
-                    circle
-                    onClick={() => {
-                      const data = generate(
-                        props,
-                        name,
-                        amount,
-                        relations,
-                        relationsProps,
-                        true
-                      )
-                      const values = data.map(Object.values)
-                      const res = []
-                      for (const list of values) {
-                        let str = '( '
-                        for (const [index, value] of list.entries()) {
-                          const comma = index === list.length - 1 ? ' ' : ', '
-                          if (isNaN(value)) {
-                            str += `"${value}"${comma}`
-                          } else {
-                            str += `${value}${comma}`
-                          }
-                        }
-                        str += ')'
-                        res.push(str)
-                      }
-                      const sqlValues = res.join(', ')
-                      const sql = `
-                          INSERT INTO ${name} 
-                          VALUES ${sqlValues}
-                        `
-                      const formattedSQL = format(sql)
-                      navigator.clipboard
-                        .writeText(formattedSQL)
-                        .then(() => {
-                          Alert.success('Copied, you can check the console too.')
-                          console.log(`%c${formattedSQL}`, 'color: #00a0bd')
-                        })
-                        .catch(() => {
-                          console.log(formattedSQL)
-                          Alert.error(
-                            'Error, please cehck the console to copy the SQL'
-                          )
-                        })
-                    }}
-                  />
+                  <ButtonGroup style={{ marginLeft: '5px' }}>
+                    <Button onClick={() => setShowModal(true)}>
+                      <RenderLangIcon lang={lang} />
+                    </Button>
+                    <Dropdown
+                      placement="bottomEnd"
+                      onSelect={(selectedLang) => {
+                        setLang(selectedLang)
+                      }}
+                      renderTitle={() => {
+                        return (
+                          <IconButton
+                            icon={<Icon icon="angle-double-down" />}
+                          />
+                        )
+                      }}
+                    >
+                      <Dropdown.Item
+                        eventKey="php"
+                        icon={<SiPhp size="1.5rem" color="#474A8A" />}
+                      />
+                      <Dropdown.Item
+                        eventKey="python"
+                        icon={<SiPython size="1.5rem" color="#34709f" />}
+                      />
+                      <Dropdown.Item
+                        eventKey="javascript"
+                        icon={<SiJavascript size="1.5rem" color="#e8d44d" />}
+                      />
+                      <Dropdown.Item
+                        eventKey="ruby"
+                        icon={<SiRuby size="1.5rem" color="#e51521" />}
+                      />
+                      <Dropdown.Item
+                        eventKey="sql"
+                        icon={<DiMysql size="1.5rem" color="#F2913D" />}
+                      />
+                    </Dropdown>
+                  </ButtonGroup>
                 </Whisper>
 
                 <div
@@ -362,6 +360,18 @@ const Model = ({
           </Grid>
         </Panel>
       </PanelGroup>
+      {showModal && (
+        <CodeGenerator
+          setShowModal={setShowModal}
+          lang={lang}
+          name={name}
+          amount={amount}
+          props={props}
+          relations={relations}
+          relationsProps={relationsProps}
+          key={`${showModal}-${lang}`}
+        />
+      )}
     </section>
   )
 }

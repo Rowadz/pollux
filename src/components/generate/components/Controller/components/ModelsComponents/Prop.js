@@ -148,7 +148,6 @@ const Prop = ({
             <IconButton
               style={{ margin: '5px' }}
               icon={<Icon icon="edit" />}
-              color="cyan"
               circle
               onClick={openModal}
             />
@@ -158,7 +157,6 @@ const Prop = ({
             <IconButton
               style={{ margin: '5px' }}
               icon={<Icon icon="minus" />}
-              color="red"
               circle
               onClick={del}
             />
