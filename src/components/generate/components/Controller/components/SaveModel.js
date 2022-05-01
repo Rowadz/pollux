@@ -56,12 +56,13 @@ const SaveModel = ({ models, prop }) => {
   return (
     <section style={{ display: 'inline' }}>
       <IconButton
-        color="cyan"
+        size="xs"
         id="save-model-btn"
-        onClick={showModalSave}
-        circle
         icon={<Icon icon="save" />}
-      />
+        onClick={showModalSave}
+      >
+        Save Model
+      </IconButton>
       <Modal
         show={state.showModalSave}
         onHide={close}

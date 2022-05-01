@@ -29,14 +29,15 @@ const LoadModel = ({ dispatch, models }) => {
     }
   }
   return (
-    <section style={{ display: 'inline', marginLeft: 10 }}>
+    <section style={{ display: 'inline' }}>
       <IconButton
-        color="yellow"
-        onClick={open}
-        circle
         id="load-model-btn"
+        size="xs"
         icon={<Icon icon="tasks" />}
-      />
+        onClick={open}
+      >
+        Load Model
+      </IconButton>
       <Modal
         show={state.showTheModalOfModels}
         onHide={close}

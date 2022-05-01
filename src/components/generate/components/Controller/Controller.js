@@ -54,7 +54,9 @@ const steps = [
   },
   {
     selector: '#enable-jwt-auth',
-    content: () => <p>Toggle this to enable/disable JWT auth to any generated API</p>,
+    content: () => (
+      <p>Toggle this to enable/disable JWT auth to any generated API</p>
+    ),
   },
   {
     selector: '#models-section',
@@ -142,44 +144,52 @@ function Controller({ models, prop, relations, auth, dispatch }) {
         />
         <Col xs={24} sm={24} md={6}>
           <AddModelBtn />
-          <div style={{ marginTop: '10px' }}>
-            <IconButton
-              style={{ marginRight: 10 }}
-              color="violet"
-              onClick={() => setIsTourOpen(true)}
-              circle
-              icon={<Icon icon="lightbulb-o" />}
-            />
-            <SaveModel />
-            <LoadModel />
-            <Whisper
-              placement="right"
-              trigger="hover"
-              speaker={
-                <Tooltip>
-                  Click here to generate a json-server API from this model
-                </Tooltip>
-              }
-            >
+
+          <Row style={{ marginTop: '0.5rem' }}>
+            <Col xs={8}>
               <IconButton
-                id="create-a-api-btn-for-all"
-                icon={<Icon icon="twinkle-star" />}
-                style={{ marginLeft: '5px' }}
-                color="blue"
-                circle
-                onClick={() => generateAPIForAll(models, prop, relations, auth)}
-              />
-            </Whisper>
-          </div>
-          <div style={{ marginTop: 20 }} id="enable-jwt-auth">
+                size="xs"
+                icon={<Icon icon="lightbulb-o" />}
+                onClick={() => setIsTourOpen(true)}
+              >
+                Take Tour
+              </IconButton>
+            </Col>
+            <Col xs={8}>
+              <SaveModel />
+            </Col>
+            <Col xs={8}>
+              <LoadModel />
+            </Col>
+          </Row>
+          <Row style={{ marginTop: '0.5rem' }}>
+            <Col xs={24}>
+              <Whisper
+                placement="right"
+                trigger="hover"
+                speaker={
+                  <Tooltip>
+                    Click here to generate a json-server API from this model
+                  </Tooltip>
+                }
+              >
+                <IconButton
+                  id="create-a-api-btn-for-all"
+                  size="xs"
+                  icon={<Icon icon="twinkle-star" />}
+                  onClick={() =>
+                    generateAPIForAll(models, prop, relations, auth)
+                  }
+                >
+                  Generate Rest API with all models
+                </IconButton>
+              </Whisper>
+            </Col>
+          </Row>
+
+          <div style={{ marginTop: '0.5rem' }} id="enable-jwt-auth">
             <Toggle
-              // checked={auth}
-              onChange={
-                auth
-                  ? () => dispatch(disableAuth())
-                  : () => dispatch(enableAuth())
-              }
-              size="lg"
+              onChange={() => dispatch(auth ? disableAuth() : enableAuth())}
               checkedChildren="Disable JWT Auth"
               unCheckedChildren="Enable JWT Auth"
             />
