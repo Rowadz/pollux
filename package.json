@@ -44,7 +44,7 @@
     "build": "react-scripts build",
     "postbuild": "node build.js",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d docs",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
