@@ -6,6 +6,8 @@ import JSZip from 'jszip'
 import npmCongif from '../../../../zipFileContent/package.json'
 import apiReadme from '../../../../zipFileContent/readme.md'
 
+import { spawnWebWorker } from '../../webWorker'
+
 /**
  *
  * @param {Array<any>} props
@@ -14,6 +16,7 @@ import apiReadme from '../../../../zipFileContent/readme.md'
  * @param {Array<any>} relations
  * @param {object} relationsProps
  * @param {boolean} justReturn
+ * @param {string} modelId
  */
 export const generate = (
   props,
@@ -21,7 +24,8 @@ export const generate = (
   amount,
   relations,
   relationsProps,
-  justReturn
+  justReturn,
+  modelId
 ) => {
   if (!props) {
     Alert.warning(`plz add some properties to this model (${name})`)
@@ -39,37 +43,41 @@ export const generate = (
     )
     return
   }
-  const res = generateFakeData(props, amount)
-  if (relations) {
-    // const relData = relations.reduce(
-    //   (prevObj, { id, name, amount }) => ({
-    //     ...prevObj,
-    //     [name]: generateFakeData(relationsProps[id], amount),
-    //   }),
-    //   {}
-    // )
 
-    // const resWithRelations = res.map((obj) => ({ ...obj, ...relData }))
-
-    const resWithRelations = res.map((obj) => ({
-      ...obj,
-      ...relations.reduce(
-        (prev, { name, id }) => ({
-          ...prev,
-          [name]: generateFakeData(relationsProps[id], 10),
-        }),
-        {}
-      ),
-    }))
-    if (justReturn) {
-      return resWithRelations
+  if (!window.Worker) {
+    Alert.info(
+      'This browser do not support web workers, generating data on the main thread 🧵'
+    )
+    const res = generateFakeData(props, amount)
+    if (relations) {
+      const resWithRelations = res.map((obj) => ({
+        ...obj,
+        ...relations.reduce(
+          (prev, { name, id }) => ({
+            ...prev,
+            [name]: generateFakeData(relationsProps[id], 10),
+          }),
+          {}
+        ),
+      }))
+      if (justReturn) {
+        return resWithRelations
+      }
+      downloadData(resWithRelations, name)
+    } else {
+      if (justReturn) {
+        return res
+      }
+      downloadData(res, name)
     }
-    downloadData(resWithRelations, name)
   } else {
-    if (justReturn) {
-      return res
-    }
-    downloadData(res, name)
+    spawnWebWorker({ props, amount, modelId }).then((result) => {
+      // if (justReturn) {
+      //   return result
+      // }
+      console.log(result)
+      // downloadData(result, name)
+    })
   }
 }
 
@@ -159,6 +167,7 @@ export const relationsGetter = (state, modelId) =>
  * @param {object} relationsProps
  * @param {Array<any> | undefined} data
  * @param {boolean} auth
+ * @param {string} modelId
  */
 export const generateAPI = async (
   name,
@@ -167,7 +176,8 @@ export const generateAPI = async (
   relations,
   relationsProps,
   data,
-  auth
+  auth,
+  modelId
 ) => {
   try {
     if (!props && !data) {
@@ -188,7 +198,8 @@ export const generateAPI = async (
                 amount,
                 relations,
                 relationsProps,
-                true
+                true,
+                modelId
               ),
             }
       )

@@ -117,7 +117,8 @@ const generateAPIForAll = (models, prop, relations, auth) => {
         amount,
         relationsGetter({ relations, models }, id),
         relationsPropsGetter({ relations, prop }, id),
-        true
+        true,
+        id
       ),
     }
   }, {})

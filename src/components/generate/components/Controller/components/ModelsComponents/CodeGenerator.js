@@ -26,6 +26,7 @@ const formatRuby = (data) =>
     : `'${data}'`
 
 const CodeGenerator = ({
+  id,
   lang,
   props,
   name,
@@ -36,7 +37,15 @@ const CodeGenerator = ({
 }) => {
   const [code, setCode] = useState('')
   useEffect(() => {
-    const data = generate(props, name, amount, relations, relationsProps, true)
+    const data = generate(
+      props,
+      name,
+      amount,
+      relations,
+      relationsProps,
+      true,
+      id
+    )
 
     if (lang === 'javascript') {
       setCode(`const data = ${JSON.stringify(data, null, 2)};`)
@@ -68,7 +77,8 @@ const CodeGenerator = ({
         amount,
         relations,
         relationsProps,
-        true
+        true,
+        id
       )
       const values = data.map(Object.values)
       const res = []

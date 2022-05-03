@@ -12,6 +12,7 @@ import {
   Col,
   Whisper,
   Tooltip,
+  FlexboxGrid,
   Tag,
   Badge,
   InputNumber,
@@ -42,6 +43,7 @@ import {
 import { useDrop } from 'react-dnd'
 import CodeGenerator from './CodeGenerator'
 import RenderLangIcon from './RenderLangIcon'
+import WebWorkerProgress from './WebWorkerProgress'
 
 const Model = ({
   dispatch,
@@ -168,6 +170,7 @@ const Model = ({
           id={isTourOpen ? 'create-a-relationship-btn' : null}
           icon={<Icon icon="link" />}
           style={{ marginLeft: '5px' }}
+          size="xs"
           onClick={openCreateRelModal}
         >
           Create 1:m relations
@@ -185,6 +188,7 @@ const Model = ({
         <IconButton
           id={isTourOpen ? 'create-a-api-btn' : null}
           icon={<Icon icon="twinkle-star" />}
+          size="xs"
           style={{ marginLeft: '5px' }}
           onClick={() =>
             generateAPI(
@@ -194,7 +198,8 @@ const Model = ({
               relations,
               relationsProps,
               null,
-              auth
+              auth,
+              id
             )
           }
         >
@@ -224,102 +229,123 @@ const Model = ({
           <Grid fluid>
             <Row>
               <Col xs={24} sm={24} md={24}>
-                <Whisper placement="right" trigger="hover" speaker={addKeyTip}>
-                  <IconButton
-                    icon={<Icon icon="plus" />}
-                    id={isTourOpen ? 'add-attribute-btn' : null}
-                    onClick={openPropNameModal}
-                  >
-                    Add attribute
-                  </IconButton>
-                </Whisper>
-                <Whisper
-                  placement="right"
-                  trigger="hover"
-                  speaker={generateTip}
-                >
-                  <IconButton
-                    id={isTourOpen ? 'generate-data-btn' : null}
-                    style={{ marginLeft: '5px' }}
-                    icon={<Icon icon="magic2" />}
-                    onClick={() =>
-                      generate(props, name, amount, relations, relationsProps)
-                    }
-                  >
-                    Generate JSON
-                  </IconButton>
-                </Whisper>
-                <Whisper
-                  placement="right"
-                  trigger="hover"
-                  speaker={
-                    <Tooltip>
-                      Click here to generate a <b>{lang}</b> code for this model
-                      for .
-                    </Tooltip>
-                  }
-                >
-                  <ButtonGroup style={{ marginLeft: '5px' }}>
-                    <Button onClick={() => setShowModal(true)}>
-                      <RenderLangIcon lang={lang} />
-                    </Button>
-                    <Dropdown
-                      placement="bottomEnd"
-                      onSelect={(selectedLang) => {
-                        setLang(selectedLang)
-                      }}
-                      renderTitle={() => {
-                        return (
-                          <IconButton
-                            icon={<Icon icon="angle-double-down" />}
-                          />
-                        )
-                      }}
+                <FlexboxGrid justify="start">
+                  <FlexboxGrid.Item>
+                    <Whisper
+                      placement="right"
+                      trigger="hover"
+                      speaker={addKeyTip}
                     >
-                      <Dropdown.Item
-                        eventKey="php"
-                        icon={<SiPhp size="1.5rem" color="#474A8A" />}
-                      />
-                      <Dropdown.Item
-                        eventKey="python"
-                        icon={<SiPython size="1.5rem" color="#34709f" />}
-                      />
-                      <Dropdown.Item
-                        eventKey="javascript"
-                        icon={<SiJavascript size="1.5rem" color="#e8d44d" />}
-                      />
-                      <Dropdown.Item
-                        eventKey="ruby"
-                        icon={<SiRuby size="1.5rem" color="#e51521" />}
-                      />
-                      <Dropdown.Item
-                        eventKey="sql"
-                        icon={<DiMysql size="1.5rem" color="#F2913D" />}
-                      />
-                    </Dropdown>
-                  </ButtonGroup>
-                </Whisper>
+                      <IconButton
+                        icon={<Icon icon="plus" />}
+                        size="xs"
+                        id={isTourOpen ? 'add-attribute-btn' : null}
+                        onClick={openPropNameModal}
+                      >
+                        Add attribute
+                      </IconButton>
+                    </Whisper>
+                  </FlexboxGrid.Item>
+                  <FlexboxGrid.Item>
+                    <Whisper
+                      placement="right"
+                      trigger="hover"
+                      speaker={generateTip}
+                    >
+                      <IconButton
+                        id={isTourOpen ? 'generate-data-btn' : null}
+                        style={{ marginLeft: '5px' }}
+                        size="xs"
+                        icon={<Icon icon="magic2" />}
+                        onClick={() =>
+                          generate(
+                            props,
+                            name,
+                            amount,
+                            relations,
+                            relationsProps,
+                            id
+                          )
+                        }
+                      >
+                        Generate JSON
+                      </IconButton>
+                    </Whisper>
+                  </FlexboxGrid.Item>
+                  <FlexboxGrid.Item>
+                    <Whisper
+                      placement="right"
+                      trigger="hover"
+                      speaker={
+                        <Tooltip>
+                          Click here to generate a <b>{lang}</b> code for this
+                          model for .
+                        </Tooltip>
+                      }
+                    >
+                      <ButtonGroup style={{ marginLeft: '5px' }}>
+                        <Button onClick={() => setShowModal(true)} size="xs">
+                          <RenderLangIcon lang={lang} />
+                        </Button>
+                        <Dropdown
+                          placement="bottomEnd"
+                          onSelect={(selectedLang) => {
+                            setLang(selectedLang)
+                          }}
+                          renderTitle={() => {
+                            return (
+                              <IconButton
+                                size="xs"
+                                icon={<Icon icon="angle-double-down" />}
+                              />
+                            )
+                          }}
+                        >
+                          <Dropdown.Item
+                            eventKey="php"
+                            icon={<SiPhp size="1.5rem" color="#474A8A" />}
+                          />
+                          <Dropdown.Item
+                            eventKey="python"
+                            icon={<SiPython size="1.5rem" color="#34709f" />}
+                          />
+                          <Dropdown.Item
+                            eventKey="javascript"
+                            icon={
+                              <SiJavascript size="1.5rem" color="#e8d44d" />
+                            }
+                          />
+                          <Dropdown.Item
+                            eventKey="ruby"
+                            icon={<SiRuby size="1.5rem" color="#e51521" />}
+                          />
+                          <Dropdown.Item
+                            eventKey="sql"
+                            icon={<DiMysql size="1.5rem" color="#F2913D" />}
+                          />
+                        </Dropdown>
+                      </ButtonGroup>
+                    </Whisper>
+                  </FlexboxGrid.Item>
+                  <FlexboxGrid.Item style={{ marginLeft: '5px' }}>
+                    <InputNumber
+                      size="xs"
+                      defaultValue={amount}
+                      max={1000000}
+                      min={1}
+                      onChange={changeAmount}
+                    />
+                  </FlexboxGrid.Item>
+                </FlexboxGrid>
 
-                <div
-                  style={{
-                    width: 100,
-                    display: 'inline',
-                    position: 'absolute',
-                    paddingLeft: 10,
-                  }}
-                >
-                  <InputNumber
-                    defaultValue={amount}
-                    max={100000}
-                    min={1}
-                    onChange={changeAmount}
-                  />
-                </div>
+                <WebWorkerProgress />
+
                 <Whisper placement="left" trigger="hover" speaker={delToolTip}>
                   <IconButton
                     icon={<Icon icon="minus" />}
                     style={{ float: 'right' }}
                     color="red"
+                    size="xs"
                     circle
                     onClick={openConfirmModal}
                   />
@@ -366,6 +392,7 @@ const Model = ({
           lang={lang}
           name={name}
           amount={amount}
+          id={id}
           props={props}
           relations={relations}
           relationsProps={relationsProps}
