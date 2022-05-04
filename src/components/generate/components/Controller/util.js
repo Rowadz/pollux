@@ -44,10 +44,12 @@ export const generate = (
     return
   }
 
-  if (!window.Worker) {
-    Alert.info(
-      'This browser do not support web workers, generating data on the main thread 🧵'
-    )
+  if (true) {
+    if (amount > 5000) {
+      Alert.info(
+        'This browser do not support web workers, generating data on the main thread 🧵'
+      )
+    }
     const res = generateFakeData(props, amount)
     if (relations) {
       const resWithRelations = res.map((obj) => ({
@@ -72,11 +74,10 @@ export const generate = (
     }
   } else {
     spawnWebWorker({ props, amount, modelId }).then((result) => {
-      // if (justReturn) {
-      //   return result
-      // }
-      console.log(result)
-      // downloadData(result, name)
+      if (justReturn) {
+        return result
+      }
+      downloadData(result, name)
     })
   }
 }

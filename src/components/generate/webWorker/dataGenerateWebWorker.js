@@ -1,22 +1,11 @@
 import * as faker from 'faker'
 import RandExp from 'randexp'
-import { eventEmitter } from './eventEmitter'
 
-// eventEmitter.on('DOCUMENT_GENERATED', (data) => {
-//   console.log(data)
-// })
-
-// onmessage = function (e) {
-//   const { amount, props, generateFakeData } = e.data
-//   setInterval(() => {
-//     postMessage({ props, amount, generateFakeData })
-//   }, 1000)
-// }
-
-export const getEventEmitter = () => eventEmitter
-
-export const startGenerating = (props, amount) =>
-  generateFakeData(props, amount)
+export const startGenerating = (props, amount, modelId) => {
+  const data = generateFakeData(props, amount, modelId)
+  postMessage({ type: 'STOPPED', amount, modelId })
+  return data
+}
 
 /**
  * @description PLEASE DO NOT EDIT THIS, MY DUMBASS CAN't FIGURE A WAY TO IMPORT THIS CODE HERE
@@ -27,7 +16,7 @@ export const startGenerating = (props, amount) =>
  *
  */
 const generateFakeData = (props, amount, modelId) => {
-  eventEmitter.emit('STARTED', { amount, modelId })
+  postMessage({ type: 'STARTED', amount, modelId })
   return Array.from({ length: amount }).map(() => {
     const singleDocument = props.reduce(
       (prev, { propName, groupName, func, regex: regexStr }) => {
@@ -60,7 +49,8 @@ const generateFakeData = (props, amount, modelId) => {
       },
       {}
     )
-    eventEmitter.emit('DOCUMENT_GENERATED', { data: 1 })
+    // this runs in a web worker
+    postMessage({ type: 'DOCUMENT_GENERATED', modelId })
     return singleDocument
   })
 }

@@ -6,9 +6,14 @@ import Pollux from './App'
 import { Provider } from 'react-redux'
 import store from './redux/store'
 
-if(module.hot){
+if (module.hot) {
   module.hot.accept()
 }
+// store.subscribe
+store.subscribe(() => {
+  console.log(store.getState())
+})
+window.store = store
 
 // console.log(store.getState())
 // store.subscribe(() => console.log(store.getState()))

@@ -264,6 +264,7 @@ const Model = ({
                             amount,
                             relations,
                             relationsProps,
+                            false,
                             id
                           )
                         }
@@ -338,7 +339,7 @@ const Model = ({
                   </FlexboxGrid.Item>
                 </FlexboxGrid>
 
-                <WebWorkerProgress />
+                <WebWorkerProgress modelId={id} />
 
                 <Whisper placement="left" trigger="hover" speaker={delToolTip}>
                   <IconButton
