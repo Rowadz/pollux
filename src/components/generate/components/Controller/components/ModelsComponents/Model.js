@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { SiJavascript, SiPython, SiPhp, SiRuby } from 'react-icons/si'
 import { DiMysql } from 'react-icons/di'
@@ -44,6 +44,7 @@ import { useDrop } from 'react-dnd'
 import CodeGenerator from './CodeGenerator'
 import RenderLangIcon from './RenderLangIcon'
 import WebWorkerProgress from './WebWorkerProgress'
+import { eventEmitter } from 'components/generate/webWorker/eventEmitter'
 
 const Model = ({
   dispatch,
@@ -66,6 +67,7 @@ const Model = ({
 
   const [lang, setLang] = useState('ruby')
   const [showModal, setShowModal] = useState(false)
+  const [disableModalControllers, setDisableModalControllers] = useState(false)
 
   const [{ canDrop, hovered }, drop] = useDrop({
     accept: [
@@ -94,6 +96,27 @@ const Model = ({
       Alert.success(`Added the ${data.propName} props`)
     },
   })
+
+  useEffect(() => {
+    eventEmitter.on('STARTED', () => {
+      setDisableModalControllers(true)
+    })
+    eventEmitter.on(
+      'STOPPED',
+      (() => {
+        const maxWorkers = navigator.hardwareConcurrency || 4
+        let counter = 0
+        return () => {
+          counter++
+          // means that all the workers are done
+          if (counter === maxWorkers) {
+            setDisableModalControllers(false)
+            counter = 0
+          }
+        }
+      })()
+    )
+  }, [])
 
   const delToolTip = (
     <Tooltip>
@@ -170,6 +193,7 @@ const Model = ({
         {checkedModels.size ? (
           <Badge content={checkedModels.size}>
             <IconButton
+              disabled={disableModalControllers}
               id={isTourOpen ? 'create-a-relationship-btn' : null}
               icon={<Icon icon="link" />}
               style={{ marginLeft: '5px' }}
@@ -185,6 +209,7 @@ const Model = ({
             icon={<Icon icon="link" />}
             style={{ marginLeft: '5px' }}
             size="xs"
+            disabled={disableModalControllers}
             onClick={openCreateRelModal}
           >
             Create 1:m relations
@@ -204,6 +229,7 @@ const Model = ({
           id={isTourOpen ? 'create-a-api-btn' : null}
           icon={<Icon icon="twinkle-star" />}
           size="xs"
+          disabled={disableModalControllers}
           style={{ marginLeft: '5px' }}
           onClick={() =>
             generateAPI(
@@ -252,6 +278,7 @@ const Model = ({
                       speaker={addKeyTip}
                     >
                       <IconButton
+                        disabled={disableModalControllers}
                         icon={<Icon icon="plus" />}
                         size="xs"
                         id={isTourOpen ? 'add-attribute-btn' : null}
@@ -271,6 +298,7 @@ const Model = ({
                         id={isTourOpen ? 'generate-data-btn' : null}
                         style={{ marginLeft: '5px' }}
                         size="xs"
+                        disabled={disableModalControllers}
                         icon={<Icon icon="magic2" />}
                         onClick={() =>
                           generate(
@@ -301,10 +329,15 @@ const Model = ({
                       }
                     >
                       <ButtonGroup style={{ marginLeft: '5px' }}>
-                        <Button onClick={() => setShowModal(true)} size="xs">
+                        <Button
+                          disabled={disableModalControllers}
+                          onClick={() => setShowModal(true)}
+                          size="xs"
+                        >
                           <RenderLangIcon lang={lang} />
                         </Button>
                         <Dropdown
+                          disabled={disableModalControllers}
                           placement="bottomEnd"
                           onSelect={(selectedLang) => {
                             setLang(selectedLang)
@@ -347,6 +380,7 @@ const Model = ({
                   <FlexboxGrid.Item style={{ marginLeft: '5px' }}>
                     <InputNumber
                       size="xs"
+                      disabled={disableModalControllers}
                       defaultValue={amount}
                       max={1000000}
                       min={1}
@@ -366,6 +400,7 @@ const Model = ({
                     icon={<Icon icon="minus" />}
                     style={{ float: 'right' }}
                     color="red"
+                    disabled={disableModalControllers}
                     size="xs"
                     circle
                     onClick={openConfirmModal}
@@ -401,7 +436,11 @@ const Model = ({
                 md={24}
                 style={{ textAlign: 'right', marginTop: '10px' }}
               >
-                <PropsDisplay id={id} modelName={name} />
+                <PropsDisplay
+                  id={id}
+                  modelName={name}
+                  disableModalControllers={disableModalControllers}
+                />
               </Col>
             </Row>
           </Grid>

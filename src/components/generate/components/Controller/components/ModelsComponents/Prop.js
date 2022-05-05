@@ -39,6 +39,7 @@ const Prop = ({
   dispatch,
   inputData,
   func,
+  disableModalControllers,
 }) => {
   const [state, setState] = useState({ showPropNameModal: false, func })
   const [regexError, setRegexErrors] = useState(false)
@@ -89,6 +90,7 @@ const Prop = ({
               <Wrapper>
                 <Input
                   size="sm"
+                  disabled={disableModalControllers}
                   className={regexError ? Wrapper.dangerClass : ''}
                   placeholder="Type your regex here"
                   onChange={debouncedOnRegexUpdate}
@@ -122,6 +124,7 @@ const Prop = ({
               </Wrapper>
             ) : (
               <InputPicker
+                disabled={disableModalControllers}
                 size="sm"
                 onChange={onFuncSelect}
                 data={inputData}
@@ -148,6 +151,7 @@ const Prop = ({
             style={{ textAlign: checkIfMobile() ? 'left' : 'right' }}
           >
             <IconButton
+              disabled={disableModalControllers}
               style={{ margin: '5px' }}
               size="xs"
               icon={<Icon icon="edit" />}
@@ -161,6 +165,7 @@ const Prop = ({
               style={{ margin: '5px' }}
               icon={<Icon icon="minus" />}
               circle
+              disabled={disableModalControllers}
               size="xs"
               onClick={del}
             />

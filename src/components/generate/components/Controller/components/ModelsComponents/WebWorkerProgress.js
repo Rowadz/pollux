@@ -7,7 +7,7 @@ const WebWorkerProgress = ({ modelId, relations }) => {
   const [generated, setGenereated] = useState(0)
   const [startedWorkersCount, setStartedWorkersCount] = useState(0)
   const [currentWebWorkerModelId, setModelId] = useState('')
-  const [started, setStarted] = useState(false)
+  // const [started, setStarted] = useState(false)
   const modelSelector = useCallback(
     (state) => state.models.filter(({ id }) => id === modelId)[0],
     [modelId]
@@ -31,7 +31,7 @@ const WebWorkerProgress = ({ modelId, relations }) => {
         return ({ modelId }) => {
           counter++
           setStartedWorkersCount((prev) => prev + 1)
-          setStarted(true)
+          // setStarted(true)
           setModelId(modelId)
           if (counter === maxWorkers) {
             setTimeout(() => setGenereated(0), 1000)
@@ -52,6 +52,8 @@ const WebWorkerProgress = ({ modelId, relations }) => {
             setTimeout(() => setGenereated(0), 1000)
             setTimeout(() => setStartedWorkersCount(0), 1000)
             counter = 0
+          } else {
+            setStartedWorkersCount((prev) => prev - 1)
           }
         }
       })()
@@ -65,34 +67,53 @@ const WebWorkerProgress = ({ modelId, relations }) => {
   return (
     <FlexboxGrid justify="center" style={{ marginTop: '1rem' }}>
       <FlexboxGrid.Item>
-        Data denerated {generated} / {totalNumberOfDocumentsToBeGenerated}
-        <div style={{ width: 80 }}>
-          <Progress.Circle
-            percent={(
-              (generated / totalNumberOfDocumentsToBeGenerated) *
-              100
-            ).toFixed(2)}
-            status={
-              generated === totalNumberOfDocumentsToBeGenerated
-                ? 'success'
-                : 'active'
-            }
-          />
-        </div>
+        <FlexboxGrid
+          justify="center"
+          style={{ flexDirection: 'column' }}
+          align="middle"
+        >
+          <div>
+            Data denerated <b>{generated?.toLocaleString() || generated}</b> /{' '}
+            {totalNumberOfDocumentsToBeGenerated?.toLocaleString() ||
+              totalNumberOfDocumentsToBeGenerated}
+          </div>
+          <div style={{ width: 80 }}>
+            <Progress.Circle
+              percent={(
+                (generated / totalNumberOfDocumentsToBeGenerated) *
+                100
+              ).toFixed(2)}
+              status={
+                generated === totalNumberOfDocumentsToBeGenerated
+                  ? 'success'
+                  : 'active'
+              }
+            />
+          </div>
+        </FlexboxGrid>
       </FlexboxGrid.Item>
       <FlexboxGrid.Item style={{ flexGrow: 0.4 }} />
       <FlexboxGrid.Item>
-        Workers running {startedWorkersCount} /{' '}
-        {navigator.hardwareConcurrency || 4}
-        <div style={{ width: 80, marginLeft: 20 }}>
-          <Progress.Circle
-            strokeColor="#ffc107"
-            showInfo={false}
-            percent={Math.floor(
-              (startedWorkersCount / (navigator.hardwareConcurrency || 4)) * 100
-            )}
-          />
-        </div>
+        <FlexboxGrid
+          justify="center"
+          style={{ flexDirection: 'column' }}
+          align="middle"
+        >
+          <div>
+            Workers running <b>{startedWorkersCount}</b> /{' '}
+            {navigator.hardwareConcurrency || 4}
+          </div>
+          <div style={{ width: 80, marginLeft: 20 }}>
+            <Progress.Circle
+              strokeColor="#ffc107"
+              showInfo={false}
+              percent={Math.floor(
+                (startedWorkersCount / (navigator.hardwareConcurrency || 4)) *
+                  100
+              )}
+            />
+          </div>
+        </FlexboxGrid>
       </FlexboxGrid.Item>
     </FlexboxGrid>
   )

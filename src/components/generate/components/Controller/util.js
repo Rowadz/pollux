@@ -74,13 +74,26 @@ export const generate = (
       downloadData(res, name)
     }
   } else {
-    spawnWebWorker({ props, amount, modelId, relations, relationsProps }).then((result) => {
-      console.log(result.flat())
-      // if (justReturn) {
-      //   return result.flat()
-      // }
-      // downloadData(result.flat(), name)
-    })
+    spawnWebWorker({ props, amount, modelId, relations, relationsProps })
+      .then((result) => {
+        const data = result.flat()
+        // see https://stackoverflow.com/questions/29175877/json-stringify-throws-rangeerror-invalid-string-length-for-huge-objects
+        // stringify-ing the whole array might cause (RangeError: Invalid string length) error
+        // which means "Out Of Memory"
+        const outJSON = '[' + data.map((el) => toJSONPritty(el)).join(',') + ']'
+
+        saveAs(new Blob([outJSON], { type: 'application/json' }), name)
+        Alert.success(`Downloaded ${name}.json 👍`)
+      })
+      .catch((error) => {
+        console.group('Error generating data')
+        console.log('the error object')
+        console.error(error)
+        console.log('you can open an issue with this error in the link below')
+        console.log('https://github.com/MohammedAl-Rowad/pollux')
+        console.groupEnd()
+        Alert.success('Feels bad, we faced an error')
+      })
   }
 }
 

@@ -40,7 +40,7 @@ const CodeGenerator = ({
     const data = generate(
       props,
       name,
-      amount,
+      amount > 10_000 ? 10_000 : amount,
       relations,
       relationsProps,
       true,
@@ -74,7 +74,7 @@ const CodeGenerator = ({
       const data = generate(
         props,
         name,
-        amount,
+        amount > 10_000 ? 10_000 : amount,
         relations,
         relationsProps,
         true,
