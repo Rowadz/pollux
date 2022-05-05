@@ -39,6 +39,7 @@ const Prop = ({
   dispatch,
   inputData,
   func,
+  disableModalControllers,
 }) => {
   const [state, setState] = useState({ showPropNameModal: false, func })
   const [regexError, setRegexErrors] = useState(false)
@@ -78,16 +79,18 @@ const Prop = ({
           colSpan={6}
           style={{ textAlign: checkIfMobile() ? 'center' : 'left' }}
         >
-          <Col xs={24} sm={24} md={8}>
-            <h4>
+          <Col xs={24} sm={24} md={6}>
+            <h6>
               {icon} {name} {checkIfMobile() ? <Icon icon="circle" /> : ''}
-            </h4>
+            </h6>
           </Col>
 
-          <Col xs={24} sm={24} md={10} style={{ textAlign: 'left' }}>
+          <Col xs={24} sm={24} md={12} style={{ textAlign: 'left' }}>
             {state.func === 'regex' ? (
               <Wrapper>
                 <Input
+                  size="sm"
+                  disabled={disableModalControllers}
                   className={regexError ? Wrapper.dangerClass : ''}
                   placeholder="Type your regex here"
                   onChange={debouncedOnRegexUpdate}
@@ -121,6 +124,8 @@ const Prop = ({
               </Wrapper>
             ) : (
               <InputPicker
+                disabled={disableModalControllers}
+                size="sm"
                 onChange={onFuncSelect}
                 data={inputData}
                 defaultValue={state.func}
@@ -146,7 +151,9 @@ const Prop = ({
             style={{ textAlign: checkIfMobile() ? 'left' : 'right' }}
           >
             <IconButton
+              disabled={disableModalControllers}
               style={{ margin: '5px' }}
+              size="xs"
               icon={<Icon icon="edit" />}
               circle
               onClick={openModal}
@@ -158,6 +165,8 @@ const Prop = ({
               style={{ margin: '5px' }}
               icon={<Icon icon="minus" />}
               circle
+              disabled={disableModalControllers}
+              size="xs"
               onClick={del}
             />
           </Col>

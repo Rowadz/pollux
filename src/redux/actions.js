@@ -11,6 +11,7 @@ import {
   UPDATE_AMOUNT,
   ENABLE_AUTH,
   DISABLE_AUTH,
+  SET_PROGRESS,
 } from './actionTypes'
 
 /**
@@ -130,3 +131,10 @@ export const updateAmount = (props) => ({
 export const enableAuth = () => ({ type: ENABLE_AUTH })
 
 export const disableAuth = () => ({ type: DISABLE_AUTH })
+
+/**
+ *
+ * @param {Object} props - the prop object
+ * @param {string} props.modelId - the model uuid
+ */
+export const setProgress = (props) => ({ type: SET_PROGRESS, payload: props })

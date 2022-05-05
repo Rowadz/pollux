@@ -6,6 +6,8 @@ import JSZip from 'jszip'
 import npmCongif from '../../../../zipFileContent/package.json'
 import apiReadme from '../../../../zipFileContent/readme.md'
 
+import { spawnWebWorker } from '../../webWorker'
+
 /**
  *
  * @param {Array<any>} props
@@ -14,6 +16,7 @@ import apiReadme from '../../../../zipFileContent/readme.md'
  * @param {Array<any>} relations
  * @param {object} relationsProps
  * @param {boolean} justReturn
+ * @param {string} modelId
  */
 export const generate = (
   props,
@@ -21,7 +24,9 @@ export const generate = (
   amount,
   relations,
   relationsProps,
-  justReturn
+  justReturn,
+  modelId,
+  onlyJSON = false
 ) => {
   if (!props) {
     Alert.warning(`plz add some properties to this model (${name})`)
@@ -39,37 +44,56 @@ export const generate = (
     )
     return
   }
-  const res = generateFakeData(props, amount)
-  if (relations) {
-    // const relData = relations.reduce(
-    //   (prevObj, { id, name, amount }) => ({
-    //     ...prevObj,
-    //     [name]: generateFakeData(relationsProps[id], amount),
-    //   }),
-    //   {}
-    // )
 
-    // const resWithRelations = res.map((obj) => ({ ...obj, ...relData }))
-
-    const resWithRelations = res.map((obj) => ({
-      ...obj,
-      ...relations.reduce(
-        (prev, { name, id }) => ({
-          ...prev,
-          [name]: generateFakeData(relationsProps[id], 10),
-        }),
-        {}
-      ),
-    }))
-    if (justReturn) {
-      return resWithRelations
+  if ((!window.Worker || amount < 10000 || relations) && !onlyJSON) {
+    if (amount > 10000) {
+      Alert.info(
+        'This browser do not support web workers, generating data on the main thread 🧵'
+      )
     }
-    downloadData(resWithRelations, name)
+    const res = generateFakeData(props, amount)
+    if (relations) {
+      const resWithRelations = res.map((obj) => ({
+        ...obj,
+        ...relations.reduce(
+          (prev, { name, id }) => ({
+            ...prev,
+            [name]: generateFakeData(relationsProps[id], 10),
+          }),
+          {}
+        ),
+      }))
+      if (justReturn) {
+        return resWithRelations
+      }
+      downloadData(resWithRelations, name)
+    } else {
+      if (justReturn) {
+        return res
+      }
+      downloadData(res, name)
+    }
   } else {
-    if (justReturn) {
-      return res
-    }
-    downloadData(res, name)
+    spawnWebWorker({ props, amount, modelId, relations, relationsProps })
+      .then((result) => {
+        const data = result.flat()
+        // see https://stackoverflow.com/questions/29175877/json-stringify-throws-rangeerror-invalid-string-length-for-huge-objects
+        // stringify-ing the whole array might cause (RangeError: Invalid string length) error
+        // which means "Out Of Memory"
+        const outJSON = '[' + data.map((el) => toJSONPritty(el)).join(',') + ']'
+
+        saveAs(new Blob([outJSON], { type: 'application/json' }), name)
+        Alert.success(`Downloaded ${name}.json 👍`)
+      })
+      .catch((error) => {
+        console.group('Error generating data')
+        console.log('the error object')
+        console.error(error)
+        console.log('you can open an issue with this error in the link below')
+        console.log('https://github.com/MohammedAl-Rowad/pollux')
+        console.groupEnd()
+        Alert.success('Feels bad, we faced an error')
+      })
   }
 }
 
@@ -159,6 +183,7 @@ export const relationsGetter = (state, modelId) =>
  * @param {object} relationsProps
  * @param {Array<any> | undefined} data
  * @param {boolean} auth
+ * @param {string} modelId
  */
 export const generateAPI = async (
   name,
@@ -167,7 +192,8 @@ export const generateAPI = async (
   relations,
   relationsProps,
   data,
-  auth
+  auth,
+  modelId
 ) => {
   try {
     if (!props && !data) {
@@ -188,7 +214,8 @@ export const generateAPI = async (
                 amount,
                 relations,
                 relationsProps,
-                true
+                true,
+                modelId
               ),
             }
       )

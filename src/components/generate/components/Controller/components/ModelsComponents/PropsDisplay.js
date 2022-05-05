@@ -4,7 +4,7 @@ import cat from './cat.svg'
 import { List } from 'rsuite'
 import Prop from './Prop'
 
-const PropsDisplay = ({ id, props, modelName }) => {
+const PropsDisplay = ({ id, props, modelName, disableModalControllers }) => {
   const propsEl =
     props && props?.length > 0 ? (
       <List hover>
@@ -17,6 +17,7 @@ const PropsDisplay = ({ id, props, modelName }) => {
             id={uuid}
             modelId={id}
             modelName={modelName}
+            disableModalControllers={disableModalControllers}
             {...others}
           />
         ))}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { SiJavascript, SiPython, SiPhp, SiRuby } from 'react-icons/si'
 import { DiMysql } from 'react-icons/di'
@@ -12,6 +12,7 @@ import {
   Col,
   Whisper,
   Tooltip,
+  FlexboxGrid,
   Tag,
   Badge,
   InputNumber,
@@ -42,6 +43,8 @@ import {
 import { useDrop } from 'react-dnd'
 import CodeGenerator from './CodeGenerator'
 import RenderLangIcon from './RenderLangIcon'
+import WebWorkerProgress from './WebWorkerProgress'
+import { eventEmitter } from 'components/generate/webWorker/eventEmitter'
 
 const Model = ({
   dispatch,
@@ -53,6 +56,7 @@ const Model = ({
   isTourOpen,
   faker,
   auth,
+  checkedModels,
 }) => {
   const [state, setState] = useState({
     showConfirmModal: false,
@@ -63,6 +67,7 @@ const Model = ({
 
   const [lang, setLang] = useState('ruby')
   const [showModal, setShowModal] = useState(false)
+  const [disableModalControllers, setDisableModalControllers] = useState(false)
 
   const [{ canDrop, hovered }, drop] = useDrop({
     accept: [
@@ -91,6 +96,27 @@ const Model = ({
       Alert.success(`Added the ${data.propName} props`)
     },
   })
+
+  useEffect(() => {
+    eventEmitter.on('STARTED', () => {
+      setDisableModalControllers(true)
+    })
+    eventEmitter.on(
+      'STOPPED',
+      (() => {
+        const maxWorkers = navigator.hardwareConcurrency || 4
+        let counter = 0
+        return () => {
+          counter++
+          // means that all the workers are done
+          if (counter === maxWorkers) {
+            setDisableModalControllers(false)
+            counter = 0
+          }
+        }
+      })()
+    )
+  }, [])
 
   const delToolTip = (
     <Tooltip>
@@ -164,14 +190,31 @@ const Model = ({
           </Tooltip>
         }
       >
-        <IconButton
-          id={isTourOpen ? 'create-a-relationship-btn' : null}
-          icon={<Icon icon="link" />}
-          style={{ marginLeft: '5px' }}
-          onClick={openCreateRelModal}
-        >
-          Create 1:m relations
-        </IconButton>
+        {checkedModels.size ? (
+          <Badge content={checkedModels.size}>
+            <IconButton
+              disabled={disableModalControllers}
+              id={isTourOpen ? 'create-a-relationship-btn' : null}
+              icon={<Icon icon="link" />}
+              style={{ marginLeft: '5px' }}
+              size="xs"
+              onClick={openCreateRelModal}
+            >
+              Create 1:m relations
+            </IconButton>
+          </Badge>
+        ) : (
+          <IconButton
+            id={isTourOpen ? 'create-a-relationship-btn' : null}
+            icon={<Icon icon="link" />}
+            style={{ marginLeft: '5px' }}
+            size="xs"
+            disabled={disableModalControllers}
+            onClick={openCreateRelModal}
+          >
+            Create 1:m relations
+          </IconButton>
+        )}
       </Whisper>
       <Whisper
         placement="right"
@@ -185,6 +228,8 @@ const Model = ({
         <IconButton
           id={isTourOpen ? 'create-a-api-btn' : null}
           icon={<Icon icon="twinkle-star" />}
+          size="xs"
+          disabled={disableModalControllers}
           style={{ marginLeft: '5px' }}
           onClick={() =>
             generateAPI(
@@ -194,7 +239,8 @@ const Model = ({
               relations,
               relationsProps,
               null,
-              auth
+              auth,
+              id
             )
           }
         >
@@ -224,102 +270,138 @@ const Model = ({
           <Grid fluid>
             <Row>
               <Col xs={24} sm={24} md={24}>
-                <Whisper placement="right" trigger="hover" speaker={addKeyTip}>
-                  <IconButton
-                    icon={<Icon icon="plus" />}
-                    id={isTourOpen ? 'add-attribute-btn' : null}
-                    onClick={openPropNameModal}
-                  >
-                    Add attribute
-                  </IconButton>
-                </Whisper>
-                <Whisper
-                  placement="right"
-                  trigger="hover"
-                  speaker={generateTip}
-                >
-                  <IconButton
-                    id={isTourOpen ? 'generate-data-btn' : null}
-                    style={{ marginLeft: '5px' }}
-                    icon={<Icon icon="magic2" />}
-                    onClick={() =>
-                      generate(props, name, amount, relations, relationsProps)
-                    }
-                  >
-                    Generate JSON
-                  </IconButton>
-                </Whisper>
-                <Whisper
-                  placement="right"
-                  trigger="hover"
-                  speaker={
-                    <Tooltip>
-                      Click here to generate a <b>{lang}</b> code for this model
-                      for .
-                    </Tooltip>
-                  }
-                >
-                  <ButtonGroup style={{ marginLeft: '5px' }}>
-                    <Button onClick={() => setShowModal(true)}>
-                      <RenderLangIcon lang={lang} />
-                    </Button>
-                    <Dropdown
-                      placement="bottomEnd"
-                      onSelect={(selectedLang) => {
-                        setLang(selectedLang)
-                      }}
-                      renderTitle={() => {
-                        return (
-                          <IconButton
-                            icon={<Icon icon="angle-double-down" />}
-                          />
-                        )
-                      }}
+                <FlexboxGrid justify="start">
+                  <FlexboxGrid.Item>
+                    <Whisper
+                      placement="right"
+                      trigger="hover"
+                      speaker={addKeyTip}
                     >
-                      <Dropdown.Item
-                        eventKey="php"
-                        icon={<SiPhp size="1.5rem" color="#474A8A" />}
-                      />
-                      <Dropdown.Item
-                        eventKey="python"
-                        icon={<SiPython size="1.5rem" color="#34709f" />}
-                      />
-                      <Dropdown.Item
-                        eventKey="javascript"
-                        icon={<SiJavascript size="1.5rem" color="#e8d44d" />}
-                      />
-                      <Dropdown.Item
-                        eventKey="ruby"
-                        icon={<SiRuby size="1.5rem" color="#e51521" />}
-                      />
-                      <Dropdown.Item
-                        eventKey="sql"
-                        icon={<DiMysql size="1.5rem" color="#F2913D" />}
-                      />
-                    </Dropdown>
-                  </ButtonGroup>
-                </Whisper>
+                      <IconButton
+                        disabled={disableModalControllers}
+                        icon={<Icon icon="plus" />}
+                        size="xs"
+                        id={isTourOpen ? 'add-attribute-btn' : null}
+                        onClick={openPropNameModal}
+                      >
+                        Add attribute
+                      </IconButton>
+                    </Whisper>
+                  </FlexboxGrid.Item>
+                  <FlexboxGrid.Item>
+                    <Whisper
+                      placement="right"
+                      trigger="hover"
+                      speaker={generateTip}
+                    >
+                      <IconButton
+                        id={isTourOpen ? 'generate-data-btn' : null}
+                        style={{ marginLeft: '5px' }}
+                        size="xs"
+                        disabled={disableModalControllers}
+                        icon={<Icon icon="magic2" />}
+                        onClick={() =>
+                          generate(
+                            props,
+                            name,
+                            amount,
+                            relations,
+                            relationsProps,
+                            false,
+                            id,
+                            true
+                          )
+                        }
+                      >
+                        Generate JSON
+                      </IconButton>
+                    </Whisper>
+                  </FlexboxGrid.Item>
+                  <FlexboxGrid.Item>
+                    <Whisper
+                      placement="right"
+                      trigger="hover"
+                      speaker={
+                        <Tooltip>
+                          Click here to generate a <b>{lang}</b> code for this
+                          model for .
+                        </Tooltip>
+                      }
+                    >
+                      <ButtonGroup style={{ marginLeft: '5px' }}>
+                        <Button
+                          disabled={disableModalControllers}
+                          onClick={() => setShowModal(true)}
+                          size="xs"
+                        >
+                          <RenderLangIcon lang={lang} />
+                        </Button>
+                        <Dropdown
+                          disabled={disableModalControllers}
+                          placement="bottomEnd"
+                          onSelect={(selectedLang) => {
+                            setLang(selectedLang)
+                          }}
+                          renderTitle={() => {
+                            return (
+                              <IconButton
+                                size="xs"
+                                icon={<Icon icon="angle-double-down" />}
+                              />
+                            )
+                          }}
+                        >
+                          <Dropdown.Item
+                            eventKey="php"
+                            icon={<SiPhp size="1.5rem" color="#474A8A" />}
+                          />
+                          <Dropdown.Item
+                            eventKey="python"
+                            icon={<SiPython size="1.5rem" color="#34709f" />}
+                          />
+                          <Dropdown.Item
+                            eventKey="javascript"
+                            icon={
+                              <SiJavascript size="1.5rem" color="#e8d44d" />
+                            }
+                          />
+                          <Dropdown.Item
+                            eventKey="ruby"
+                            icon={<SiRuby size="1.5rem" color="#e51521" />}
+                          />
+                          <Dropdown.Item
+                            eventKey="sql"
+                            icon={<DiMysql size="1.5rem" color="#F2913D" />}
+                          />
+                        </Dropdown>
+                      </ButtonGroup>
+                    </Whisper>
+                  </FlexboxGrid.Item>
+                  <FlexboxGrid.Item style={{ marginLeft: '5px' }}>
+                    <InputNumber
+                      size="xs"
+                      disabled={disableModalControllers}
+                      defaultValue={amount}
+                      max={1000000}
+                      min={1}
+                      onChange={changeAmount}
+                    />
+                  </FlexboxGrid.Item>
+                </FlexboxGrid>
 
-                <div
-                  style={{
-                    width: 100,
-                    display: 'inline',
-                    position: 'absolute',
-                    paddingLeft: 10,
-                  }}
-                >
-                  <InputNumber
-                    defaultValue={amount}
-                    max={100000}
-                    min={1}
-                    onChange={changeAmount}
-                  />
-                </div>
+                <WebWorkerProgress
+                  modelId={id}
+                  relations={relations}
+                  relationsProps={relationsProps}
+                />
+
                 <Whisper placement="left" trigger="hover" speaker={delToolTip}>
                   <IconButton
                     icon={<Icon icon="minus" />}
                     style={{ float: 'right' }}
                     color="red"
+                    disabled={disableModalControllers}
+                    size="xs"
                     circle
                     onClick={openConfirmModal}
                   />
@@ -354,7 +436,11 @@ const Model = ({
                 md={24}
                 style={{ textAlign: 'right', marginTop: '10px' }}
               >
-                <PropsDisplay id={id} modelName={name} />
+                <PropsDisplay
+                  id={id}
+                  modelName={name}
+                  disableModalControllers={disableModalControllers}
+                />
               </Col>
             </Row>
           </Grid>
@@ -366,6 +452,7 @@ const Model = ({
           lang={lang}
           name={name}
           amount={amount}
+          id={id}
           props={props}
           relations={relations}
           relationsProps={relationsProps}
@@ -384,4 +471,5 @@ export default connect((state, ownProps) => ({
   relationsProps: relationsPropsGetter(state, ownProps.model.id),
   faker: state.faker,
   auth: state.auth,
+  checkedModels: new Set(state.relations[ownProps.model.id] || []),
 }))(Model)

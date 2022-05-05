@@ -6,12 +6,10 @@ import Pollux from './App'
 import { Provider } from 'react-redux'
 import store from './redux/store'
 
-if(module.hot){
+if (module.hot) {
   module.hot.accept()
 }
 
-// console.log(store.getState())
-// store.subscribe(() => console.log(store.getState()))
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

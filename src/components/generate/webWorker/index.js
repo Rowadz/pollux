@@ -1,0 +1,1 @@
+export { spawnWebWorker } from './spawn'
