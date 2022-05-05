@@ -1,6 +1,6 @@
-import mitt from 'mitt'
+import Emittery from 'emittery'
 
-export const eventEmitter = mitt()
+export const eventEmitter = new Emittery();
 
 // eventEmitter.on('DOCUMENT_GENERATED', ({ modelId }) => {
 //   postMessage({})

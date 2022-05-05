@@ -3,12 +3,17 @@ import worker from 'workerize-loader!./dataGenerateWebWorker'
 import { eventEmitter } from './eventEmitter'
 
 // this runs in a web worker
-export const spawnWebWorker = async ({ props, amount, modelId }) => {
-  const generateWorker = worker()
-  generateWorker.onmessage = ({ data }) => {
-    // here you have an access to the window object!
-    console.log(data)
-    eventEmitter.emit(data.type, { ...data })
-  }
-  return generateWorker.startGenerating(props, amount, modelId)
+export const spawnWebWorker = async ({ props, amount, modelId, relations, relationsProps }) => {
+  const maxWorkers = navigator.hardwareConcurrency || 4
+  console.log(`%cUsing ${maxWorkers} workers`, 'color: lightsalmon;')
+  const allWorkers = Array.from({ length: maxWorkers }).map(() => {
+    const webWorker = worker()
+    webWorker.onmessage = ({ data }) => {
+      // here you have an access to the window object!
+      eventEmitter.emit(data.type, { ...data })
+    }
+    return webWorker.startGenerating(props, amount / maxWorkers, modelId, relations, relationsProps)
+  })
+
+  return await Promise.all(allWorkers)
 }

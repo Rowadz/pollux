@@ -55,6 +55,7 @@ const Model = ({
   isTourOpen,
   faker,
   auth,
+  checkedModels,
 }) => {
   const [state, setState] = useState({
     showConfirmModal: false,
@@ -166,15 +167,29 @@ const Model = ({
           </Tooltip>
         }
       >
-        <IconButton
-          id={isTourOpen ? 'create-a-relationship-btn' : null}
-          icon={<Icon icon="link" />}
-          style={{ marginLeft: '5px' }}
-          size="xs"
-          onClick={openCreateRelModal}
-        >
-          Create 1:m relations
-        </IconButton>
+        {checkedModels.size ? (
+          <Badge content={checkedModels.size}>
+            <IconButton
+              id={isTourOpen ? 'create-a-relationship-btn' : null}
+              icon={<Icon icon="link" />}
+              style={{ marginLeft: '5px' }}
+              size="xs"
+              onClick={openCreateRelModal}
+            >
+              Create 1:m relations
+            </IconButton>
+          </Badge>
+        ) : (
+          <IconButton
+            id={isTourOpen ? 'create-a-relationship-btn' : null}
+            icon={<Icon icon="link" />}
+            style={{ marginLeft: '5px' }}
+            size="xs"
+            onClick={openCreateRelModal}
+          >
+            Create 1:m relations
+          </IconButton>
+        )}
       </Whisper>
       <Whisper
         placement="right"
@@ -265,7 +280,8 @@ const Model = ({
                             relations,
                             relationsProps,
                             false,
-                            id
+                            id,
+                            true
                           )
                         }
                       >
@@ -339,7 +355,11 @@ const Model = ({
                   </FlexboxGrid.Item>
                 </FlexboxGrid>
 
-                <WebWorkerProgress modelId={id} />
+                <WebWorkerProgress
+                  modelId={id}
+                  relations={relations}
+                  relationsProps={relationsProps}
+                />
 
                 <Whisper placement="left" trigger="hover" speaker={delToolTip}>
                   <IconButton
@@ -412,4 +432,5 @@ export default connect((state, ownProps) => ({
   relationsProps: relationsPropsGetter(state, ownProps.model.id),
   faker: state.faker,
   auth: state.auth,
+  checkedModels: new Set(state.relations[ownProps.model.id] || []),
 }))(Model)

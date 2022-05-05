@@ -25,7 +25,8 @@ export const generate = (
   relations,
   relationsProps,
   justReturn,
-  modelId
+  modelId,
+  onlyJSON = false
 ) => {
   if (!props) {
     Alert.warning(`plz add some properties to this model (${name})`)
@@ -44,8 +45,8 @@ export const generate = (
     return
   }
 
-  if (true) {
-    if (amount > 5000) {
+  if ((!window.Worker || amount < 10000 || relations) && !onlyJSON) {
+    if (amount > 10000) {
       Alert.info(
         'This browser do not support web workers, generating data on the main thread 🧵'
       )
@@ -73,11 +74,12 @@ export const generate = (
       downloadData(res, name)
     }
   } else {
-    spawnWebWorker({ props, amount, modelId }).then((result) => {
-      if (justReturn) {
-        return result
-      }
-      downloadData(result, name)
+    spawnWebWorker({ props, amount, modelId, relations, relationsProps }).then((result) => {
+      console.log(result.flat())
+      // if (justReturn) {
+      //   return result.flat()
+      // }
+      // downloadData(result.flat(), name)
     })
   }
 }

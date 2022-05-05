@@ -9,14 +9,7 @@ import store from './redux/store'
 if (module.hot) {
   module.hot.accept()
 }
-// store.subscribe
-store.subscribe(() => {
-  console.log(store.getState())
-})
-window.store = store
 
-// console.log(store.getState())
-// store.subscribe(() => console.log(store.getState()))
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

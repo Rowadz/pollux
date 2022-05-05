@@ -1,7 +1,30 @@
 import * as faker from 'faker'
 import RandExp from 'randexp'
 
-export const startGenerating = (props, amount, modelId) => {
+export const startGenerating = async (
+  props,
+  amount,
+  modelId,
+  relations,
+  relationsProps
+) => {
+  if (relations) {
+    postMessage({ type: 'STARTED', amount, modelId })
+    const res = generateFakeData(props, amount)
+    const resWithRelations = res.map((obj) => ({
+      ...obj,
+      ...relations.reduce(
+        (prev, { name, id, amount }) => ({
+          ...prev,
+          [name]: generateFakeData(relationsProps[id], amount),
+        }),
+        {}
+      ),
+    }))
+    postMessage({ type: 'STOPPED', amount, modelId })
+    return resWithRelations
+  }
+
   const data = generateFakeData(props, amount, modelId)
   postMessage({ type: 'STOPPED', amount, modelId })
   return data
@@ -16,7 +39,7 @@ export const startGenerating = (props, amount, modelId) => {
  *
  */
 const generateFakeData = (props, amount, modelId) => {
-  postMessage({ type: 'STARTED', amount, modelId })
+  // postMessage({ type: 'STARTED', amount, modelId })
   return Array.from({ length: amount }).map(() => {
     const singleDocument = props.reduce(
       (prev, { propName, groupName, func, regex: regexStr }) => {
