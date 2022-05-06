@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/pollux/static/css/main.3f9d51f4.chunk.css",
-    "main.js": "/pollux/static/js/main.5afdf7ba.chunk.js",
-    "main.js.map": "/pollux/static/js/main.5afdf7ba.chunk.js.map",
+    "main.js": "/pollux/static/js/main.305ce526.chunk.js",
+    "main.js.map": "/pollux/static/js/main.305ce526.chunk.js.map",
     "runtime-main.js": "/pollux/static/js/runtime-main.5df1e606.js",
     "runtime-main.js.map": "/pollux/static/js/runtime-main.5df1e606.js.map",
     "static/css/2.836bfbcd.chunk.css": "/pollux/static/css/2.836bfbcd.chunk.css",
-    "static/js/2.b6a990e7.chunk.js": "/pollux/static/js/2.b6a990e7.chunk.js",
-    "static/js/2.b6a990e7.chunk.js.map": "/pollux/static/js/2.b6a990e7.chunk.js.map",
+    "static/js/2.6665f198.chunk.js": "/pollux/static/js/2.6665f198.chunk.js",
+    "static/js/2.6665f198.chunk.js.map": "/pollux/static/js/2.6665f198.chunk.js.map",
     "8bc524c5955bf3864253.worker.js": "/pollux/8bc524c5955bf3864253.worker.js",
     "8bc524c5955bf3864253.worker.js.map": "/pollux/8bc524c5955bf3864253.worker.js.map",
     "index.html": "/pollux/index.html",
-    "precache-manifest.b6a0ef05da7f8d270d0b3a7788533629.js": "/pollux/precache-manifest.b6a0ef05da7f8d270d0b3a7788533629.js",
+    "precache-manifest.a37e76a2c0a7a3c19f2b8d50e2fd8c77.js": "/pollux/precache-manifest.a37e76a2c0a7a3c19f2b8d50e2fd8c77.js",
     "service-worker.js": "/pollux/service-worker.js",
     "static/css/2.836bfbcd.chunk.css.map": "/pollux/static/css/2.836bfbcd.chunk.css.map",
     "static/css/main.3f9d51f4.chunk.css.map": "/pollux/static/css/main.3f9d51f4.chunk.css.map",
-    "static/js/2.b6a990e7.chunk.js.LICENSE.txt": "/pollux/static/js/2.b6a990e7.chunk.js.LICENSE.txt",
+    "static/js/2.6665f198.chunk.js.LICENSE.txt": "/pollux/static/js/2.6665f198.chunk.js.LICENSE.txt",
     "static/media/box.svg": "/pollux/static/media/box.d0bcb7b7.svg",
     "static/media/cat.svg": "/pollux/static/media/cat.4333af26.svg",
     "static/media/empty.svg": "/pollux/static/media/empty.7448158e.svg",
@@ -28,8 +28,8 @@
   "entrypoints": [
     "static/js/runtime-main.5df1e606.js",
     "static/css/2.836bfbcd.chunk.css",
-    "static/js/2.b6a990e7.chunk.js",
+    "static/js/2.6665f198.chunk.js",
     "static/css/main.3f9d51f4.chunk.css",
-    "static/js/main.5afdf7ba.chunk.js"
+    "static/js/main.305ce526.chunk.js"
   ]
 }
