@@ -251,7 +251,7 @@ const Model = ({
             )
           }
         >
-          Generate GraphQL API
+          Generate Restful API
         </IconButton>
       </Whisper>
       <Whisper
