@@ -5,6 +5,8 @@ import RandExp from 'randexp'
 import JSZip from 'jszip'
 import npmCongif from '../../../../zipFileContent/package.json'
 import apiReadme from '../../../../zipFileContent/readme.md'
+import npmCongifGraphql from '../../../../graphqlZipContent/package.json'
+import graphqlReadme from '../../../../graphqlZipContent/readme.md'
 
 import { spawnWebWorker } from '../../webWorker'
 
@@ -74,7 +76,7 @@ export const generate = (
       downloadData(res, name)
     }
   } else {
-    spawnWebWorker({ props, amount, modelId, relations, relationsProps })
+    return spawnWebWorker({ props, amount, modelId, relations, relationsProps })
       .then((result) => {
         const data = result.flat()
         // see https://stackoverflow.com/questions/29175877/json-stringify-throws-rangeerror-invalid-string-length-for-huge-objects
@@ -82,6 +84,9 @@ export const generate = (
         // which means "Out Of Memory"
         const outJSON = '[' + data.map((el) => toJSONPritty(el)).join(',') + ']'
 
+        if (justReturn) {
+          return outJSON
+        }
         saveAs(new Blob([outJSON], { type: 'application/json' }), name)
         Alert.success(`Downloaded ${name}.json 👍`)
       })
@@ -230,6 +235,62 @@ export const generateAPI = async (
       'Something went wrong while generating your API, please checkout the console'
     )
     console.group('Error generating the API')
+    console.log('the error object')
+    console.error(error)
+    console.log('you can open an issue with this error in the link below')
+    console.log('https://github.com/MohammedAl-Rowad/pollux')
+    console.groupEnd()
+  }
+}
+
+/**
+ *
+ * @param {string} name - the model name
+ * @param {Array<any>} props
+ * @param {number} amount
+ * @param {Array<any>} relations
+ * @param {object} relationsProps
+ * @param {Array<any> | undefined} data
+ * @param {string} modelId
+ */
+export const generateGraphqlAPI = async (
+  name,
+  props,
+  amount,
+  relations,
+  relationsProps,
+  modelId
+) => {
+  try {
+    if (!props) {
+      Alert.warning(`plz add some properties to this model (${name})`)
+      return
+    }
+    const zip = new JSZip()
+    zip.file('package.json', toJSONPritty(npmCongifGraphql()))
+    const jsonStr = await generate(
+      props,
+      name,
+      amount,
+      relations,
+      relationsProps,
+      true,
+      modelId,
+      true
+    )
+
+    zip.file('db.json', '{"' + name + '":' + jsonStr + '}')
+    zip.file('README.md', graphqlReadme(name))
+
+    const zipContent = await zip.generateAsync({ type: 'blob' })
+    saveAs(zipContent, 'pollux-graphql.zip')
+
+    Alert.success(`Downloaded pollux-graphql.zip 👍`)
+  } catch (error) {
+    Alert.error(
+      'Something went wrong while generating your API, please checkout the console'
+    )
+    console.group('Error generating the GraphQL API')
     console.log('the error object')
     console.error(error)
     console.log('you can open an issue with this error in the link below')

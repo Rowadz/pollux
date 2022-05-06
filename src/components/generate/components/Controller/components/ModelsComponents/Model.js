@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { SiJavascript, SiPython, SiPhp, SiRuby } from 'react-icons/si'
+import {
+  SiJavascript,
+  SiPython,
+  SiPhp,
+  SiRuby,
+  SiGraphql,
+} from 'react-icons/si'
 import { DiMysql } from 'react-icons/di'
 import {
   Icon,
@@ -31,6 +37,7 @@ import {
   relationsPropsGetter,
   relationsGetter,
   generateAPI,
+  generateGraphqlAPI,
 } from '../../util'
 
 import {
@@ -244,7 +251,40 @@ const Model = ({
             )
           }
         >
-          Generate Restful API
+          Generate GraphQL API
+        </IconButton>
+      </Whisper>
+      <Whisper
+        placement="right"
+        trigger="hover"
+        speaker={
+          <Tooltip>
+            Click here to generate a GraphQL API from this model
+          </Tooltip>
+        }
+      >
+        <IconButton
+          id={isTourOpen ? 'create-a-graphql-btn' : null}
+          icon={
+            <i className="rs-icon">
+              <SiGraphql color="#dd34a6" />
+            </i>
+          }
+          size="xs"
+          disabled={disableModalControllers}
+          style={{ marginLeft: '5px' }}
+          onClick={() =>
+            generateGraphqlAPI(
+              name,
+              props,
+              amount,
+              relations,
+              relationsProps,
+              id
+            )
+          }
+        >
+          Generate GraphQL API
         </IconButton>
       </Whisper>
       <div ref={drop}>
@@ -353,25 +393,23 @@ const Model = ({
                         >
                           <Dropdown.Item
                             eventKey="php"
-                            icon={<SiPhp size="1.5rem" color="#474A8A" />}
+                            icon={<SiPhp size="1rem" color="#474A8A" />}
                           />
                           <Dropdown.Item
                             eventKey="python"
-                            icon={<SiPython size="1.5rem" color="#34709f" />}
+                            icon={<SiPython size="1rem" color="#34709f" />}
                           />
                           <Dropdown.Item
                             eventKey="javascript"
-                            icon={
-                              <SiJavascript size="1.5rem" color="#e8d44d" />
-                            }
+                            icon={<SiJavascript size="1rem" color="#e8d44d" />}
                           />
                           <Dropdown.Item
                             eventKey="ruby"
-                            icon={<SiRuby size="1.5rem" color="#e51521" />}
+                            icon={<SiRuby size="1rem" color="#e51521" />}
                           />
                           <Dropdown.Item
                             eventKey="sql"
-                            icon={<DiMysql size="1.5rem" color="#F2913D" />}
+                            icon={<DiMysql size="1rem" color="#F2913D" />}
                           />
                         </Dropdown>
                       </ButtonGroup>

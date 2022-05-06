@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Grid,
   Row,
@@ -21,7 +21,23 @@ import {
   generateAPI,
 } from './util'
 
-const steps = [
+const mapSteps = (obj) => ({
+  ...obj,
+  style: {
+    color:
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? '#f7f7fa'
+        : '#0f131a',
+    backgroundColor:
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? '#0f131a'
+        : '#f7f7fa',
+  },
+})
+
+let steps = [
   {
     selector: '#add-prototype-btn',
     content: 'Click here to create new model aka prototype',
@@ -91,17 +107,31 @@ const steps = [
           <li>unzip the folder</li>
           <li>`cd pollux-api`</li>
           <li>`npm i`</li>
+          <li>`npm run dev`</li>
         </ul>
         <p>then you are done</p>
       </>
     ),
   },
-].map((obj) => ({
-  ...obj,
-  style: {
-    backgroundColor: '#0f131a',
+  {
+    selector: '#create-a-graphql-btn',
+    content: () => (
+      <>
+        <p>
+          Click here to generate a GraphQL API from this model, after generation
+          you just need to
+        </p>
+        <ul>
+          <li>unzip the folder</li>
+          <li>`cd pollux-api`</li>
+          <li>`npm i`</li>
+          <li>`npm run dev`</li>
+        </ul>
+        <p>then you are done</p>
+      </>
+    ),
   },
-}))
+].map(mapSteps)
 
 const generateAPIForAll = (models, prop, relations, auth) => {
   if (models.length === 0) {
@@ -135,6 +165,14 @@ const generateAPIForAll = (models, prop, relations, auth) => {
 
 function Controller({ models, prop, relations, auth, dispatch }) {
   const [isTourOpen, setIsTourOpen] = useState(false)
+  useEffect(() => {
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', (e) => {
+        setIsTourOpen(false)
+        steps = steps.map(mapSteps)
+      })
+  }, [])
   return (
     <Grid fluid>
       <Row>
