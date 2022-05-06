@@ -4,7 +4,7 @@ import { IconButton, Icon } from 'rsuite'
 const FooterComp = () => {
   return (
     <section style={{ textAlign: 'center' }}>
-      Made by <b>Rowad</b>{' '}
+      Made by <b>Rowadz</b>{' '}
       <a
         href="https://www.linkedin.com/in/mohammed-al-rowad/"
         target="_blank"
