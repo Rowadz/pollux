@@ -1,35 +1,34 @@
 {
   "files": {
     "main.css": "/pollux/static/css/main.3f9d51f4.chunk.css",
-    "main.js": "/pollux/static/js/main.305ce526.chunk.js",
-    "main.js.map": "/pollux/static/js/main.305ce526.chunk.js.map",
+    "main.js": "/pollux/static/js/main.c72fd6b2.chunk.js",
+    "main.js.map": "/pollux/static/js/main.c72fd6b2.chunk.js.map",
     "runtime-main.js": "/pollux/static/js/runtime-main.5df1e606.js",
     "runtime-main.js.map": "/pollux/static/js/runtime-main.5df1e606.js.map",
     "static/css/2.836bfbcd.chunk.css": "/pollux/static/css/2.836bfbcd.chunk.css",
-    "static/js/2.6665f198.chunk.js": "/pollux/static/js/2.6665f198.chunk.js",
-    "static/js/2.6665f198.chunk.js.map": "/pollux/static/js/2.6665f198.chunk.js.map",
+    "static/js/2.d2434258.chunk.js": "/pollux/static/js/2.d2434258.chunk.js",
+    "static/js/2.d2434258.chunk.js.map": "/pollux/static/js/2.d2434258.chunk.js.map",
     "8bc524c5955bf3864253.worker.js": "/pollux/8bc524c5955bf3864253.worker.js",
     "8bc524c5955bf3864253.worker.js.map": "/pollux/8bc524c5955bf3864253.worker.js.map",
     "index.html": "/pollux/index.html",
-    "precache-manifest.a37e76a2c0a7a3c19f2b8d50e2fd8c77.js": "/pollux/precache-manifest.a37e76a2c0a7a3c19f2b8d50e2fd8c77.js",
+    "precache-manifest.1c6766b4ed20005f3679f28402a8ad16.js": "/pollux/precache-manifest.1c6766b4ed20005f3679f28402a8ad16.js",
     "service-worker.js": "/pollux/service-worker.js",
     "static/css/2.836bfbcd.chunk.css.map": "/pollux/static/css/2.836bfbcd.chunk.css.map",
     "static/css/main.3f9d51f4.chunk.css.map": "/pollux/static/css/main.3f9d51f4.chunk.css.map",
-    "static/js/2.6665f198.chunk.js.LICENSE.txt": "/pollux/static/js/2.6665f198.chunk.js.LICENSE.txt",
-    "static/media/box.svg": "/pollux/static/media/box.d0bcb7b7.svg",
+    "static/js/2.d2434258.chunk.js.LICENSE.txt": "/pollux/static/js/2.d2434258.chunk.js.LICENSE.txt",
     "static/media/cat.svg": "/pollux/static/media/cat.4333af26.svg",
+    "static/media/data-extraction.svg": "/pollux/static/media/data-extraction.542aacd4.svg",
     "static/media/empty.svg": "/pollux/static/media/empty.7448158e.svg",
     "static/media/emptySave.svg": "/pollux/static/media/emptySave.10032122.svg",
-    "static/media/features.svg": "/pollux/static/media/features.ac13338d.svg",
+    "static/media/faq.svg": "/pollux/static/media/faq.6e6fcb3b.svg",
     "static/media/loadModels.svg": "/pollux/static/media/loadModels.a2b0ac77.svg",
-    "static/media/prototype.svg": "/pollux/static/media/prototype.ea2fca44.svg",
-    "static/media/prototype2.svg": "/pollux/static/media/prototype2.f4e51a29.svg"
+    "static/media/prototype.svg": "/pollux/static/media/prototype.ea2fca44.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.5df1e606.js",
     "static/css/2.836bfbcd.chunk.css",
-    "static/js/2.6665f198.chunk.js",
+    "static/js/2.d2434258.chunk.js",
     "static/css/main.3f9d51f4.chunk.css",
-    "static/js/main.305ce526.chunk.js"
+    "static/js/main.c72fd6b2.chunk.js"
   ]
 }
