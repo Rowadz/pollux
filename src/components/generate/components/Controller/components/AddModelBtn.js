@@ -39,7 +39,7 @@ const AddModelBtn = ({ dispatch }) => {
         style={{ width: '100%' }}
         icon={<Icon icon="plus" />}
       >
-        Add a model prototype
+        Add a model
       </IconButton>
       <Modal
         show={state.showNameModal}
@@ -50,8 +50,10 @@ const AddModelBtn = ({ dispatch }) => {
           <Title>Choose the model name</Title>
         </Header>
         <Body>
-          <p>Click <span className="note">`Enter`</span> to create the model or 
-          <span className="note">`esc`</span> to close this model</p>
+          <p>
+            Click <span className="note">`Enter`</span> to create the model or
+            <span className="note">`esc`</span> to close this model
+          </p>
           <Input
             onPressEnter={onEnter}
             onChange={inputChange}

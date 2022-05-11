@@ -1,217 +1,188 @@
 import React from 'react'
-import {
-  Grid,
-  Row,
-  Col,
-  Panel,
-  Divider,
-  Icon,
-  Message,
-  IconButton,
-} from 'rsuite'
+import { Col, FlexboxGrid } from 'rsuite'
 import prototype from './prototype.svg'
-import prototype2 from './prototype2.svg'
-import features from './features.svg'
-import box from './box.svg'
+
+import { normal } from '../colors'
+import faq from './faq.svg'
+import dataExtraction from './data-extraction.svg'
+import {
+  SiJavascript,
+  SiPython,
+  SiPhp,
+  SiRuby,
+  SiGraphql,
+} from 'react-icons/si'
+
+import styled from 'styled-components'
+
+const FlexboxGridWithSpacing = styled(FlexboxGrid)`
+  margin: 1rem;
+  align-items: center;
+  justify-content: center;
+`
+
+const FlexboxGridItemWithSpacing = styled(FlexboxGrid.Item)`
+  padding: 1rem;
+`
+
+const Image = styled.img`
+  height: 240px;
+  width: 100%;
+`
+
+const Text = styled.p`
+  font-size: 1.4rem;
+`
+
+const CenterText = styled.p`
+  text-align: center;
+  font-size: 2rem;
+`
+
+const TextUnderline = styled.span`
+  text-decoration: underline wavy ${normal};
+  text-underline-offset: 3px;
+`
 
 const ContentComp = () => {
   return (
-    <section>
-      <Grid fluid className="site-layout-content">
-        <Row>
-          <Col xs={1} sm={1} md={6}></Col>
-          <Col xs={24} sm={24} md={12}>
-            <Panel bodyFill style={{ display: 'inline-block', width: '100%' }}>
-              <img src={prototype} height="240" width={'100%'} alt="taken" />
-              <Panel header={<h1>POLLUX</h1>} style={{ textAlign: 'center' }}>
-                <h4>
-                  <Icon icon="certificate" size="2x" /> The app that generate
-                  fake data and{' '}
-                  <a
-                    href="https://github.com/typicode/json-server"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    json-server
-                  </a>{' '}
-                  APIs
-                </h4>
-              </Panel>
-            </Panel>
-          </Col>
-          <Col xs={1} sm={1} md={6}></Col>
-        </Row>
-        <Divider />
-        <Row>
-          <Col xs={1} sm={1} md={6}></Col>
-          <Col xs={24} sm={24} md={12}>
-            <img src={prototype2} height="240" width={'100%'} alt="taken" />
-            <Panel bodyFill style={{ display: 'inline-block', width: '100%' }}>
-              <Panel
-                header={<h1>Prototype</h1>}
-                style={{ textAlign: 'center' }}
-              >
-                <h4>
-                  <Icon icon="certificate" size="2x" /> Define prototypes and
-                  their properties
-                </h4>
-              </Panel>
-            </Panel>
-          </Col>
-          <Col xs={1} sm={1} md={6}></Col>
-        </Row>
-        <Divider />
-        <Row>
-          <Col xs={1} sm={1} md={6}></Col>
-          <Col xs={24} sm={24} md={12}>
-            <img src={box} height="240" width={'100%'} alt="taken" />
-            <Panel bodyFill style={{ display: 'inline-block', width: '100%' }}>
-              <Panel header={<h1>Generate</h1>} style={{ textAlign: 'center' }}>
-                <h4>
-                  <Icon icon="certificate" size="2x" /> Generate fake data and{' '}
-                  <a
-                    href="https://github.com/typicode/json-server"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    json-server
-                  </a>{' '}
-                  API's based on your prototypes
-                </h4>
-              </Panel>
-            </Panel>
-          </Col>
-          <Col xs={1} sm={1} md={6}></Col>
-        </Row>
-        <Divider />
-        <Row>
-          <Col xs={1} sm={1} md={6}></Col>
-          <Col xs={24} sm={24} md={12}>
-            <img src={features} height="240" width={'100%'} alt="taken" />
-            <Panel bodyFill style={{ display: 'inline-block', width: '100%' }}>
-              <Panel header={<h1 style={{ textAlign: 'center' }}>Features</h1>}>
-                <Message
-                  showIcon
-                  type="info"
-                  title={
-                    <h6>
-                      Most of{' '}
-                      <a
-                        href="https://github.com/marak/Faker.js/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        faker
-                      </a>
-                      's functions
-                    </h6>
-                  }
-                />
-                <Message
-                  showIcon
-                  type="info"
-                  title={
-                    <h6>
-                      <a
-                        href="https://github.com/typicode/json-server"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        json-server
-                      </a>{' '}
-                      intergration
-                    </h6>
-                  }
-                />
-                <Message
-                  showIcon
-                  type="info"
-                  title={<h6>one to many relations between models</h6>}
-                />
-                <Message
-                  showIcon
-                  type="info"
-                  title={
-                    <h6>
-                      Drag Drop interface for selecting{' '}
-                      <a
-                        href="https://github.com/marak/Faker.js/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        faker
-                      </a>
-                      's functions in an easy way
-                    </h6>
-                  }
-                />
-                <Message
-                  showIcon
-                  type="warning"
-                  title={
-                    <h6>
-                      lost? checkout these videos{' '}
-                      <a
-                        href="https://www.youtube.com/watch?v=Vh0M0oNo7Gc&t=9s"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        #1
-                      </a>{' '}
-                      <a
-                        href="https://youtu.be/4Kwv98RDoSM"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        #2
-                      </a>{' '}
-                      <a
-                        href="https://youtu.be/Vh0M0oNo7Gc"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        #3
-                      </a>{' '}
-                      <a
-                        href="https://youtu.be/M8XhhTzK00g"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        #4
-                      </a>{' '}
-                      or click on the{' '}
-                      <IconButton
-                        icon={<Icon icon="twinkle-star" />}
-                        color="blue"
-                        circle
-                      />{' '}
-                      icon
-                    </h6>
-                  }
-                />
-                <Message
-                  showIcon
-                  type="warning"
-                  title={
-                    <h6>
-                      Repo{' '}
-                      <a
-                        href="https://github.com/MohammedAl-Rowad/pollux"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        here
-                      </a>
-                    </h6>
-                  }
-                />
-              </Panel>
-            </Panel>
-          </Col>
-          <Col xs={1} sm={1} md={6}></Col>
-        </Row>
-      </Grid>
-    </section>
+    <>
+      <FlexboxGridWithSpacing>
+        <FlexboxGridItemWithSpacing colspan={24}>
+          <CenterText>
+            <span role="img" aria-label="sun">
+              🌞
+            </span>
+            Pollux
+            <span role="img" aria-label="sun">
+              🌞
+            </span>
+          </CenterText>
+        </FlexboxGridItemWithSpacing>
+      </FlexboxGridWithSpacing>
+      <FlexboxGridWithSpacing>
+        <FlexboxGridItemWithSpacing
+          componentClass={Col}
+          colspan={11}
+          sm={24}
+          md={11}
+        >
+          <Image src={faq} loading="lazy" />
+        </FlexboxGridItemWithSpacing>
+        <FlexboxGridItemWithSpacing colspan={2} componentClass={Col} smHidden />
+        <FlexboxGridItemWithSpacing
+          componentClass={Col}
+          colspan={11}
+          sm={24}
+          md={11}
+        >
+          <Text>
+            Need Restful API with bearer authentication? or a GraphQL{' '}
+            <SiGraphql color="#dd34a6" size="1rem" /> API? maybe some testing
+            data in JSON or Ruby <SiRuby color="#e51521" size="1rem" /> or
+            Python <SiPython color="#34709f" size="1rem" /> or PHP{' '}
+            <SiPhp color="#474A8A" size="1rem" /> or JavaScript{' '}
+            <SiJavascript color="#e8d44d" size="1rem" />, all of that and more
+            is possible with pollux,{' '}
+            <TextUnderline>
+              without writing a single line of code.{' '}
+            </TextUnderline>
+          </Text>
+        </FlexboxGridItemWithSpacing>
+      </FlexboxGridWithSpacing>
+      <FlexboxGridWithSpacing>
+        <FlexboxGridItemWithSpacing colspan={24}>
+          <CenterText>
+            <span role="img" aria-label="alembic">
+              ⚗️
+            </span>
+            Who does it work
+            <span role="img" aria-label="alembic">
+              ⚗️
+            </span>
+          </CenterText>
+        </FlexboxGridItemWithSpacing>
+      </FlexboxGridWithSpacing>
+      <FlexboxGridWithSpacing>
+        <FlexboxGridItemWithSpacing
+          componentClass={Col}
+          colspan={11}
+          sm={24}
+          md={11}
+        >
+          <Text>
+            You create a model, then you can drag and drop properties into it,
+            and these properties defines what kind of fake data should be
+            generated
+          </Text>
+        </FlexboxGridItemWithSpacing>
+        <FlexboxGridItemWithSpacing colspan={2} componentClass={Col} smHidden />
+        <FlexboxGridItemWithSpacing
+          componentClass={Col}
+          colspan={11}
+          sm={24}
+          md={11}
+        >
+          <Image src={prototype} loading="lazy" />
+        </FlexboxGridItemWithSpacing>
+      </FlexboxGridWithSpacing>
+      <FlexboxGridWithSpacing>
+        <FlexboxGridItemWithSpacing colspan={24}>
+          <CenterText>
+            <span role="img" aria-label="alembic">
+              ✨
+            </span>
+            What makes it unique
+            <span role="img" aria-label="alembic">
+              ✨
+            </span>
+          </CenterText>
+        </FlexboxGridItemWithSpacing>
+      </FlexboxGridWithSpacing>
+      <FlexboxGridWithSpacing>
+        <FlexboxGridItemWithSpacing
+          componentClass={Col}
+          colspan={11}
+          sm={24}
+          md={11}
+        >
+          <Image src={dataExtraction} loading="lazy" />
+        </FlexboxGridItemWithSpacing>
+        <FlexboxGridItemWithSpacing colspan={2} componentClass={Col} smHidden />
+        <FlexboxGridItemWithSpacing
+          componentClass={Col}
+          colspan={11}
+          sm={24}
+          md={11}
+        >
+          <Text>
+            Everything in pollux from generating `.zip` files to generating
+            500,000 model instances happens in the frontend, using web APIs such
+            as the{' '}
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/Blob"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Blob API
+            </a>{' '}
+            and{' '}
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Web Workers API
+            </a>
+            , plus you can{' '}
+            <TextUnderline>
+              pass JavaScript RegExp and it will generate a random string based
+              on that.
+            </TextUnderline>
+          </Text>
+        </FlexboxGridItemWithSpacing>
+      </FlexboxGridWithSpacing>
+    </>
   )
 }
 
