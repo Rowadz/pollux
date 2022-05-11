@@ -65,6 +65,7 @@ const ContentComp = () => {
           componentClass={Col}
           colspan={11}
           sm={24}
+          xs={24}
           md={11}
         >
           <Image src={faq} loading="lazy" />
@@ -74,6 +75,7 @@ const ContentComp = () => {
           componentClass={Col}
           colspan={11}
           sm={24}
+          xs={24}
           md={11}
         >
           <Text>
@@ -108,6 +110,7 @@ const ContentComp = () => {
           componentClass={Col}
           colspan={11}
           sm={24}
+          xs={24}
           md={11}
         >
           <Text>
@@ -121,6 +124,7 @@ const ContentComp = () => {
           componentClass={Col}
           colspan={11}
           sm={24}
+          xs={24}
           md={11}
         >
           <Image src={prototype} loading="lazy" />
@@ -144,6 +148,7 @@ const ContentComp = () => {
           componentClass={Col}
           colspan={11}
           sm={24}
+          xs={24}
           md={11}
         >
           <Image src={dataExtraction} loading="lazy" />
@@ -153,6 +158,7 @@ const ContentComp = () => {
           componentClass={Col}
           colspan={11}
           sm={24}
+          xs={24}
           md={11}
         >
           <Text>
