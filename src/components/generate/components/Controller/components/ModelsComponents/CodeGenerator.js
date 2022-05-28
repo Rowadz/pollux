@@ -37,15 +37,16 @@ const CodeGenerator = ({
 }) => {
   const [code, setCode] = useState('')
   useEffect(() => {
-    const data = generate(
-      props,
-      name,
-      amount > 10_000 ? 10_000 : amount,
-      relations,
-      relationsProps,
-      true,
-      id
-    )
+    const data =
+      generate(
+        props,
+        name,
+        amount > 10_000 ? 10_000 : amount,
+        relations,
+        relationsProps,
+        true,
+        id
+      ) || []
 
     if (lang === 'javascript') {
       setCode(`const data = ${JSON.stringify(data, null, 2)};`)
@@ -71,15 +72,16 @@ const CodeGenerator = ({
     } else if (lang === 'python') {
       setCode(`data = ${JSON.stringify(data, null, 2)}`)
     } else if (lang === 'sql') {
-      const data = generate(
-        props,
-        name,
-        amount > 10_000 ? 10_000 : amount,
-        relations,
-        relationsProps,
-        true,
-        id
-      )
+      const data =
+        generate(
+          props,
+          name,
+          amount > 10_000 ? 10_000 : amount,
+          relations,
+          relationsProps,
+          true,
+          id
+        ) || []
       const values = data.map(Object.values)
       const res = []
       for (const list of values) {
