@@ -5,6 +5,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
 import { Header, Content, Footer, Generate, FlowGenerate } from './components'
 import { HashRouter as Router, Route, Routes } from 'react-router-dom'
+import { ErrorBoundary } from './ErrorBoundary'
 import { FLAGS } from 'flags'
 
 console.log(
@@ -29,42 +30,47 @@ console.log(
 
 function App() {
   return (
-    <Router>
-      <DndProvider backend={HTML5Backend} options={{ enableMouseEvents: true }}>
-        <Header />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <main>
-                <Content />
-                <Footer />
-              </main>
-            }
-          />
-          <Route
-            path="/generate"
-            element={
-              <>
-                <Generate />
-                <Footer />
-              </>
-            }
-          />
-          {FLAGS.FLOW_GENERATE && (
+    <ErrorBoundary>
+      <Router>
+        <DndProvider
+          backend={HTML5Backend}
+          options={{ enableMouseEvents: true }}
+        >
+          <Header />
+          <Routes>
             <Route
-              path="/flow-generate"
+              path="/"
+              element={
+                <main>
+                  <Content />
+                  <Footer />
+                </main>
+              }
+            />
+            <Route
+              path="/generate"
               element={
                 <>
-                  <FlowGenerate />
+                  <Generate />
                   <Footer />
                 </>
               }
             />
-          )}
-        </Routes>
-      </DndProvider>
-    </Router>
+            {FLAGS.FLOW_GENERATE && (
+              <Route
+                path="/flow-generate"
+                element={
+                  <>
+                    <FlowGenerate />
+                    <Footer />
+                  </>
+                }
+              />
+            )}
+          </Routes>
+        </DndProvider>
+      </Router>
+    </ErrorBoundary>
   )
 }
 
