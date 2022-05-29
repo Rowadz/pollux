@@ -80,7 +80,7 @@ const Prop = ({
 
   return (
     <Flipper flipKey={fullScreen}>
-      <Flipped flipId="square">
+      <Flipped flipId="square-prop">
         <List.Item
           key={i}
           index={i}

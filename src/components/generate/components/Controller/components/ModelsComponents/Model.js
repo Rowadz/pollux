@@ -139,7 +139,7 @@ const Model = ({
 
   return (
     <Flipper flipKey={fullScreen}>
-      <Flipped flipId="square">
+      <Flipped flipId="square-model">
         <section
           style={{
             marginTop: 20,
@@ -147,7 +147,6 @@ const Model = ({
               ? { width: '100%', height: '100%' }
               : { width: 0, height: 0 }),
           }}
-          className={fullScreen ? 'full-screen-square' : 'square'}
         >
           <PanelGroup bordered>
             <Panel
