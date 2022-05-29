@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   InputPicker,
   List,
@@ -15,6 +15,7 @@ import { delProp, editProp } from 'redux/actions'
 import styled from 'styled-components'
 import { danger, normal } from '../../../../../../colors'
 import { useDebouncedCallback } from 'use-debounce'
+import { Flipped, Flipper } from 'react-flip-toolkit'
 
 const dangerClass = 'danger'
 
@@ -41,6 +42,7 @@ const Prop = ({
   func,
   disableModalControllers,
 }) => {
+  const [fullScreen, setFullScreen] = useState(false)
   const [state, setState] = useState({ showPropNameModal: false, func })
   const [regexError, setRegexErrors] = useState(false)
   const closeModal = () => setState({ ...state, showPropNameModal: false })
@@ -53,6 +55,10 @@ const Prop = ({
     setState({ ...state, func: value })
     dispatch(editProp({ id: modelId, propId: id, func: value, groupName }))
   }
+
+  useEffect(() => {
+    setFullScreen((prevState) => !prevState)
+  }, [])
 
   const debouncedOnRegexUpdate = useDebouncedCallback((value) => {
     try {
@@ -73,106 +79,118 @@ const Prop = ({
     )
 
   return (
-    <List.Item key={i} index={i}>
-      <Grid fluid>
-        <Row
-          colSpan={6}
-          style={{ textAlign: checkIfMobile() ? 'center' : 'left' }}
+    <Flipper flipKey={fullScreen}>
+      <Flipped flipId="square">
+        <List.Item
+          key={i}
+          index={i}
+          style={
+            fullScreen
+              ? { width: '100%', height: '100%' }
+              : { width: 0, height: 0 }
+          }
         >
-          <Col xs={24} sm={24} md={6}>
-            <h6>
-              {icon} {name} {checkIfMobile() ? <Icon icon="circle" /> : ''}
-            </h6>
-          </Col>
+          <Grid fluid>
+            <Row
+              colSpan={6}
+              style={{ textAlign: checkIfMobile() ? 'center' : 'left' }}
+            >
+              <Col xs={24} sm={24} md={6}>
+                <h6>
+                  {icon} {name} {checkIfMobile() ? <Icon icon="circle" /> : ''}
+                </h6>
+              </Col>
 
-          <Col xs={24} sm={24} md={12} style={{ textAlign: 'left' }}>
-            {state.func === 'regex' ? (
-              <Wrapper>
-                <Input
-                  size="sm"
-                  disabled={disableModalControllers}
-                  className={regexError ? Wrapper.dangerClass : ''}
-                  placeholder="Type your regex here"
-                  onChange={debouncedOnRegexUpdate}
-                  defaultValue={regex}
-                />
-                {regexError ? (
-                  <p className={Wrapper.dangerClass}>
-                    The regex is not
-                    <span role="img" aria-label="lemon">
-                      🍋
-                    </span>
-                    JS
-                    <span role="img" aria-label="lemon">
-                      🍋
-                    </span>
-                    regex
-                  </p>
+              <Col xs={24} sm={24} md={12} style={{ textAlign: 'left' }}>
+                {state.func === 'regex' ? (
+                  <Wrapper>
+                    <Input
+                      size="sm"
+                      disabled={disableModalControllers}
+                      className={regexError ? Wrapper.dangerClass : ''}
+                      placeholder="Type your regex here"
+                      onChange={debouncedOnRegexUpdate}
+                      defaultValue={regex}
+                    />
+                    {regexError ? (
+                      <p className={Wrapper.dangerClass}>
+                        The regex is not
+                        <span role="img" aria-label="lemon">
+                          🍋
+                        </span>
+                        JS
+                        <span role="img" aria-label="lemon">
+                          🍋
+                        </span>
+                        regex
+                      </p>
+                    ) : (
+                      <p className={Wrapper.dangerClas}>
+                        Write a
+                        <span role="img" aria-label="lemon">
+                          🍋
+                        </span>
+                        JS
+                        <span role="img" aria-label="lemon">
+                          🍋
+                        </span>
+                        regex here!
+                      </p>
+                    )}
+                  </Wrapper>
                 ) : (
-                  <p className={Wrapper.dangerClas}>
-                    Write a
-                    <span role="img" aria-label="lemon">
-                      🍋
-                    </span>
-                    JS
-                    <span role="img" aria-label="lemon">
-                      🍋
-                    </span>
-                    regex here!
-                  </p>
+                  <InputPicker
+                    disabled={disableModalControllers}
+                    size="sm"
+                    onChange={onFuncSelect}
+                    data={inputData}
+                    defaultValue={state.func}
+                    groupBy="groupName"
+                    placeholder="Select a function"
+                    style={{ width: '100%' }}
+                  />
                 )}
-              </Wrapper>
-            ) : (
-              <InputPicker
-                disabled={disableModalControllers}
-                size="sm"
-                onChange={onFuncSelect}
-                data={inputData}
-                defaultValue={state.func}
-                groupBy="groupName"
-                placeholder="Select a function"
-                style={{ width: '100%' }}
+              </Col>
+              <AddProp
+                id={modelId}
+                showPropNameModal={state.showPropNameModal}
+                closeConfirmModal={closeModal}
+                propNameProp={name}
+                name={modelName}
+                propId={id}
+                mode={'edit'}
               />
-            )}
-          </Col>
-          <AddProp
-            id={modelId}
-            showPropNameModal={state.showPropNameModal}
-            closeConfirmModal={closeModal}
-            propNameProp={name}
-            name={modelName}
-            propId={id}
-            mode={'edit'}
-          />
-          <Col
-            xs={12}
-            sm={12}
-            md={3}
-            style={{ textAlign: checkIfMobile() ? 'left' : 'right' }}
-          >
-            <IconButton
-              disabled={disableModalControllers}
-              style={{ margin: '5px' }}
-              size="xs"
-              icon={<Icon icon="edit" />}
-              circle
-              onClick={openModal}
-            />
-          </Col>
+              <Col
+                xs={12}
+                sm={12}
+                md={3}
+                style={{ textAlign: checkIfMobile() ? 'left' : 'right' }}
+              >
+                <IconButton
+                  disabled={disableModalControllers}
+                  style={{ margin: '5px' }}
+                  size="xs"
+                  icon={<Icon icon="edit" />}
+                  circle
+                  onClick={openModal}
+                />
+              </Col>
 
-          <Col xs={12} sm={12} md={1} style={{ textAlign: 'right' }}>
-            <IconButton
-              style={{ margin: '5px' }}
-              icon={<Icon icon="minus" />}
-              circle
-              disabled={disableModalControllers}
-              size="xs"
-              onClick={del}
-            />
-          </Col>
-        </Row>
-      </Grid>
-    </List.Item>
+              <Col xs={12} sm={12} md={1} style={{ textAlign: 'right' }}>
+                <IconButton
+                  style={{ margin: '5px' }}
+                  icon={<Icon icon="minus" />}
+                  circle
+                  disabled={disableModalControllers}
+                  size="xs"
+                  onClick={del}
+                />
+              </Col>
+            </Row>
+          </Grid>
+        </List.Item>
+      </Flipped>
+    </Flipper>
   )
 }
 
