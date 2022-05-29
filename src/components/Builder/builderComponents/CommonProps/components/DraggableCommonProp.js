@@ -6,6 +6,7 @@ import { map } from 'components/Builder/maps'
 
 const DraggableCommonProp = ({ type, icon, label, func, children }) => {
   const [{ isDragging }, dragRef] = useDrag({
+    type,
     item: {
       type,
       data: map.get(type) || { propName: label, groupName: type, func },

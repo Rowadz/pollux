@@ -4,7 +4,7 @@ import './App.css'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
 import { Header, Content, Footer, Generate } from './components/'
-import { HashRouter as Router, Route } from 'react-router-dom'
+import { HashRouter as Router, Route, Routes } from 'react-router-dom'
 
 console.log(
   `%c
@@ -31,16 +31,26 @@ function App() {
     <Router>
       <DndProvider backend={HTML5Backend} options={{ enableMouseEvents: true }}>
         <Header />
-        <Route path="/" exact={true}>
-          <main>
-            <Content />
-            <Footer />
-          </main>
-        </Route>
-        <Route path="/generate">
-          <Generate />
-          <Footer />
-        </Route>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <main>
+                <Content />
+                <Footer />
+              </main>
+            }
+          />
+          <Route
+            path="/generate"
+            element={
+              <>
+                <Generate />
+                <Footer />
+              </>
+            }
+          />
+        </Routes>
       </DndProvider>
     </Router>
   )

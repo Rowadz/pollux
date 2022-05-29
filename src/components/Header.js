@@ -7,14 +7,18 @@ const { Item } = Nav
 
 function HeaderComp() {
   const [state, setState] = useState({ show: false })
-  const toggleDrawer = useCallback((show) => setState({ show: !show }), [
-    setState,
-  ])
+  const toggleDrawer = useCallback(
+    (show) => setState({ show: !show }),
+    [setState]
+  )
   return (
     <Navbar>
       <Body>
         <Nav>
-          <NavLink to="/" activeClassName="active-route" exact={true}>
+          <NavLink
+            to="/"
+            className={(navData) => (navData.isActive ? 'active-route' : '')}
+          >
             <Item
               renderItem={() => (
                 <span className="rs-nav-item-content">
@@ -23,7 +27,10 @@ function HeaderComp() {
               )}
             ></Item>
           </NavLink>
-          <NavLink to="/generate" activeClassName="active-route">
+          <NavLink
+            to="/generate"
+            className={(navData) => (navData.isActive ? 'active-route' : '')}
+          >
             <Item
               renderItem={() => (
                 <span className="rs-nav-item-content">
