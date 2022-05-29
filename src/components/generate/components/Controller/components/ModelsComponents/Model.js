@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import {
-  SiJavascript,
-  SiPython,
-  SiPhp,
-  SiRuby,
-  SiGraphql,
-} from 'react-icons/si'
+import { SiJavascript, SiPython, SiPhp, SiRuby } from 'react-icons/si'
 import { DiMysql } from 'react-icons/di'
 import { Flipper, Flipped } from 'react-flip-toolkit'
 import {
@@ -20,10 +14,7 @@ import {
   Whisper,
   Tooltip,
   FlexboxGrid,
-  Tag,
-  Badge,
   InputNumber,
-  Alert,
   ButtonGroup,
   Button,
   Dropdown,
@@ -32,27 +23,19 @@ import ConfirmDel from './ConfirmDel'
 import PropsDisplay from './PropsDisplay'
 import AddProp from './AddProp'
 import CreateRel from './CreateRel'
-import { v4 } from 'uuid'
-import {
-  generate,
-  relationsPropsGetter,
-  relationsGetter,
-  generateAPI,
-  generateGraphqlAPI,
-} from '../../util'
+import { generate, relationsPropsGetter, relationsGetter } from '../../util'
 
 import {
   deleteModel,
   addPropName,
   removeAllProps,
   updateAmount,
-  justAddProp,
 } from 'redux/actions'
-import { useDrop } from 'react-dnd'
 import CodeGenerator from './CodeGenerator'
 import RenderLangIcon from './RenderLangIcon'
 import WebWorkerProgress from './WebWorkerProgress'
 import { eventEmitter } from 'components/generate/webWorker/eventEmitter'
+import ModelHeader from './ModelHeader'
 
 const Model = ({
   dispatch,
@@ -67,7 +50,6 @@ const Model = ({
   checkedModels,
 }) => {
   const [fullScreen, setFullScreen] = useState(false)
-
   const [state, setState] = useState({
     showConfirmModal: false,
     showPropNameModal: false,
@@ -82,34 +64,6 @@ const Model = ({
   const [lang, setLang] = useState('ruby')
   const [showModal, setShowModal] = useState(false)
   const [disableModalControllers, setDisableModalControllers] = useState(false)
-
-  const [{ canDrop, hovered }, drop] = useDrop({
-    accept: [
-      'UUID',
-      'Email',
-      'Password',
-      'Full Name',
-      'Paragraphs',
-      'REGEX',
-      'Paragraph',
-      'IP',
-      'Image',
-      ...faker.map(({ groupName }) => groupName),
-    ], // TODO:: why hardcoded
-    canDrop() {
-      return true
-    },
-    collect(monitor) {
-      return {
-        canDrop: monitor && monitor.canDrop(),
-        hovered: monitor && monitor.isOver(),
-      }
-    },
-    drop({ data }) {
-      dispatch(justAddProp({ uuid: id, props: [{ ...data, id: v4() }] }))
-      Alert.success(`Added the ${data.propName} props`)
-    },
-  })
 
   useEffect(() => {
     eventEmitter.on('STARTED', () => {
@@ -183,134 +137,6 @@ const Model = ({
 
   const addProp = (name) => dispatch(addPropName({ propName: name, uuid: id }))
 
-  const dynamicHeder = (
-    <div>
-      Model name {name}
-      {
-        <Tag
-          color="cyan"
-          style={{ marginLeft: '5px' }}
-          id={isTourOpen ? 'prop-tag-count' : null}
-        >
-          {propsCount}
-        </Tag>
-      }
-      <Whisper
-        placement="right"
-        trigger="hover"
-        speaker={
-          <Tooltip>
-            Click here to create a relationship with other models
-          </Tooltip>
-        }
-      >
-        {checkedModels.size ? (
-          <Badge content={checkedModels.size}>
-            <IconButton
-              disabled={disableModalControllers}
-              id={isTourOpen ? 'create-a-relationship-btn' : null}
-              icon={<Icon icon="link" />}
-              style={{ marginLeft: '5px' }}
-              size="xs"
-              onClick={openCreateRelModal}
-            >
-              Create 1:m relations
-            </IconButton>
-          </Badge>
-        ) : (
-          <IconButton
-            id={isTourOpen ? 'create-a-relationship-btn' : null}
-            icon={<Icon icon="link" />}
-            style={{ marginLeft: '5px' }}
-            size="xs"
-            disabled={disableModalControllers}
-            onClick={openCreateRelModal}
-          >
-            Create 1:m relations
-          </IconButton>
-        )}
-      </Whisper>
-      <Whisper
-        placement="right"
-        trigger="hover"
-        speaker={
-          <Tooltip>
-            Click here to generate a json-server API from this model
-          </Tooltip>
-        }
-      >
-        <IconButton
-          id={isTourOpen ? 'create-a-api-btn' : null}
-          icon={<Icon icon="twinkle-star" />}
-          size="xs"
-          disabled={disableModalControllers}
-          style={{ marginLeft: '5px' }}
-          onClick={() =>
-            generateAPI(
-              name,
-              props,
-              amount,
-              relations,
-              relationsProps,
-              null,
-              auth,
-              id
-            )
-          }
-        >
-          Generate Restful API
-        </IconButton>
-      </Whisper>
-      <Whisper
-        placement="right"
-        trigger="hover"
-        speaker={
-          <Tooltip>
-            Click here to generate a GraphQL API from this model
-          </Tooltip>
-        }
-      >
-        <IconButton
-          id={isTourOpen ? 'create-a-graphql-btn' : null}
-          icon={
-            <i className="rs-icon">
-              <SiGraphql color="#dd34a6" />
-            </i>
-          }
-          size="xs"
-          disabled={disableModalControllers}
-          style={{ marginLeft: '5px' }}
-          onClick={() =>
-            generateGraphqlAPI(
-              name,
-              props,
-              amount,
-              relations,
-              relationsProps,
-              id
-            )
-          }
-        >
-          Generate GraphQL API
-        </IconButton>
-      </Whisper>
-      <div ref={drop}>
-        <Panel
-          shaded
-          style={{
-            backgroundColor: hovered ? '#8BCAD9' : canDrop ? '#5E6D8C' : '',
-            height: 50,
-            marginTop: 10,
-            // color: hovered ? '#000' : '#fff',
-          }}
-        >
-          <Badge style={{ background: '#1b9cb0' }} /> Drop Props Here{' '}
-          <Badge style={{ background: '#1b9cb0' }} />
-        </Panel>
-      </div>
-    </div>
-  )
-
   return (
     <Flipper flipKey={fullScreen}>
       <Flipped flipId="square">
@@ -324,7 +150,26 @@ const Model = ({
           className={fullScreen ? 'full-screen-square' : 'square'}
         >
           <PanelGroup bordered>
-            <Panel shaded header={dynamicHeder}>
+            <Panel
+              shaded
+              header={
+                <ModelHeader
+                  amount={amount}
+                  id={id}
+                  auth={auth}
+                  checkedModels={checkedModels}
+                  disableModalControllers={disableModalControllers}
+                  faker={faker}
+                  isTourOpen={isTourOpen}
+                  name={name}
+                  openCreateRelModal={openCreateRelModal}
+                  props={props}
+                  propsCount={propsCount}
+                  relations={relations}
+                  relationsProps={relationsProps}
+                />
+              }
+            >
               <Grid fluid>
                 <Row>
                   <Col xs={24} sm={24} md={24}>

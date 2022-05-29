@@ -186,7 +186,7 @@ export const relationsGetter = (state, modelId) =>
  * @param {number} amount
  * @param {Array<any>} relations
  * @param {object} relationsProps
- * @param {Array<any> | undefined} data
+ * @param {Array<any> | undefined | null} data
  * @param {boolean} auth
  * @param {string} modelId
  */
