@@ -62,7 +62,6 @@ function App() {
                 element={
                   <>
                     <FlowGenerate />
-                    <Footer />
                   </>
                 }
               />
