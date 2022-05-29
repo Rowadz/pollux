@@ -24,6 +24,7 @@ const LoadModel = ({ dispatch, models }) => {
       dispatch(addModel({ id, name, createdAt, amount: +amount }))
       dispatch(justAddProp({ uuid: id, ...props }))
       Alert.info(`Loaded ${name} model 👍`)
+      close()
     } else {
       Alert.warning(`We already loaded ${name} - id[${id}]`)
     }
