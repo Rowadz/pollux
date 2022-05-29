@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react'
 import { Navbar, Nav, Icon, Drawer, Badge } from 'rsuite'
 import { NavLink } from 'react-router-dom'
 import BuilderBody from './Builder/BuilderBody/BuilderBody'
+import { FLAGS } from 'flags'
 const { Body } = Navbar
 const { Item } = Nav
 
@@ -42,6 +43,23 @@ function HeaderComp() {
               About
             </Item>
           </NavLink>
+          {FLAGS.FLOW_GENERATE && (
+            <NavLink
+              to="/flow-generate"
+              className={(navData) => (navData.isActive ? 'active-route' : '')}
+            >
+              <Item
+                renderItem={() => (
+                  <span className="rs-nav-item-content">
+                    <Icon icon="magic2" />
+                    Flow Generate
+                  </span>
+                )}
+              >
+                About
+              </Item>
+            </NavLink>
+          )}
         </Nav>
         <Nav pullRight>
           <Item

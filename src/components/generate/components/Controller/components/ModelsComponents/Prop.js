@@ -13,7 +13,7 @@ import AddProp from './AddProp'
 import { connect } from 'react-redux'
 import { delProp, editProp } from 'redux/actions'
 import styled from 'styled-components'
-import { danger, normal } from 'colors'
+import { danger, normal } from '../../../../../../colors'
 import { useDebouncedCallback } from 'use-debounce'
 
 const dangerClass = 'danger'
