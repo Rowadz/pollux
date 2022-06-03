@@ -5,7 +5,7 @@ Need Restful API with bearer authentication? or a GraphQL API? maybe some testin
 - check this video -> [here](https://www.youtube.com/watch?v=4Kwv98RDoSM)
 - link to use it -> [here](https://mohammedal-rowad.github.io/pollux/)
 
-# ⚗️Who does it work⚗️
+# ⚗️How does it work⚗️
 
 You create a model, then you can drag and drop properties into it, and these properties defines what kind of fake data should be generated
 
