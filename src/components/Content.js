@@ -52,8 +52,8 @@ const ContentComp = () => {
           <CenterText>
             <span role="img" aria-label="sun">
               🌞
-            </span>
-            Pollux
+            </span>{' '}
+            Pollux{' '}
             <span role="img" aria-label="sun">
               🌞
             </span>
@@ -97,8 +97,8 @@ const ContentComp = () => {
           <CenterText>
             <span role="img" aria-label="alembic">
               ⚗️
-            </span>
-            Who does it work
+            </span>{' '}
+            How does it work?{' '}
             <span role="img" aria-label="alembic">
               ⚗️
             </span>
@@ -135,8 +135,8 @@ const ContentComp = () => {
           <CenterText>
             <span role="img" aria-label="alembic">
               ✨
-            </span>
-            What makes it unique
+            </span>{' '}
+            What makes it unique{' '}
             <span role="img" aria-label="alembic">
               ✨
             </span>
