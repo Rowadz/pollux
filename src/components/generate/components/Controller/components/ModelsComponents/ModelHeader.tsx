@@ -15,7 +15,8 @@ import {
   Alert,
 } from 'rsuite'
 import { generateAPI, generateGraphqlAPI } from '../../util'
-import { FakerPolluxReduxStoreState, ModelHeaderProps } from './types'
+import type { ModelHeaderProps } from './types'
+import type { FakerPolluxReduxStoreState } from 'components/shared'
 
 export const ModelHeader = ({
   id,

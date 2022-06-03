@@ -3,6 +3,12 @@ import * as faker from 'faker'
 import { saveAs } from 'file-saver'
 import RandExp from 'randexp'
 import JSZip from 'jszip'
+import type {
+  FakerProp,
+  ReduxState,
+  Relation,
+  RelationProps,
+} from 'components/shared'
 import npmCongif from '../../../../zipFileContent/package.json'
 import apiReadme from '../../../../zipFileContent/readme.md'
 import npmCongifGraphql from '../../../../graphqlZipContent/package.json'
@@ -10,24 +16,14 @@ import graphqlReadme from '../../../../graphqlZipContent/readme.md'
 
 import { spawnWebWorker } from '../../webWorker'
 
-/**
- *
- * @param {Array<any>} props
- * @param {string} name
- * @param {number} amount
- * @param {Array<any>} relations
- * @param {object} relationsProps
- * @param {boolean} justReturn
- * @param {string} modelId
- */
 export const generate = (
-  props,
-  name,
-  amount,
-  relations,
-  relationsProps,
-  justReturn,
-  modelId,
+  props: FakerProp[],
+  name: string,
+  amount: number,
+  relations: Relation[],
+  relationsProps: RelationProps,
+  justReturn: boolean,
+  modelId: string,
   onlyJSON = false
 ) => {
   if (!props) {
@@ -58,7 +54,7 @@ export const generate = (
       const resWithRelations = res.map((obj) => ({
         ...obj,
         ...relations.reduce(
-          (prev, { name, id }) => ({
+          (prev, { name, id }: Relation) => ({
             ...prev,
             [name]: generateFakeData(relationsProps[id], 10),
           }),
@@ -102,12 +98,7 @@ export const generate = (
   }
 }
 
-/**
- *
- * @param {Array<any>} props
- * @param {number} amount
- */
-const generateFakeData = (props, amount) =>
+const generateFakeData = (props: FakerProp[], amount: number) =>
   Array.from({ length: amount }).map(() => {
     return props.reduce(
       (prev, { propName, groupName, func, regex: regexStr }) => {
@@ -126,7 +117,7 @@ const generateFakeData = (props, amount) =>
         }
         const key = func === 'fullName' ? 'findName' : func
         if (key === 'regex') {
-          const randexp = new RandExp(regexStr)
+          const randexp = new RandExp(regexStr as string)
           return {
             ...prev,
             [propName]: randexp.gen(),
@@ -135,70 +126,40 @@ const generateFakeData = (props, amount) =>
 
         return {
           ...prev,
-          [propName]: faker[groupName][key](),
+          [propName]: (faker as any)[groupName][key](),
         }
       },
       {}
     )
   })
 
-/**
- *
- * @param {Array<any>} data
- * @param {string} name
- */
-const downloadData = (data, name) => {
+const downloadData = (data: unknown[], name: string): void => {
   saveAs(new Blob([toJSONPritty(data)], { type: 'application/json' }), name)
   Alert.success(`Downloaded ${name}.json 👍`)
 }
 
-/**
- *
- * @param {Array<any>} data
- */
-const toJSONPritty = (data) => JSON.stringify(data, null, 2)
+const toJSONPritty = (data: any): string => JSON.stringify(data, null, 2)
 
-/**
- *
- * @param {objcet} state - redux-state
- * @param {string} modelId - the uuid for the model in redux
- */
-export const relationsPropsGetter = (state, modelId) =>
+export const relationsPropsGetter = (state: ReduxState, modelId: string) =>
   (state.relations[modelId] || []).reduce(
     (prev, id) => ({ ...prev, [id]: state.prop[id] }),
     {}
   )
 
-/**
- *
- * @param {objcet} state - redux-state
- * @param {string} modelId - the uuid for the model in redux
- */
-export const relationsGetter = (state, modelId) =>
+export const relationsGetter = (state: ReduxState, modelId: string) =>
   (state.relations[modelId] || []).map((uuid) =>
     state.models.find(({ id }) => uuid === id)
   )
 
-/**
- *
- * @param {string} name - the model name
- * @param {Array<any>} props
- * @param {number} amount
- * @param {Array<any>} relations
- * @param {object} relationsProps
- * @param {Array<any> | undefined | null} data
- * @param {boolean} auth
- * @param {string} modelId
- */
 export const generateAPI = async (
-  name,
-  props,
-  amount,
-  relations,
-  relationsProps,
-  data,
-  auth,
-  modelId
+  name: string,
+  props: FakerProp[],
+  amount: number,
+  relations: Relation[],
+  relationsProps: RelationProps,
+  data: unknown[] | null,
+  auth: boolean,
+  modelId: string
 ) => {
   try {
     if (!props && !data) {
@@ -243,23 +204,13 @@ export const generateAPI = async (
   }
 }
 
-/**
- *
- * @param {string} name - the model name
- * @param {Array<any>} props
- * @param {number} amount
- * @param {Array<any>} relations
- * @param {object} relationsProps
- * @param {Array<any> | undefined} data
- * @param {string} modelId
- */
 export const generateGraphqlAPI = async (
-  name,
-  props,
-  amount,
-  relations,
-  relationsProps,
-  modelId
+  name: string,
+  props: FakerProp[],
+  amount: number,
+  relations: Relation[],
+  relationsProps: RelationProps,
+  modelId: string
 ) => {
   try {
     if (!props) {

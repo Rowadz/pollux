@@ -1,26 +1,9 @@
-export type FakerPolluxReduxStoreState = {
-  groupName: string
-  label: string
-  value: string
-  //   BIG HMMMMM??? here, WTF is going on?
-  parent: any[]
-}
-
-type FakerProp = {
-  func: string
-  groupName: string
-  id: string
-  propName: string
-}
-
-type Relation = {
-  amount: number
-  createdAt: number
-  id: string
-  name: string
-}
-
-type RelationProp = Record<string, Relation>
+import type {
+  FakerPolluxReduxStoreState,
+  RelationProps,
+  FakerProp,
+  Relation,
+} from 'components/shared'
 
 export type ModelHeaderProps = {
   id: string
@@ -30,7 +13,7 @@ export type ModelHeaderProps = {
   props: FakerProp[]
   amount: number
   relations: Relation[]
-  relationsProps: RelationProp
+  relationsProps: RelationProps
   auth: boolean
   checkedModels: Set<string>
   disableModalControllers: boolean
