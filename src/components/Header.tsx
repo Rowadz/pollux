@@ -1,17 +1,16 @@
-import React, { useState, useCallback } from 'react'
+import React from 'react'
+import { useToggle } from 'react-use'
 import { Navbar, Nav, Icon, Drawer, Badge } from 'rsuite'
 import { NavLink } from 'react-router-dom'
 import BuilderBody from './Builder/BuilderBody/BuilderBody'
 import { FLAGS } from 'flags'
+
 const { Body } = Navbar
 const { Item } = Nav
 
-function HeaderComp() {
-  const [state, setState] = useState({ show: false })
-  const toggleDrawer = useCallback(
-    (show) => setState({ show: !show }),
-    [setState]
-  )
+const HeaderComp = () => {
+  const [show, toggleShow] = useToggle(false)
+
   return (
     <Navbar>
       <Body>
@@ -62,19 +61,16 @@ function HeaderComp() {
           )}
         </Nav>
         <Nav pullRight>
-          <Item
-            onClick={() => toggleDrawer(state.show)}
-            icon={<Icon icon="creative" />}
-          >
+          <Item onClick={toggleShow} icon={<Icon icon="creative" />}>
             Builder <Badge content="NEW!"></Badge>
           </Item>
 
           <Drawer
             backdrop={false}
-            show={state.show}
+            show={show}
             size="xs"
             placement="left"
-            onHide={() => toggleDrawer(true)}
+            onHide={toggleShow}
           >
             <Drawer.Header>
               <Drawer.Title>
