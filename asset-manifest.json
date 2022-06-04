@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/pollux/static/css/main.3f9d51f4.chunk.css",
-    "main.js": "/pollux/static/js/main.3437da09.chunk.js",
-    "main.js.map": "/pollux/static/js/main.3437da09.chunk.js.map",
+    "main.js": "/pollux/static/js/main.17e1d10f.chunk.js",
+    "main.js.map": "/pollux/static/js/main.17e1d10f.chunk.js.map",
     "runtime-main.js": "/pollux/static/js/runtime-main.5df1e606.js",
     "runtime-main.js.map": "/pollux/static/js/runtime-main.5df1e606.js.map",
     "static/css/2.836bfbcd.chunk.css": "/pollux/static/css/2.836bfbcd.chunk.css",
-    "static/js/2.c423ce54.chunk.js": "/pollux/static/js/2.c423ce54.chunk.js",
-    "static/js/2.c423ce54.chunk.js.map": "/pollux/static/js/2.c423ce54.chunk.js.map",
+    "static/js/2.215b9a9c.chunk.js": "/pollux/static/js/2.215b9a9c.chunk.js",
+    "static/js/2.215b9a9c.chunk.js.map": "/pollux/static/js/2.215b9a9c.chunk.js.map",
     "8bc524c5955bf3864253.worker.js": "/pollux/8bc524c5955bf3864253.worker.js",
     "8bc524c5955bf3864253.worker.js.map": "/pollux/8bc524c5955bf3864253.worker.js.map",
     "index.html": "/pollux/index.html",
-    "precache-manifest.40f6a1abaeec9b8c03df58291e217e84.js": "/pollux/precache-manifest.40f6a1abaeec9b8c03df58291e217e84.js",
+    "precache-manifest.0b6e7c4ae73b9396511a6843de6ecedb.js": "/pollux/precache-manifest.0b6e7c4ae73b9396511a6843de6ecedb.js",
     "service-worker.js": "/pollux/service-worker.js",
     "static/css/2.836bfbcd.chunk.css.map": "/pollux/static/css/2.836bfbcd.chunk.css.map",
     "static/css/main.3f9d51f4.chunk.css.map": "/pollux/static/css/main.3f9d51f4.chunk.css.map",
-    "static/js/2.c423ce54.chunk.js.LICENSE.txt": "/pollux/static/js/2.c423ce54.chunk.js.LICENSE.txt",
+    "static/js/2.215b9a9c.chunk.js.LICENSE.txt": "/pollux/static/js/2.215b9a9c.chunk.js.LICENSE.txt",
     "static/media/bugs.svg": "/pollux/static/media/bugs.75afb9f6.svg",
     "static/media/cat.svg": "/pollux/static/media/cat.4333af26.svg",
     "static/media/data-extraction.svg": "/pollux/static/media/data-extraction.542aacd4.svg",
@@ -28,8 +28,8 @@
   "entrypoints": [
     "static/js/runtime-main.5df1e606.js",
     "static/css/2.836bfbcd.chunk.css",
-    "static/js/2.c423ce54.chunk.js",
+    "static/js/2.215b9a9c.chunk.js",
     "static/css/main.3f9d51f4.chunk.css",
-    "static/js/main.3437da09.chunk.js"
+    "static/js/main.17e1d10f.chunk.js"
   ]
 }
