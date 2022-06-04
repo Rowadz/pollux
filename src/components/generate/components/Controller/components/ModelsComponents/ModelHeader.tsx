@@ -33,7 +33,6 @@ export const ModelHeader = ({
   openCreateRelModal,
   disableModalControllers,
 }: ModelHeaderProps) => {
-  console.log({ relationsProps })
   const dispatch = useDispatch()
   const [{ canDrop, hovered }, drop] = useDrop({
     accept: [

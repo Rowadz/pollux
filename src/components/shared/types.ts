@@ -3,7 +3,7 @@ export type RelationsMap = Record<string, string[]>
 export type ReduxState = {
   relations: RelationsMap
   prop: FakerPropMap
-  models: Relation[]
+  models: Model[]
   auth: boolean
 }
 

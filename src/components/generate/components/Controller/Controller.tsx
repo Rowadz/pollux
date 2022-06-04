@@ -255,7 +255,7 @@ function Controller({ models, prop, relations, auth }: ControllerProps) {
         </Col>
 
         <Col xs={24} sm={24} md={18}>
-          <Models isTourOpen={isTourOpen} models={undefined} />
+          <Models isTourOpen={isTourOpen} />
         </Col>
       </Row>
     </Grid>
