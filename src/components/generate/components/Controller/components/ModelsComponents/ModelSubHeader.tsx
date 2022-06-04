@@ -109,7 +109,7 @@ const ModelSubHeader = ({
           }
           onClick={() => {
             toggleShowModal()
-            setGraphQl(toGraphQl(modelProps))
+            setGraphQl(toGraphQl(modelProps, modelName))
           }}
         />
       </FlexboxGrid.Item>
