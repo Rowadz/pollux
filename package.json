@@ -35,6 +35,7 @@
     "react-redux": "^7.2.4",
     "react-router-dom": "^6.3.0",
     "react-scripts": "3.4.1",
+    "react-use": "^17.4.0",
     "reactour": "^1.18.7",
     "redux": "^4.1.1",
     "redux-devtools-extension": "^2.13.9",
