@@ -3,14 +3,27 @@ import { IconButton, Icon, Modal, Button, Checkbox } from 'rsuite'
 import { connect } from 'react-redux'
 import emptySave from './emptySave.svg'
 import { Alert } from 'rsuite'
+import { FakerPropMap, Model, ReduxState } from 'components/shared'
 const { Header, Body, Footer, Title } = Modal
 
-const SaveModel = ({ models, prop }) => {
-  const [state, setState] = useState({
+type SaveModelProps = {
+  models: Model[]
+  prop: FakerPropMap
+}
+
+type SaveModelState = {
+  showModalSave: boolean
+  toSave: Model[]
+  modelsKey: 'models'
+}
+
+const SaveModel = ({ models, prop }: SaveModelProps) => {
+  const [state, setState] = useState<SaveModelState>({
     showModalSave: false,
     toSave: [],
     modelsKey: 'models',
   })
+
   const showModalSave = () =>
     setState({ ...state, toSave: [], showModalSave: true })
   const close = () => setState({ ...state, showModalSave: false })
@@ -22,16 +35,16 @@ const SaveModel = ({ models, prop }) => {
     }))
     const toSaveSet = new Set(toSave.map(({ id }) => id))
     // to preserve the old models and override if the user changed the same one!
-    const saved = (
-      JSON.parse(localStorage.getItem(state.modelsKey)) || []
-    ).filter(({ id }) => !toSaveSet.has(id))
+    const saved = JSON.parse(
+      localStorage.getItem(state.modelsKey) || '[]'
+    ).filter(({ id }: Model) => !toSaveSet.has(id))
     const realToSave = [...saved, ...toSave]
     localStorage.setItem(state.modelsKey, JSON.stringify(realToSave))
     Alert.success(
       `Saved models [ ${toSave.map(({ name }) => name).join(' || ')} ]`
     )
   }
-  const toSave = (model, checked) => {
+  const toSave = (model: Model, checked: boolean) => {
     if (checked) {
       setState({ ...state, toSave: [...state.toSave, model] })
     } else {
@@ -89,7 +102,7 @@ const SaveModel = ({ models, prop }) => {
   )
 }
 
-export default connect(({ models, prop }, ownProps) => ({
+export default connect(({ models, prop }: ReduxState, ownProps) => ({
   ...ownProps,
   models,
   prop,
