@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/pollux/precache-manifest.c59822dba9187bf991c62fc8f1c10893.js"
+  "/pollux/precache-manifest.cbebbdd5869eed0cf3ba1274680c276a.js"
 );
 
 self.addEventListener('message', (event) => {
