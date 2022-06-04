@@ -4,6 +4,7 @@ import type {
   FakerProp,
   Relation,
 } from 'components/shared'
+import { generate, generateGraphqlAPI } from '../../util'
 
 export type ModelHeaderProps = {
   id: string
@@ -16,6 +17,8 @@ export type ModelHeaderProps = {
   relationsProps: RelationProps
   auth: boolean
   checkedModels: Set<string>
+  generate: () => ReturnType<typeof generate>
+  generateGraphQl: () => ReturnType<typeof generateGraphqlAPI>
   disableModalControllers: boolean
   openCreateRelModal: () => void
   faker: FakerPolluxReduxStoreState[]

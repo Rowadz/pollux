@@ -14,7 +14,6 @@ import {
   Icon,
   Alert,
 } from 'rsuite'
-import { generateAPI, generateGraphqlAPI } from '../../util'
 import type { ModelHeaderProps } from './types'
 import type { FakerPolluxReduxStoreState } from 'components/shared'
 
@@ -22,13 +21,10 @@ export const ModelHeader = ({
   id,
   name,
   faker,
-  props,
-  amount,
-  relations,
-  relationsProps,
-  auth,
   isTourOpen,
   propsCount,
+  generateGraphQl,
+  generate,
   checkedModels,
   openCreateRelModal,
   disableModalControllers,
@@ -124,18 +120,7 @@ export const ModelHeader = ({
           size="xs"
           disabled={disableModalControllers}
           style={{ marginLeft: '5px' }}
-          onClick={() =>
-            generateAPI(
-              name,
-              props,
-              amount,
-              relations,
-              relationsProps,
-              null,
-              auth,
-              id
-            )
-          }
+          onClick={generate}
         >
           Generate Restful API
         </IconButton>
@@ -159,16 +144,7 @@ export const ModelHeader = ({
           size="xs"
           disabled={disableModalControllers}
           style={{ marginLeft: '5px' }}
-          onClick={() =>
-            generateGraphqlAPI(
-              name,
-              props,
-              amount,
-              relations,
-              relationsProps,
-              id
-            )
-          }
+          onClick={generateGraphQl}
         >
           Generate GraphQL API
         </IconButton>

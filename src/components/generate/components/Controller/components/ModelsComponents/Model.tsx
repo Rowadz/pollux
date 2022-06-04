@@ -6,7 +6,7 @@ import { Icon, IconButton, Panel, PanelGroup, Grid, Row, Col } from 'rsuite'
 import ConfirmDel from './ConfirmDel'
 import PropsDisplay from './PropsDisplay'
 import CreateRel from './CreateRel'
-import { generate } from '../../util'
+import { generate, generateGraphqlAPI } from '../../util'
 import { deleteModel, removeAllProps, updateAmount } from 'redux/actions'
 import WebWorkerProgress from './WebWorkerProgress'
 import { eventEmitter } from 'components/generate/webWorker/eventEmitter'
@@ -75,18 +75,17 @@ const Model = ({
     amount: 10,
   })
 
-  const generateProxy = useCallback(() => {
-    return generate(
-      props,
-      name,
-      amount,
-      relations,
-      relationsProps,
-      false,
-      id,
-      true
-    )
-  }, [props, name, amount, relations, relationsProps, id])
+  const generateProxy = useCallback(
+    () =>
+      generate(props, name, amount, relations, relationsProps, false, id, true),
+    [props, name, amount, relations, relationsProps, id]
+  )
+
+  const generateGraphqlAPIProxy = useCallback(
+    () =>
+      generateGraphqlAPI(name, props, amount, relations, relationsProps, id),
+    [name, props, amount, relations, relationsProps, id]
+  )
 
   useMount(() => {
     setFullScreen((prevState) => !prevState)
@@ -164,6 +163,8 @@ const Model = ({
               header={
                 <ModelHeader
                   amount={amount}
+                  generate={generateProxy}
+                  generateGraphQl={generateGraphqlAPIProxy}
                   id={id}
                   auth={auth}
                   checkedModels={checkedModels}
