@@ -10,11 +10,18 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { useToggle } from 'react-use'
 import { addPropName } from 'redux/actions'
 import { FlexboxGrid, Icon, IconButton, InputNumber } from 'rsuite'
+import styled from 'styled-components'
 
 import { generate } from '../../util'
 import AddProp from './AddProp'
 import LanguageSelector from './LanguageSelector'
 import GraphQlModel from '../../GraphQlModel'
+
+const SiGraphqlContainer = styled.i`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
 
 type ModelSubHeaderProps = {
   disableModalControllers: boolean
@@ -96,9 +103,9 @@ const ModelSubHeader = ({
           size="xs"
           disabled={disableModalControllers}
           icon={
-            <i className="rs-icon">
+            <SiGraphqlContainer className="rs-icon">
               <SiGraphql color="#dd34a6" />
-            </i>
+            </SiGraphqlContainer>
           }
           onClick={() => {
             toggleShowModal()
