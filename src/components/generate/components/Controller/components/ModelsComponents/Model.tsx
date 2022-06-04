@@ -52,9 +52,8 @@ const Model = ({
     shallowEqual
   )
 
-  const checkedModels: Set<string> = useSelector(
-    (state: ReduxState) => selectCheckedModels(state as any, id),
-    shallowEqual
+  const checkedModels: Set<string> = useSelector((state: ReduxState) =>
+    selectCheckedModels(state as any, id)
   )
 
   const auth: boolean = useSelector(selectAuth)

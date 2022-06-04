@@ -18,10 +18,12 @@
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.5",
     "@uiw/react-codemirror": "^4.6.0",
+    "@walmartlabs/json-to-simple-graphql-schema": "^3.0.1",
     "dayjs": "^1.11.1",
     "emittery": "^0.11.0",
     "faker": "^4.1.0",
     "file-saver": "^2.0.5",
+    "format-graphql": "^1.4.0",
     "json2php": "0.0.5",
     "jszip": "^3.10.0",
     "randexp": "^0.5.3",
@@ -71,6 +73,7 @@
     ]
   },
   "devDependencies": {
+    "@types/codemirror": "^5.60.5",
     "@types/faker": "^4.1.12",
     "@types/file-saver": "^2.0.5",
     "@types/reactour": "^1.18.2",

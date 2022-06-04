@@ -1,11 +1,20 @@
-import React, { memo } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { memo, useState } from 'react'
+import {
+  FakerProp,
+  ReduxState,
+  selectProps,
+  toGraphQl,
+} from 'components/shared'
+import { SiGraphql } from 'react-icons/si'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { useToggle } from 'react-use'
 import { addPropName } from 'redux/actions'
 import { FlexboxGrid, Icon, IconButton, InputNumber } from 'rsuite'
+
 import { generate } from '../../util'
 import AddProp from './AddProp'
 import LanguageSelector from './LanguageSelector'
+import GraphQlModel from '../../GraphQlModel'
 
 type ModelSubHeaderProps = {
   disableModalControllers: boolean
@@ -26,8 +35,15 @@ const ModelSubHeader = ({
   changeAmount,
   disableModalControllers,
 }: ModelSubHeaderProps) => {
+  const [showModal, toggleShowModal] = useToggle(false)
+  const [graphql, setGraphQl] = useState<string>('')
   const [showPropNameModal, toggleShowPropNameModal] = useToggle(false)
   const dispatch = useDispatch()
+
+  const modelProps: FakerProp[] = useSelector(
+    (state: ReduxState) => selectProps(state, modelId),
+    shallowEqual
+  )
 
   const addProp = (name: string) =>
     dispatch(addPropName({ propName: name, uuid: modelId }))
@@ -73,6 +89,23 @@ const ModelSubHeader = ({
           onChange={changeAmount}
         />
       </FlexboxGrid.Item>
+      <FlexboxGrid.Item>
+        <IconButton
+          id={isTourOpen ? 'generate-graphql-schema-btn' : null}
+          style={{ marginLeft: '5px' }}
+          size="xs"
+          disabled={disableModalControllers}
+          icon={
+            <i className="rs-icon">
+              <SiGraphql color="#dd34a6" />
+            </i>
+          }
+          onClick={() => {
+            toggleShowModal()
+            setGraphQl(toGraphQl(modelProps))
+          }}
+        />
+      </FlexboxGrid.Item>
       {/* @ts-ignore */}
       <AddProp
         id={modelId}
@@ -81,6 +114,10 @@ const ModelSubHeader = ({
         name={modelName}
         addProp={addProp}
       />
+
+      {showModal && !!graphql.length && (
+        <GraphQlModel graphql={graphql} toggleShowModal={toggleShowModal} />
+      )}
     </FlexboxGrid>
   )
 }

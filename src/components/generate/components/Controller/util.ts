@@ -24,7 +24,8 @@ export const generate = (
   relationsProps: RelationProps,
   justReturn: boolean,
   modelId: string,
-  onlyJSON = false
+  onlyJSON = false,
+  overrideRelationsCount?: number
 ) => {
   if (!props) {
     Alert.warning(`plz add some properties to this model (${name})`)
@@ -56,7 +57,10 @@ export const generate = (
         ...relations.reduce(
           (prev, { name, id }: Relation) => ({
             ...prev,
-            [name]: generateFakeData(relationsProps[id], 10),
+            [name]: generateFakeData(
+              relationsProps[id],
+              overrideRelationsCount || 10
+            ),
           }),
           {}
         ),
