@@ -10,8 +10,8 @@ import {
   Alert,
   Toggle,
 } from 'rsuite'
-import Tour from 'reactour'
-import { connect } from 'react-redux'
+import Tour, { ReactourStep } from 'reactour'
+import { connect, useDispatch } from 'react-redux'
 import { enableAuth, disableAuth } from 'redux/actions'
 import { AddModelBtn, Models, SaveModel, LoadModel } from './components'
 import {
@@ -20,8 +20,14 @@ import {
   relationsGetter,
   generateAPI,
 } from './util'
+import {
+  FakerPropMap,
+  Model,
+  ReduxState,
+  RelationsMap,
+} from 'components/shared'
 
-const mapSteps = (obj) => ({
+const mapSteps = (obj: ReactourStep) => ({
   ...obj,
   style: {
     color:
@@ -37,7 +43,7 @@ const mapSteps = (obj) => ({
   },
 })
 
-let steps = [
+let steps: ReactourStep[] = [
   {
     selector: '#add-prototype-btn',
     content: 'Click here to create new model aka prototype',
@@ -133,7 +139,12 @@ let steps = [
   },
 ].map(mapSteps)
 
-const generateAPIForAll = (models, prop, relations, auth) => {
+const generateAPIForAll = (
+  models: Model[],
+  prop: FakerPropMap,
+  relations: RelationsMap,
+  auth: boolean
+) => {
   if (models.length === 0) {
     Alert.warning('Plz load/create some models first')
     return
@@ -163,7 +174,15 @@ const generateAPIForAll = (models, prop, relations, auth) => {
   )
 }
 
-function Controller({ models, prop, relations, auth, dispatch }) {
+type ControllerProps = {
+  models: Model[]
+  prop: FakerPropMap
+  relations: RelationsMap
+  auth: boolean
+}
+
+function Controller({ models, prop, relations, auth }: ControllerProps) {
+  const dispatch = useDispatch()
   const [isTourOpen, setIsTourOpen] = useState(false)
   useEffect(() => {
     window
@@ -236,17 +255,19 @@ function Controller({ models, prop, relations, auth, dispatch }) {
         </Col>
 
         <Col xs={24} sm={24} md={18}>
-          <Models isTourOpen={isTourOpen} />
+          <Models isTourOpen={isTourOpen} models={undefined} />
         </Col>
       </Row>
     </Grid>
   )
 }
 
-export default connect(({ models, prop, relations, auth }, ownProps) => ({
-  ...ownProps,
-  models,
-  prop,
-  relations,
-  auth,
-}))(Controller)
+export default connect(
+  ({ models, prop, relations, auth }: ReduxState, ownProps) => ({
+    ...ownProps,
+    models,
+    prop,
+    relations,
+    auth,
+  })
+)(Controller)

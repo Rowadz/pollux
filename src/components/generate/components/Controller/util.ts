@@ -140,26 +140,32 @@ const downloadData = (data: unknown[], name: string): void => {
 
 const toJSONPritty = (data: any): string => JSON.stringify(data, null, 2)
 
-export const relationsPropsGetter = (state: ReduxState, modelId: string) =>
+export const relationsPropsGetter = (
+  state: Pick<ReduxState, 'prop' | 'relations'>,
+  modelId: string
+) =>
   (state.relations[modelId] || []).reduce(
     (prev, id) => ({ ...prev, [id]: state.prop[id] }),
     {}
   )
 
-export const relationsGetter = (state: ReduxState, modelId: string) =>
+export const relationsGetter = (
+  state: Pick<ReduxState, 'models' | 'relations'>,
+  modelId: string
+): Relation[] =>
   (state.relations[modelId] || []).map((uuid) =>
     state.models.find(({ id }) => uuid === id)
-  )
+  ) as Relation[]
 
 export const generateAPI = async (
   name: string,
-  props: FakerProp[],
-  amount: number,
-  relations: Relation[],
-  relationsProps: RelationProps,
-  data: unknown[] | null,
-  auth: boolean,
-  modelId: string
+  props: FakerProp[] | null,
+  amount: number | null = 10,
+  relations: Relation[] | null,
+  relationsProps: RelationProps | null,
+  data: unknown[] | null | unknown,
+  auth?: boolean,
+  modelId?: string
 ) => {
   try {
     if (!props && !data) {
@@ -175,13 +181,13 @@ export const generateAPI = async (
           ? data
           : {
               [name]: generate(
-                props,
+                props as FakerProp[],
                 name,
-                amount,
-                relations,
-                relationsProps,
+                amount as number,
+                relations as Relation[],
+                relationsProps as RelationProps,
                 true,
-                modelId
+                modelId as string
               ),
             }
       )

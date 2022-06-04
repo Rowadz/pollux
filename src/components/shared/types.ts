@@ -1,7 +1,10 @@
+export type RelationsMap = Record<string, string[]>
+
 export type ReduxState = {
-  relations: Record<string, string[]>
-  prop: Record<string, FakerProp>
+  relations: RelationsMap
+  prop: FakerPropMap
   models: Relation[]
+  auth: boolean
 }
 
 export type FakerPolluxReduxStoreState = {
@@ -21,11 +24,16 @@ export type FakerProp = {
   propName: string
 }
 
+export type FakerPropMap = Record<string, FakerProp[]>
+
 export type Relation = {
   amount: number
   createdAt: number
   id: string
   name: string
 }
+
+// alias
+export type Model = Relation
 
 export type RelationProps = Record<string, FakerProp[]>
