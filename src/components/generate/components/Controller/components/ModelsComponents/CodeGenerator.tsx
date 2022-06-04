@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, memo } from 'react'
 import { Button, Modal, Alert, IconButton, Icon } from 'rsuite'
 import { generate } from '../../util'
 import RenderLangIcon from './RenderLangIcon'
@@ -11,41 +11,77 @@ import { format } from 'sql-formatter'
 import { ruby } from '@codemirror/legacy-modes/mode/ruby'
 import { python } from '@codemirror/legacy-modes/mode/python'
 import { sql } from '@codemirror/legacy-modes/mode/sql'
+// @ts-ignore
 import json2php from 'json2php'
 import dayjs from 'dayjs'
+import { Lang } from './types'
+import { shallowEqual, useSelector } from 'react-redux'
+import {
+  FakerProp,
+  Model,
+  ReduxState,
+  Relation,
+  RelationProps,
+  selectModel,
+  selectProps,
+  selectRelations,
+  selectRelationsProps,
+} from 'components/shared'
 
-/**
- *
- * @param {any} data
- */
-const formatRuby = (data) =>
+const formatRuby = (data: number | Date) =>
   typeof data === 'number'
     ? data
     : dayjs(data).isValid()
     ? `'${dayjs(data).toISOString()}'`
     : `'${data}'`
 
+type CodeGeneratorProps = {
+  modelId: string
+  lang: Lang
+  toggleShowModal: () => any
+}
+
 const CodeGenerator = ({
-  id,
+  modelId,
   lang,
-  props,
-  name,
-  amount,
-  relations,
-  setShowModal,
-  relationsProps,
-}) => {
+  toggleShowModal,
+}: CodeGeneratorProps) => {
+  const model: Model = useSelector<ReduxState, Model>(
+    (state: ReduxState) => selectModel(state as any, modelId),
+    shallowEqual
+  )
+
+  const modelProps: FakerProp[] = useSelector(
+    (state: ReduxState) => selectProps(state, modelId),
+    shallowEqual
+  )
+
+  const relations: Relation[] = useSelector(
+    (state: ReduxState) => selectRelations(state, modelId),
+    shallowEqual
+  )
+
+  const relationsProps: RelationProps[] = useSelector<
+    ReduxState,
+    RelationProps[]
+  >(
+    // @ts-expect-error
+    (state) => selectRelationsProps(state, relations),
+    shallowEqual
+  )
+
   const [code, setCode] = useState('')
   useEffect(() => {
     const data =
       generate(
-        props,
-        name,
-        amount > 10_000 ? 10_000 : amount,
+        modelProps,
+        model.name,
+        model.amount > 10_000 ? 10_000 : model.amount,
         relations,
+        // @ts-expect-error
         relationsProps,
         true,
-        id
+        modelId
       ) || []
 
     if (lang === 'javascript') {
@@ -60,9 +96,11 @@ const CodeGenerator = ({
       setCode(`$data = ${phpArrayStrWithNewLines}`)
     } else if (lang === 'ruby') {
       // prettier-ignore
+      // @ts-expect-error
       const rubyCode = data.map(obj => {
             return `{` + Object.keys(obj).reduce(
                 (prev, curr) => `${curr}: ${isNaN(obj[curr]) ? `'${obj[curr]}'` : formatRuby(obj[curr]) }, ${prev}`, '') + `}`
+                // @ts-expect-error
         }).map(str => {
             const lastIndexOf = str.lastIndexOf(', ')
             return str.slice(0, lastIndexOf) + str.slice(lastIndexOf + 2)
@@ -74,14 +112,17 @@ const CodeGenerator = ({
     } else if (lang === 'sql') {
       const data =
         generate(
+          // @ts-expect-error
           props,
-          name,
-          amount > 10_000 ? 10_000 : amount,
+          model.name,
+          model.amount > 10_000 ? 10_000 : model.amount,
           relations,
+          // @ts-expect-error
           relationsProps,
           true,
-          id
+          modelId
         ) || []
+      // @ts-expect-error
       const values = data.map(Object.values)
       const res = []
       for (const list of values) {
@@ -99,7 +140,7 @@ const CodeGenerator = ({
       }
       const sqlValues = res.join(', ')
       const sql = `
-          INSERT INTO ${name} 
+          INSERT INTO ${model.name} 
           VALUES ${sqlValues}
         `
       setCode(format(sql))
@@ -108,7 +149,7 @@ const CodeGenerator = ({
   }, [])
 
   return (
-    <Modal size="lg" full show={true} onHide={() => setShowModal(false)}>
+    <Modal size="lg" full show={true} onHide={toggleShowModal}>
       <Modal.Header>
         <Modal.Title>
           Copy this <RenderLangIcon lang={lang} /> code
@@ -140,6 +181,7 @@ const CodeGenerator = ({
             php(),
             StreamLanguage.define(ruby),
             StreamLanguage.define(ruby),
+            // @ts-expect-error
             StreamLanguage.define(sql),
             StreamLanguage.define(python),
           ]}
@@ -150,7 +192,7 @@ const CodeGenerator = ({
         />
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={() => setShowModal(false)} appearance="subtle">
+        <Button onClick={toggleShowModal} appearance="subtle">
           close
         </Button>
       </Modal.Footer>
@@ -158,4 +200,4 @@ const CodeGenerator = ({
   )
 }
 
-export default CodeGenerator
+export default memo(CodeGenerator)

@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+import { useMount } from 'react-use'
 import {
   InputPicker,
   List,
@@ -56,9 +57,9 @@ const Prop = ({
     dispatch(editProp({ id: modelId, propId: id, func: value, groupName }))
   }
 
-  useEffect(() => {
+  useMount(() => {
     setFullScreen((prevState) => !prevState)
-  }, [])
+  })
 
   const debouncedOnRegexUpdate = useDebouncedCallback((value) => {
     try {

@@ -4,6 +4,8 @@ export type ReduxState = {
   relations: RelationsMap
   prop: FakerPropMap
   models: Model[]
+  // TODO remove `?`
+  faker?: FakerPolluxReduxStoreState[]
   auth: boolean
 }
 

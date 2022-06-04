@@ -27,7 +27,7 @@ const Models = ({ isTourOpen }: ModelsProps) => {
     <section id="models-section">
       {isTourOpen && (
         <Model
-          model={{ id: '', name: 'Demo', amount: 10 }}
+          model={{ id: '', name: 'Demo', amount: 10, createdAt: Date.now() }}
           isTourOpen={isTourOpen}
         />
       )}

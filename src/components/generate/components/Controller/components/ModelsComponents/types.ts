@@ -20,3 +20,5 @@ export type ModelHeaderProps = {
   openCreateRelModal: () => void
   faker: FakerPolluxReduxStoreState[]
 }
+
+export type Lang = 'ruby' | 'php' | 'python' | 'javascript' | 'sql'
