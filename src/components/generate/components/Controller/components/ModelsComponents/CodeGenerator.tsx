@@ -112,8 +112,7 @@ const CodeGenerator = ({
     } else if (lang === 'sql') {
       const data =
         generate(
-          // @ts-expect-error
-          props,
+          modelProps,
           model.name,
           model.amount > 10_000 ? 10_000 : model.amount,
           relations,
@@ -122,12 +121,12 @@ const CodeGenerator = ({
           true,
           modelId
         ) || []
-      // @ts-expect-error
-      const values = data.map(Object.values)
+
+      const values = (data as Record<string, any>[]).map(Object.values)
       const res = []
       for (const list of values) {
         let str = '( '
-        for (const [index, value] of list.entries()) {
+        for (const [index, value] of (list as Record<string, any>).entries()) {
           const comma = index === list.length - 1 ? ' ' : ', '
           if (isNaN(value)) {
             str += `"${value}"${comma}`
