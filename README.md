@@ -1,3 +1,5 @@
+[![Deploy to GitHub pages](https://github.com/MohammedAl-Rowad/pollux/actions/workflows/workflow.yml/badge.svg)](https://github.com/MohammedAl-Rowad/pollux/actions/workflows/workflow.yml)
+
 # Welomce to 🌞 Pollux 🌞
 
 Need Restful API with bearer authentication? or a GraphQL API? maybe some testing data in JSON or Ruby or Python or PHP or JavaScript , all of that and more is possible with pollux, without writing a single line of code.
