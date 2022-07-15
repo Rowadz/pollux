@@ -1,6 +1,9 @@
 import React from 'react'
 import { useToggle } from 'react-use'
-import { Navbar, Nav, Icon, Drawer, Badge } from 'rsuite'
+import { Navbar, Nav, Drawer, Badge } from 'rsuite'
+import { ImMagicWand } from 'react-icons/im'
+import { AiFillHome } from 'react-icons/ai'
+import { GiCubes } from 'react-icons/gi'
 import { NavLink } from 'react-router-dom'
 import BuilderBody from './Builder/BuilderBody/BuilderBody'
 import { FLAGS } from 'flags'
@@ -19,27 +22,21 @@ const HeaderComp = () => {
             to="/"
             className={(navData) => (navData.isActive ? 'active-route' : '')}
           >
-            <Item
-              renderItem={() => (
-                <span className="rs-nav-item-content">
-                  <Icon icon="home" /> Pollux
-                </span>
-              )}
-            ></Item>
+            <Item>
+              <span className="rs-nav-item-content">
+                <AiFillHome /> Pollux
+              </span>
+            </Item>
           </NavLink>
           <NavLink
             to="/generate"
             className={(navData) => (navData.isActive ? 'active-route' : '')}
           >
-            <Item
-              renderItem={() => (
-                <span className="rs-nav-item-content">
-                  <Icon icon="magic2" />
-                  Generate
-                </span>
-              )}
-            >
-              About
+            <Item>
+              <span className="rs-nav-item-content">
+                <ImMagicWand />
+                Generate
+              </span>
             </Item>
           </NavLink>
           {FLAGS.FLOW_GENERATE && (
@@ -47,30 +44,26 @@ const HeaderComp = () => {
               to="/flow-generate"
               className={(navData) => (navData.isActive ? 'active-route' : '')}
             >
-              <Item
-                renderItem={() => (
-                  <span className="rs-nav-item-content">
-                    <Icon icon="magic2" />
-                    Flow Generate
-                  </span>
-                )}
-              >
-                About
+              <Item>
+                <span className="rs-nav-item-content">
+                  <ImMagicWand />
+                  Flow Generate
+                </span>
               </Item>
             </NavLink>
           )}
         </Nav>
         <Nav pullRight>
-          <Item onClick={toggleShow} icon={<Icon icon="creative" />}>
+          <Item onClick={toggleShow} icon={<GiCubes />}>
             Builder <Badge content="NEW!"></Badge>
           </Item>
 
           <Drawer
             backdrop={false}
-            show={show}
+            open={show}
             size="xs"
             placement="left"
-            onHide={toggleShow}
+            onClose={toggleShow}
           >
             <Drawer.Header>
               <Drawer.Title>
