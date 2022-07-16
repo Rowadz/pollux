@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { IconButton, Icon, Modal, Button, Checkbox } from 'rsuite'
+import { IconButton, Modal, Button, Checkbox } from 'rsuite'
 import { connect } from 'react-redux'
 import emptySave from './emptySave.svg'
-import { Alert } from 'rsuite'
+// import { Alert } from 'rsuite'
+import { IoIosSave } from 'react-icons/io'
 import { FakerPropMap, Model, ReduxState } from 'components/shared'
 const { Header, Body, Footer, Title } = Modal
 
@@ -40,9 +41,9 @@ const SaveModel = ({ models, prop }: SaveModelProps) => {
     ).filter(({ id }: Model) => !toSaveSet.has(id))
     const realToSave = [...saved, ...toSave]
     localStorage.setItem(state.modelsKey, JSON.stringify(realToSave))
-    Alert.success(
-      `Saved models [ ${toSave.map(({ name }) => name).join(' || ')} ]`
-    )
+    // Alert.success(
+    //   `Saved models [ ${toSave.map(({ name }) => name).join(' || ')} ]`
+    // )
   }
   const toSave = (model: Model, checked: boolean) => {
     if (checked) {
@@ -56,6 +57,7 @@ const SaveModel = ({ models, prop }: SaveModelProps) => {
   }
   const modelsEl = models.length ? (
     models.map(({ name, id }) => (
+      // @ts-expect-error
       <Checkbox name={name} onChange={toSave} key={id} value={{ name, id }}>
         {name}
       </Checkbox>
@@ -71,14 +73,14 @@ const SaveModel = ({ models, prop }: SaveModelProps) => {
       <IconButton
         size="xs"
         id="save-model-btn"
-        icon={<Icon icon="save" />}
+        icon={<IoIosSave />}
         onClick={showModalSave}
       >
         Save Model
       </IconButton>
       <Modal
-        show={state.showModalSave}
-        onHide={close}
+        open={state.showModalSave}
+        onClose={close}
         style={{ maxWidth: '100%' }}
       >
         <Header>

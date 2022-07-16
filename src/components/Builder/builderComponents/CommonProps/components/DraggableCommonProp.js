@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDrag } from 'react-dnd'
-import { List, Icon } from 'rsuite'
+import { List } from 'rsuite'
+import { BiCircle } from 'react-icons/bi'
 import styles from './DraggableCommonProp.module.css'
 import { map } from 'components/Builder/maps'
 
@@ -26,7 +27,7 @@ const DraggableCommonProp = ({ type, icon, label, func, children }) => {
           boxShadow: 'none',
         }}
       >
-        <Icon icon={icon || 'circle-o'} /> {label || type}
+        {icon || <BiCircle />} {label || type}
         {children}
       </List.Item>
     </div>

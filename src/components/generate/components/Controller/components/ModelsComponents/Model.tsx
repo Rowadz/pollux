@@ -2,7 +2,7 @@ import React, { useState, useEffect, memo, useCallback } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { useMount } from 'react-use'
 import { Flipper, Flipped } from 'react-flip-toolkit'
-import { Icon, IconButton, Panel, PanelGroup, Grid, Row, Col } from 'rsuite'
+import { IconButton, Panel, PanelGroup, Grid, Row, Col } from 'rsuite'
 import ConfirmDel from './ConfirmDel'
 import PropsDisplay from './PropsDisplay'
 import CreateRel from './CreateRel'
@@ -199,7 +199,7 @@ const Model = ({
                     />
 
                     <IconButton
-                      icon={<Icon icon="minus" />}
+                      icon={<></>}
                       style={{ float: 'right' }}
                       color="red"
                       disabled={disableModalControllers}

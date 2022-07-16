@@ -1,8 +1,9 @@
 import React, { memo } from 'react'
 import CodeMirror from '@uiw/react-codemirror'
 import { oneDark } from '@codemirror/theme-one-dark'
+import { FaCopy } from 'react-icons/fa'
 
-import { Alert, Icon, IconButton, Modal } from 'rsuite'
+import { IconButton, Modal, useToaster, Notification } from 'rsuite'
 
 const GraphQlModel = ({
   graphql,
@@ -11,9 +12,10 @@ const GraphQlModel = ({
   graphql: string
   toggleShowModal: () => any
 }) => {
+  const toaster = useToaster()
   return (
     <>
-      <Modal size="lg" full show={true} onHide={toggleShowModal}>
+      <Modal size="lg" full open={true} onClose={toggleShowModal}>
         <Modal.Header>
           <Modal.Title>Copy this GraphQL code</Modal.Title>
         </Modal.Header>
@@ -21,16 +23,24 @@ const GraphQlModel = ({
           <IconButton
             appearance="ghost"
             style={{ marginBottom: '5px' }}
-            icon={<Icon icon="copy-o" />}
+            icon={<FaCopy />}
             onClick={() => {
               navigator.clipboard
                 .writeText(graphql)
                 .then(() => {
-                  Alert.info('Copied!')
+                  toaster.push(
+                    <Notification type="info" header="info" closable>
+                      Copied!
+                    </Notification>
+                  )
                 })
                 .catch((error) => {
                   console.error(error)
-                  Alert.error('Error')
+                  toaster.push(
+                    <Notification type="error" header="error" closable>
+                      Copied!
+                    </Notification>
+                  )
                 })
             }}
           >

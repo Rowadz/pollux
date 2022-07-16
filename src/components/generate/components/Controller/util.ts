@@ -1,4 +1,4 @@
-import { Alert } from 'rsuite'
+// import { Alert } from 'rsuite'
 import * as faker from 'faker'
 import { saveAs } from 'file-saver'
 import RandExp from 'randexp'
@@ -28,7 +28,7 @@ export const generate = (
   overrideRelationsCount?: number
 ) => {
   if (!props) {
-    Alert.warning(`plz add some properties to this model (${name})`)
+    // Alert.warning(`plz add some properties to this model (${name})`)
     return
   }
   const atLeastOneWithoutFunc = props
@@ -36,19 +36,19 @@ export const generate = (
     .map(({ propName }) => propName)
   const len = atLeastOneWithoutFunc.length
   if (len > 0) {
-    Alert.warning(
-      `There is ${len} ${
-        len === 1 ? 'property' : 'properties'
-      } without function ${atLeastOneWithoutFunc.join(' || ')}`
-    )
+    // Alert.warning(
+    //   `There is ${len} ${
+    //     len === 1 ? 'property' : 'properties'
+    //   } without function ${atLeastOneWithoutFunc.join(' || ')}`
+    // )
     return
   }
 
   if ((!window.Worker || amount < 10000 || relations) && !onlyJSON) {
     if (amount > 10000) {
-      Alert.info(
-        'This browser do not support web workers, generating data on the main thread 🧵'
-      )
+      // Alert.info(
+      //   'This browser do not support web workers, generating data on the main thread 🧵'
+      // )
     }
     const res = generateFakeData(props, amount)
     if (relations) {
@@ -88,7 +88,7 @@ export const generate = (
           return outJSON
         }
         saveAs(new Blob([outJSON], { type: 'application/json' }), name)
-        Alert.success(`Downloaded ${name}.json 👍`)
+        // Alert.success(`Downloaded ${name}.json 👍`)
       })
       .catch((error) => {
         console.group('Error generating data')
@@ -97,7 +97,7 @@ export const generate = (
         console.log('you can open an issue with this error in the link below')
         console.log('https://github.com/MohammedAl-Rowad/pollux')
         console.groupEnd()
-        Alert.success('Feels bad, we faced an error')
+        // Alert.success('Feels bad, we faced an error')
       })
   }
 }
@@ -139,7 +139,7 @@ const generateFakeData = (props: FakerProp[], amount: number) =>
 
 const downloadData = (data: unknown[], name: string): void => {
   saveAs(new Blob([toJSONPritty(data)], { type: 'application/json' }), name)
-  Alert.success(`Downloaded ${name}.json 👍`)
+  // Alert.success(`Downloaded ${name}.json 👍`)
 }
 
 const toJSONPritty = (data: any): string => JSON.stringify(data, null, 2)
@@ -173,7 +173,7 @@ export const generateAPI = async (
 ) => {
   try {
     if (!props && !data) {
-      Alert.warning(`plz add some properties to this model (${name})`)
+      // Alert.warning(`plz add some properties to this model (${name})`)
       return
     }
     const zip = new JSZip()
@@ -200,11 +200,11 @@ export const generateAPI = async (
     zip.file('routes.json', toJSONPritty({ [name]: 660 }))
     const zipContent = await zip.generateAsync({ type: 'blob' })
     saveAs(zipContent, 'pollux-api.zip')
-    Alert.success(`Downloaded pollux-api.zip 👍`)
+    // Alert.success(`Downloaded pollux-api.zip 👍`)
   } catch (error) {
-    Alert.error(
-      'Something went wrong while generating your API, please checkout the console'
-    )
+    // Alert.error(
+    //   'Something went wrong while generating your API, please checkout the console'
+    // )
     console.group('Error generating the API')
     console.log('the error object')
     console.error(error)
@@ -224,7 +224,7 @@ export const generateGraphqlAPI = async (
 ) => {
   try {
     if (!props) {
-      Alert.warning(`plz add some properties to this model (${name})`)
+      // Alert.warning(`plz add some properties to this model (${name})`)
       return
     }
     const zip = new JSZip()
@@ -246,11 +246,11 @@ export const generateGraphqlAPI = async (
     const zipContent = await zip.generateAsync({ type: 'blob' })
     saveAs(zipContent, 'pollux-graphql.zip')
 
-    Alert.success(`Downloaded pollux-graphql.zip 👍`)
+    // Alert.success(`Downloaded pollux-graphql.zip 👍`)
   } catch (error) {
-    Alert.error(
-      'Something went wrong while generating your API, please checkout the console'
-    )
+    // Alert.error(
+    //   'Something went wrong while generating your API, please checkout the console'
+    // )
     console.group('Error generating the GraphQL API')
     console.log('the error object')
     console.error(error)

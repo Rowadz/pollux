@@ -1,5 +1,6 @@
 import React from 'react'
-import { IconButton, Icon } from 'rsuite'
+import { IconButton } from 'rsuite'
+import { ImLinkedin, ImGithub, ImYoutube } from 'react-icons/im'
 
 const FooterComp = () => {
   return (
@@ -10,7 +11,7 @@ const FooterComp = () => {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <IconButton size="xs" icon={<Icon icon="linkedin-square" />} />
+        <IconButton size="xs" icon={<ImLinkedin />} />
       </a>
       {'  '}
       <a
@@ -18,7 +19,7 @@ const FooterComp = () => {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <IconButton size="xs" icon={<Icon icon="github-alt" />} />
+        <IconButton size="xs" icon={<ImGithub />} />
       </a>
       {'  '}
       <a
@@ -26,7 +27,7 @@ const FooterComp = () => {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <IconButton size="xs" icon={<Icon icon="youtube-play" />} />
+        <IconButton size="xs" icon={<ImYoutube />} />
       </a>
     </section>
   )

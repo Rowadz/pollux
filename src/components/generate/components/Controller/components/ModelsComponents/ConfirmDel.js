@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon, Button, Modal } from 'rsuite'
+import { Button, Modal } from 'rsuite'
 import { danger } from 'colors'
 const { Body, Footer, Header, Title } = Modal
 
@@ -16,13 +16,13 @@ const ConfirmDel = ({ showConfirmModal, closeConfirmModal, name, del, id }) => {
         <Title>Confirm</Title>
       </Header>
       <Body>
-        <Icon
+        {/* <Icon
           icon="remind"
           style={{
             color: '#ffb300',
             fontSize: 24,
           }}
-        />
+        /> */}
         <b>
           {' '}
           Are you sure you want to delete this model {'`'}

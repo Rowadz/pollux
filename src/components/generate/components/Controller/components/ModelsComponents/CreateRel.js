@@ -4,7 +4,7 @@ import { Button, Modal } from 'rsuite'
 import { Grid, Row, Col } from 'rsuite'
 import { Toggle } from 'rsuite'
 import { addRelation, removeRelation } from 'redux/actions'
-import { Alert } from 'rsuite'
+// import { Alert } from 'rsuite'
 import cat from './cat.svg'
 const { Body, Footer, Header, Title } = Modal
 
@@ -19,14 +19,14 @@ const CreateRel = ({
 }) => {
   const toggleRel = (checked, distId) => {
     if (checked) {
-      Alert.success(`created the link with ${mainModel.name} (1:m)`)
+      // Alert.success(`created the link with ${mainModel.name} (1:m)`)
       dispatch(addRelation({ distId, modelId: id }))
     } else {
-      Alert.info(`removed the link with ${mainModel.name}`)
+      // Alert.info(`removed the link with ${mainModel.name}`)
       dispatch(removeRelation({ distId, modelId: id }))
     }
   }
-  
+
   if (!mainModel) return ''
 
   return (

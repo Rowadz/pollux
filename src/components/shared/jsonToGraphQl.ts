@@ -9,7 +9,7 @@ import {
   relationsPropsGetter,
 } from 'components/generate/components/Controller/util'
 import { FakerPropMap, Model, RelationsMap } from './types'
-import { Alert } from 'rsuite'
+// import { Alert } from 'rsuite'
 
 const toModelTypeName = (modelName: string) =>
   modelName.charAt(0).toUpperCase() + modelName.slice(1)
@@ -19,7 +19,7 @@ export const toGraphQl = (
   modelName: string
 ) => {
   if (!modelProps || !modelProps.length) {
-    Alert.warning('Pelase add some attributes to the model.')
+    // Alert.warning('Pelase add some attributes to the model.')
     return ''
   }
 
@@ -65,7 +65,7 @@ export const toGraphQlManyModels = (
   )
 
   if (!Object.keys(fakeData).length) {
-    Alert.warning('Pelase add some models first.')
+    // Alert.warning('Pelase add some models first.')
     return ''
   }
   const fakeJSON = JSON.stringify(fakeData)

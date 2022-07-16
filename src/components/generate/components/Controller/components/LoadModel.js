@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { IconButton, Icon, Modal, Button, Divider } from 'rsuite'
 import { connect } from 'react-redux'
-import { Alert } from 'rsuite'
+// import { Alert } from 'rsuite'
+import { FaTasks } from 'react-icons/fa'
 import loadModelsEmpty from './loadModels.svg'
 import { addModel, justAddProp } from 'redux/actions'
 const { Header, Body, Footer, Title } = Modal
@@ -23,10 +24,10 @@ const LoadModel = ({ dispatch, models }) => {
     if ((models.find(({ id: modelId }) => id === modelId) || []).length === 0) {
       dispatch(addModel({ id, name, createdAt, amount: +amount }))
       dispatch(justAddProp({ uuid: id, ...props }))
-      Alert.info(`Loaded ${name} model 👍`)
+      // Alert.info(`Loaded ${name} model 👍`)
       close()
     } else {
-      Alert.warning(`We already loaded ${name} - id[${id}]`)
+      // Alert.warning(`We already loaded ${name} - id[${id}]`)
     }
   }
   return (
@@ -34,7 +35,7 @@ const LoadModel = ({ dispatch, models }) => {
       <IconButton
         id="load-model-btn"
         size="xs"
-        icon={<Icon icon="tasks" />}
+        icon={<FaTasks />}
         onClick={open}
       >
         Load Model

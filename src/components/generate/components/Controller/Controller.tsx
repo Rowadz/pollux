@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { Grid, Row, Col, IconButton, Icon, Alert, Toggle } from 'rsuite'
+import {
+  Grid,
+  Row,
+  Col,
+  IconButton,
+  useToaster,
+  Toggle,
+  Notification,
+} from 'rsuite'
+import { GiNinjaStar } from 'react-icons/gi'
+import { MdTour } from 'react-icons/md'
 import Tour, { ReactourStep } from 'reactour'
 import { connect, useDispatch } from 'react-redux'
 import { enableAuth, disableAuth } from 'redux/actions'
@@ -149,10 +159,16 @@ const generateAPIForAll = (
   models: Model[],
   prop: FakerPropMap,
   relations: RelationsMap,
-  auth: boolean
+  auth: boolean,
+  toaster: ReturnType<typeof useToaster>
 ) => {
   if (models.length === 0) {
-    Alert.warning('Plz load/create some models first')
+    toaster.push(
+      <Notification type="warning" header="warning" closable>
+        Please load/create some models first
+      </Notification>
+    )
+
     return
   }
   const data = models.reduce((prev, { name, amount, id }) => {
@@ -192,6 +208,8 @@ function Controller({ models, prop, relations, auth }: ControllerProps) {
   const [graphql, setGraphQl] = useState<string>('')
   const [showModal, toggleShowModal] = useToggle(false)
   const [isTourOpen, setIsTourOpen] = useState(false)
+  const toaster = useToaster()
+
   useEffect(() => {
     window
       .matchMedia('(prefers-color-scheme: dark)')
@@ -215,7 +233,7 @@ function Controller({ models, prop, relations, auth }: ControllerProps) {
             <Col xs={8}>
               <IconButton
                 size="xs"
-                icon={<Icon icon="lightbulb-o" />}
+                icon={<MdTour />}
                 onClick={() => setIsTourOpen(true)}
               >
                 Take Tour
@@ -233,8 +251,10 @@ function Controller({ models, prop, relations, auth }: ControllerProps) {
               <IconButton
                 id="create-a-api-btn-for-all"
                 size="xs"
-                icon={<Icon icon="twinkle-star" />}
-                onClick={() => generateAPIForAll(models, prop, relations, auth)}
+                icon={<GiNinjaStar />}
+                onClick={() =>
+                  generateAPIForAll(models, prop, relations, auth, toaster)
+                }
               >
                 Generate Rest API with all models
               </IconButton>
