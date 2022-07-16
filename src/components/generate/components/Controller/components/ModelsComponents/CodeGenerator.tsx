@@ -1,5 +1,5 @@
 import React, { useEffect, useState, memo } from 'react'
-import { Button, Modal, Alert, IconButton, Icon } from 'rsuite'
+import { Button, Modal, IconButton } from 'rsuite'
 import { generate } from '../../util'
 import RenderLangIcon from './RenderLangIcon'
 import CodeMirror from '@uiw/react-codemirror'
@@ -148,7 +148,7 @@ const CodeGenerator = ({
   }, [])
 
   return (
-    <Modal size="lg" full show={true} onHide={toggleShowModal}>
+    <Modal size="lg" full open={true} onClose={toggleShowModal}>
       <Modal.Header>
         <Modal.Title>
           Copy this <RenderLangIcon lang={lang} /> code
@@ -158,16 +158,16 @@ const CodeGenerator = ({
         <IconButton
           appearance="ghost"
           style={{ marginBottom: '5px' }}
-          icon={<Icon icon="copy-o" />}
+          icon={<></>}
           onClick={() => {
             navigator.clipboard
               .writeText(code)
               .then(() => {
-                Alert.info('Copied!')
+                // Alert.info('Copied!')
               })
               .catch((error) => {
                 console.error(error)
-                Alert.error('Error')
+                // Alert.error('Error')
               })
           }}
         >

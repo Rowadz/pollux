@@ -1,15 +1,6 @@
 import React, { useState } from 'react'
 import { useMount } from 'react-use'
-import {
-  InputPicker,
-  List,
-  Grid,
-  Col,
-  Row,
-  Icon,
-  IconButton,
-  Input,
-} from 'rsuite'
+import { InputPicker, List, Grid, Col, Row, IconButton, Input } from 'rsuite'
 import AddProp from './AddProp'
 import { connect } from 'react-redux'
 import { delProp, editProp } from 'redux/actions'
@@ -72,12 +63,7 @@ const Prop = ({
     }
   }, 200)
 
-  const icon =
-    func !== 'regex' ? (
-      <Icon icon="circle" />
-    ) : (
-      <Icon icon="creative" style={{ color: normal }} />
-    )
+  const icon = func !== 'regex' ? 'cirlce icon' : 'regex'
 
   return (
     <Flipper flipKey={fullScreen}>
@@ -98,7 +84,7 @@ const Prop = ({
             >
               <Col xs={24} sm={24} md={6}>
                 <h6>
-                  {icon} {name} {checkIfMobile() ? <Icon icon="circle" /> : ''}
+                  {icon} {name} {checkIfMobile() ? 'circle icon' : ''}
                 </h6>
               </Col>
 
@@ -171,7 +157,7 @@ const Prop = ({
                   disabled={disableModalControllers}
                   style={{ margin: '5px' }}
                   size="xs"
-                  icon={<Icon icon="edit" />}
+                  icon={<></>}
                   circle
                   onClick={openModal}
                 />
@@ -180,7 +166,7 @@ const Prop = ({
               <Col xs={12} sm={12} md={1} style={{ textAlign: 'right' }}>
                 <IconButton
                   style={{ margin: '5px' }}
-                  icon={<Icon icon="minus" />}
+                  icon={<></>}
                   circle
                   disabled={disableModalControllers}
                   size="xs"

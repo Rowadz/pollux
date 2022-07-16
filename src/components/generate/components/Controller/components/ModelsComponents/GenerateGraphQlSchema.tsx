@@ -14,6 +14,7 @@ const GenerateGraphQlSchema = ({
 }: GenerateGraphQlSchemaProps) => {
   return (
     <IconButton
+      //@ts-expect-error
       id={isTourOpen ? 'create-a-graphql-btn' : null}
       icon={
         <i className="rs-icon">

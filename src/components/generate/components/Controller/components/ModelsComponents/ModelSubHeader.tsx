@@ -9,7 +9,7 @@ import { SiGraphql } from 'react-icons/si'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { useToggle } from 'react-use'
 import { addPropName } from 'redux/actions'
-import { FlexboxGrid, Icon, IconButton, InputNumber } from 'rsuite'
+import { FlexboxGrid, IconButton, InputNumber } from 'rsuite'
 import styled from 'styled-components'
 
 import { generate } from '../../util'
@@ -60,8 +60,9 @@ const ModelSubHeader = ({
       <FlexboxGrid.Item>
         <IconButton
           disabled={disableModalControllers}
-          icon={<Icon icon="plus" />}
+          icon={<></>}
           size="xs"
+          // @ts-expect-error
           id={isTourOpen ? 'add-attribute-btn' : null}
           onClick={toggleShowPropNameModal}
         >
@@ -70,11 +71,12 @@ const ModelSubHeader = ({
       </FlexboxGrid.Item>
       <FlexboxGrid.Item>
         <IconButton
+          // @ts-expect-error
           id={isTourOpen ? 'generate-data-btn' : null}
           style={{ marginLeft: '5px' }}
           size="xs"
           disabled={disableModalControllers}
-          icon={<Icon icon="magic2" />}
+          icon={<></>}
           onClick={generate}
         >
           Generate JSON
@@ -98,6 +100,7 @@ const ModelSubHeader = ({
       </FlexboxGrid.Item>
       <FlexboxGrid.Item>
         <IconButton
+          // @ts-expect-error
           id={isTourOpen ? 'generate-graphql-schema-btn' : null}
           style={{ marginLeft: '5px' }}
           size="xs"

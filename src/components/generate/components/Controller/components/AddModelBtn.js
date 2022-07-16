@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { IconButton, Icon, Modal, Button, Input } from 'rsuite'
+import { IconButton, Modal, Button, Input } from 'rsuite'
 import { connect } from 'react-redux'
 import { addModel } from 'redux/actions'
 import { v4 } from 'uuid'
@@ -37,7 +37,7 @@ const AddModelBtn = ({ dispatch }) => {
         onClick={showNameModal}
         appearance="ghost"
         style={{ width: '100%' }}
-        icon={<Icon icon="plus" />}
+        icon={<></>}
       >
         Add a model
       </IconButton>

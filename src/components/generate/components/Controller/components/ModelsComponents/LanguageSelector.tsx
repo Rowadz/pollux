@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useToggle } from 'react-use'
-import { Button, ButtonGroup, Dropdown, Icon, IconButton } from 'rsuite'
+import { Button, ButtonGroup, Dropdown, IconButton } from 'rsuite'
 import RenderLangIcon from './RenderLangIcon'
 import { SiJavascript, SiPhp, SiPython, SiRuby } from 'react-icons/si'
 import { DiMysql } from 'react-icons/di'
@@ -33,9 +33,7 @@ const LanguageSelector = ({
           placement="bottomEnd"
           onSelect={setLang}
           renderTitle={() => {
-            return (
-              <IconButton size="xs" icon={<Icon icon="angle-double-down" />} />
-            )
+            return <IconButton size="xs" icon={<></>} />
           }}
         >
           <Dropdown.Item

@@ -11,8 +11,8 @@ import {
   Badge,
   IconButton,
   Panel,
-  Icon,
-  Alert,
+  // Icon,
+  // Alert,
 } from 'rsuite'
 import type { ModelHeaderProps } from './types'
 import type { FakerPolluxReduxStoreState } from 'components/shared'
@@ -54,7 +54,7 @@ export const ModelHeader = ({
     },
     drop({ data }: any) {
       dispatch(justAddProp({ uuid: id, props: [{ ...data, id: v4() }] } as any))
-      Alert.success(`Added the ${data.propName} props`)
+      // Alert.success(`Added the ${data.propName} props`)
     },
   })
 
@@ -65,6 +65,7 @@ export const ModelHeader = ({
         <Tag
           color="cyan"
           style={{ marginLeft: '5px' }}
+          // @ts-expect-error
           id={isTourOpen ? 'prop-tag-count' : null}
         >
           {propsCount}
@@ -83,8 +84,9 @@ export const ModelHeader = ({
           <Badge content={checkedModels.size}>
             <IconButton
               disabled={disableModalControllers}
+              // @ts-expect-error
               id={isTourOpen ? 'create-a-relationship-btn' : null}
-              icon={<Icon icon="link" />}
+              icon={<></>}
               style={{ marginLeft: '5px' }}
               size="xs"
               onClick={openCreateRelModal}
@@ -94,8 +96,9 @@ export const ModelHeader = ({
           </Badge>
         ) : (
           <IconButton
+            // @ts-expect-error
             id={isTourOpen ? 'create-a-relationship-btn' : null}
-            icon={<Icon icon="link" />}
+            icon={<></>}
             style={{ marginLeft: '5px' }}
             size="xs"
             disabled={disableModalControllers}
@@ -115,8 +118,9 @@ export const ModelHeader = ({
         }
       >
         <IconButton
+          // @ts-expect-error
           id={isTourOpen ? 'create-a-api-btn' : null}
-          icon={<Icon icon="twinkle-star" />}
+          icon={<></>}
           size="xs"
           disabled={disableModalControllers}
           style={{ marginLeft: '5px' }}
@@ -135,6 +139,7 @@ export const ModelHeader = ({
         }
       >
         <IconButton
+          // @ts-expect-error
           id={isTourOpen ? 'create-a-graphql-btn' : null}
           icon={
             <i className="rs-icon">

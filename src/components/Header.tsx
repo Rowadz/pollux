@@ -32,12 +32,10 @@ const HeaderComp = () => {
             to="/generate"
             className={(navData) => (navData.isActive ? 'active-route' : '')}
           >
-            <Item>
-              <span className="rs-nav-item-content">
-                <ImMagicWand />
-                Generate
-              </span>
-            </Item>
+            {/* <Item> */}
+            <ImMagicWand />
+            Generate
+            {/* </Item> */}
           </NavLink>
           {FLAGS.FLOW_GENERATE && (
             <NavLink
