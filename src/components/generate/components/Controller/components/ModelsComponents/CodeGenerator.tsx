@@ -3,14 +3,11 @@ import { Button, Modal, Alert, IconButton, Icon } from 'rsuite'
 import { generate } from '../../util'
 import RenderLangIcon from './RenderLangIcon'
 import CodeMirror from '@uiw/react-codemirror'
-import { oneDark } from '@codemirror/theme-one-dark'
+import { githubDark } from '@uiw/codemirror-theme-github'
 import { javascript } from '@codemirror/lang-javascript'
-import { php } from '@codemirror/lang-php'
-import { StreamLanguage } from '@codemirror/stream-parser'
+
 import { format } from 'sql-formatter'
-import { ruby } from '@codemirror/legacy-modes/mode/ruby'
-import { python } from '@codemirror/legacy-modes/mode/python'
-import { sql } from '@codemirror/legacy-modes/mode/sql'
+
 // @ts-ignore
 import json2php from 'json2php'
 import dayjs from 'dayjs'
@@ -175,16 +172,8 @@ const CodeGenerator = ({
         </IconButton>
 
         <CodeMirror
-          extensions={[
-            javascript({ jsx: true }),
-            php(),
-            StreamLanguage.define(ruby),
-            StreamLanguage.define(ruby),
-            // @ts-expect-error
-            StreamLanguage.define(sql),
-            StreamLanguage.define(python),
-          ]}
-          theme={oneDark}
+          extensions={[javascript({ jsx: true })]}
+          theme={githubDark}
           value={code}
           height="300px"
           readOnly
