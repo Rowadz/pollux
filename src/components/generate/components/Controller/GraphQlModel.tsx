@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import CodeMirror from '@uiw/react-codemirror'
-import { oneDark } from '@codemirror/theme-one-dark'
+import { githubDark } from '@uiw/codemirror-theme-github'
 
 import { Alert, Icon, IconButton, Modal } from 'rsuite'
 
@@ -36,7 +36,7 @@ const GraphQlModel = ({
           >
             Copy
           </IconButton>
-          <CodeMirror theme={oneDark} value={graphql} height="300px" />
+          <CodeMirror theme={githubDark} value={graphql} height="300px" />
         </Modal.Body>
       </Modal>
     </>
