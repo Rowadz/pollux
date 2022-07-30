@@ -6,11 +6,11 @@ on:
       - 'master'
 
 env:
-    CI: false # if this was set to true it will treat build warnings as errors
-    user_name: 'github-actions[bot]'
-    user_email: 'github-actions[bot]@users.noreply.github.com'
-    github_token: ${{ secrets.POLLUX_DEPLOYMENT_KEY }}
-    repository: ${{ github.repository }}
+  CI: false # if this was set to true it will treat build warnings as errors
+  user_name: 'github-actions[bot]'
+  user_email: 'github-actions[bot]@users.noreply.github.com'
+  github_token: ${{ secrets.POLLUX_DEPLOYMENT_KEY }}
+  repository: ${{ github.repository }}
 
 jobs:
   build:
