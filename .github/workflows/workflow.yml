@@ -5,6 +5,13 @@ on:
     branches:
       - 'master'
 
+env:
+    CI: false # if this was set to true it will treat build warnings as errors
+    user_name: 'github-actions[bot]'
+    user_email: 'github-actions[bot]@users.noreply.github.com'
+    github_token: ${{ secrets.POLLUX_DEPLOYMENT_KEY }}
+    repository: ${{ github.repository }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,16 +26,16 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm i
-      - name: Deploy And Build
+      - name: Installing dependencies 📥
+        run: npm i
+      - name: Build Porject 🏗️
         run: |
           git config --global user.name $user_name
           git config --global user.email $user_email
           git remote set-url origin https://${github_token}@github.com/${repository}
-          npm run deploy
-        env:
-          CI: false # if this was set to true it will treat build warnings as errors
-          user_name: 'github-actions[bot]'
-          user_email: 'github-actions[bot]@users.noreply.github.com'
-          github_token: ${{ secrets.POLLUX_DEPLOYMENT_KEY }}
-          repository: ${{ github.repository }}
+          npm run build
+     - name: Create CNAME file 📝
+        run: echo "pollux.dev" > build\CNAME
+     - name: Deploy Project 🚀
+        run: npm run deploy
+        
