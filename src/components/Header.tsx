@@ -1,15 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useToggle } from 'react-use'
-import { Navbar, Nav, Icon, Drawer, Badge } from 'rsuite'
+import { Navbar, Nav, Icon, Drawer, Badge, Dropdown } from 'rsuite'
 import { NavLink } from 'react-router-dom'
 import BuilderBody from './Builder/BuilderBody/BuilderBody'
 import { FLAGS } from 'flags'
+import { LOCALE_MAP } from './locale.map'
+import { useDispatch } from 'react-redux'
+import { setLocaleAction } from 'redux/actions'
 
 const { Body } = Navbar
 const { Item } = Nav
+type LocalesType = keyof typeof LOCALE_MAP
 
 const HeaderComp = () => {
   const [show, toggleShow] = useToggle(false)
+  const [locale, setLocale] = useState<LocalesType>('en')
+  const dispatch = useDispatch()
+
+  const changeLocale = (newLocale: LocalesType) => {
+    // feels nasty to do this in redux and the locale state
+    setLocale(newLocale)
+    dispatch(setLocaleAction(newLocale))
+  }
 
   return (
     <Navbar>
@@ -61,10 +73,24 @@ const HeaderComp = () => {
           )}
         </Nav>
         <Nav pullRight>
+          <Dropdown
+            title={LOCALE_MAP[locale]}
+            activeKey={locale}
+            onSelect={changeLocale}
+          >
+            <Dropdown.Item eventKey="en">English</Dropdown.Item>
+            <Dropdown.Item eventKey="de">German</Dropdown.Item>
+            <Dropdown.Item eventKey="ar">Arabic</Dropdown.Item>
+            <Dropdown.Item eventKey="cz">Czech</Dropdown.Item>
+            <Dropdown.Item eventKey="es">Spanish</Dropdown.Item>
+            <Dropdown.Item eventKey="fr">French</Dropdown.Item>
+            <Dropdown.Item eventKey="ko">Korean</Dropdown.Item>
+            <Dropdown.Item eventKey="sv">Swedish</Dropdown.Item>
+            <Dropdown.Item eventKey="zh_CN">Chinese</Dropdown.Item>
+          </Dropdown>
           <Item onClick={toggleShow} icon={<Icon icon="creative" />}>
             Builder <Badge content="NEW!"></Badge>
           </Item>
-
           <Drawer
             backdrop={false}
             show={show}

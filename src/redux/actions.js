@@ -9,6 +9,7 @@ import {
   ADD_RELATION,
   REMOVE_RELATION,
   UPDATE_AMOUNT,
+  SET_LOCALE,
   ENABLE_AUTH,
   DISABLE_AUTH,
   SET_PROGRESS,
@@ -138,3 +139,12 @@ export const disableAuth = () => ({ type: DISABLE_AUTH })
  * @param {string} props.modelId - the model uuid
  */
 export const setProgress = (props) => ({ type: SET_PROGRESS, payload: props })
+
+/**
+ *
+ * @param {string} locale - the new locale
+ */
+export const setLocaleAction = (locale) => ({
+  type: SET_LOCALE,
+  payload: locale,
+})

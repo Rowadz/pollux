@@ -28,3 +28,7 @@ code {
   background: rgb(27, 155, 176);
   border-radius: 10px;
 }
+
+.cm-scroller {
+  overflow-x: hidden !important;
+}
