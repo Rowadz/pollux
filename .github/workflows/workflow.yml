@@ -34,8 +34,7 @@ jobs:
           git config --global user.email $user_email
           git remote set-url origin https://${github_token}@github.com/${repository}
           npm run build
-     - name: Create CNAME file 📝
+      - name: Create CNAME file 📝
         run: echo "pollux.dev" > build\CNAME
-     - name: Deploy Project 🚀
+      - name: Deploy Project 🚀
         run: npm run deploy
-        
