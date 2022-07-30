@@ -13,7 +13,8 @@ You create a model, then you can drag and drop properties into it, and these pro
 
 # ✨ What makes it unique ✨
 
-Everything in pollux from generating `.zip` files to generating 500,000 model instances happens in the frontend, using web APIs such as the Blob API and Web Workers API, plus you can pass JavaScript RegExp and it will generate a random string based on that.
+- Everything in pollux from generating `.zip` files to generating 500,000 model instances happens in the frontend, using web APIs such as the Blob API and Web Workers API, plus you can pass JavaScript RegExp and it will generate a random string based on that.
+- Locale support.
 
 # install
 

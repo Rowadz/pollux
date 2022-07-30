@@ -162,7 +162,7 @@ const ContentComp = () => {
           md={11}
         >
           <Text>
-            Everything in pollux from generating `.zip` files to generating
+            - Everything in pollux from generating `.zip` files to generating
             500,000 model instances happens in the frontend, using web APIs such
             as the{' '}
             <a
@@ -186,6 +186,7 @@ const ContentComp = () => {
               on that.
             </TextUnderline>
           </Text>
+          <Text>- Locale support</Text>
         </FlexboxGridItemWithSpacing>
       </FlexboxGridWithSpacing>
     </>
