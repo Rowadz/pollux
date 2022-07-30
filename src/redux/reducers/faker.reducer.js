@@ -1,4 +1,6 @@
-import {
+import { faker } from '@faker-js/faker'
+
+const {
   random,
   name,
   address,
@@ -10,9 +12,10 @@ import {
   hacker,
   image,
   internet,
+  datatype,
   lorem,
   phone,
-} from 'faker'
+} = faker
 
 const randomCpy = { ...random }
 const dateCpy = { ...date }
@@ -23,9 +26,11 @@ delete dateCpy.between
 const names = { ...name }
 names.fullName = name.findName
 delete names.findName
+
 const objects = {
   random: randomCpy,
   name: names,
+  datatype,
   address,
   commerce,
   company,

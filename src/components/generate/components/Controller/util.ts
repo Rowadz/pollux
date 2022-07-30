@@ -1,5 +1,5 @@
 import { Alert } from 'rsuite'
-import * as faker from 'faker'
+import { faker } from '@faker-js/faker'
 import { saveAs } from 'file-saver'
 import RandExp from 'randexp'
 import JSZip from 'jszip'
@@ -112,7 +112,7 @@ const generateFakeData = (props: FakerProp[], amount: number) =>
         ) {
           return {
             ...prev,
-            [propName]: faker.random.arrayElement([
+            [propName]: faker.helpers.arrayElement([
               'http://placekitten.com/500/600',
               'http://placekitten.com/1200/600',
               'http://placekitten.com/1200/1200',
@@ -128,9 +128,16 @@ const generateFakeData = (props: FakerProp[], amount: number) =>
           }
         }
 
+        // this check to make sure we are backward compatable with the old saved models
+        const keyProxy = key === 'number' ? 'numeric' : key
         return {
           ...prev,
-          [propName]: (faker as any)[groupName][key](),
+          // this check to make sure we are backward compatable with the old saved models
+          [propName]:
+            groupName === 'random' && key === 'uuid'
+              ? faker.datatype.uuid()
+              : // @ts-ignore
+                faker[groupName][keyProxy](),
         }
       },
       {}

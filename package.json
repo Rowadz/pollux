@@ -7,12 +7,12 @@
   "dependencies": {
     "@babel/plugin-transform-for-of": "^7.16.7",
     "@codemirror/lang-javascript": "^6.0.1",
+    "@faker-js/faker": "^7.3.0",
     "@uiw/codemirror-theme-github": "^4.11.4",
     "@uiw/react-codemirror": "^4.10.0",
     "@walmartlabs/json-to-simple-graphql-schema": "^3.0.1",
     "dayjs": "^1.11.1",
     "emittery": "^0.11.0",
-    "faker": "^4.1.0",
     "file-saver": "^2.0.5",
     "format-graphql": "^1.4.0",
     "json2php": "0.0.5",

@@ -23,9 +23,18 @@ const BuilderBody = ({ faker }) => {
           .filter((obj) =>
             obj.label.toLowerCase().includes(keyword.toLowerCase())
           )
-          .map(({ groupName, label, value: func }) => (
-            <DraggableCommonProp type={groupName} label={label} func={func} />
-          ))}
+          .map(({ groupName, label, value: func }, index) =>
+            label === 'Faker' ? (
+              <></>
+            ) : (
+              <DraggableCommonProp
+                key={index}
+                type={groupName}
+                label={label}
+                func={func}
+              />
+            )
+          )}
       </List>
     </>
   )
