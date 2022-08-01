@@ -13,6 +13,7 @@ import {
   ENABLE_AUTH,
   DISABLE_AUTH,
   SET_PROGRESS,
+  TOGGLE_BUILDER,
 } from './actionTypes'
 
 /**
@@ -147,4 +148,13 @@ export const setProgress = (props) => ({ type: SET_PROGRESS, payload: props })
 export const setLocaleAction = (locale) => ({
   type: SET_LOCALE,
   payload: locale,
+})
+
+/**
+ *
+ * @param {boolean} flag
+ */
+export const toggleBuilderAction = (flag) => ({
+  type: TOGGLE_BUILDER,
+  payload: flag,
 })

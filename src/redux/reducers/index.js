@@ -6,6 +6,7 @@ import relations from './relation.reducer'
 import auth from './auth.reducer'
 import generateProgress from './generateProgress.reducer'
 import locale from './locale.reducer'
+import builder from './builder.reducer'
 
 export default combineReducers({
   models,
@@ -14,5 +15,6 @@ export default combineReducers({
   locale,
   relations,
   auth,
+  builder,
   generateProgress,
 })

@@ -1,8 +1,8 @@
 import React, { memo } from 'react'
 import { useDrop } from 'react-dnd'
 import { v4 } from 'uuid'
-import { useDispatch } from 'react-redux'
-import { justAddProp } from 'redux/actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { justAddProp, toggleBuilderAction } from 'redux/actions'
 import { SiGraphql } from 'react-icons/si'
 import {
   Tag,
@@ -13,9 +13,10 @@ import {
   Panel,
   Icon,
   Alert,
+  Button,
 } from 'rsuite'
 import type { ModelHeaderProps } from './types'
-import type { FakerPolluxReduxStoreState } from 'components/shared'
+import type { FakerPolluxReduxStoreState, ReduxState } from 'components/shared'
 
 export const ModelHeader = ({
   id,
@@ -30,6 +31,12 @@ export const ModelHeader = ({
   disableModalControllers,
 }: ModelHeaderProps) => {
   const dispatch = useDispatch()
+  const isOpen: boolean = useSelector((state: ReduxState) => state.builder)
+
+  const toggle = () => {
+    dispatch(toggleBuilderAction(!isOpen))
+  }
+
   const [{ canDrop, hovered }, drop] = useDrop({
     accept: [
       'UUID',
@@ -156,11 +163,19 @@ export const ModelHeader = ({
             backgroundColor: hovered ? '#8BCAD9' : canDrop ? '#5E6D8C' : '',
             height: 50,
             marginTop: 10,
-            // color: hovered ? '#000' : '#fff',
+            color: hovered ? '#000' : '#fff',
           }}
         >
-          <Badge style={{ background: '#1b9cb0' }} /> Drop Props Here{' '}
           <Badge style={{ background: '#1b9cb0' }} />
+          Drop Properties Here <Badge style={{ background: '#1b9cb0' }} />
+          <Button
+            size="xs"
+            appearance="ghost"
+            onClick={toggle}
+            style={{ marginLeft: '1rem' }}
+          >
+            Open the Properties picker (the builder)
+          </Button>
         </Panel>
       </div>
     </>

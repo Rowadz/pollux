@@ -5,22 +5,29 @@ import { NavLink } from 'react-router-dom'
 import BuilderBody from './Builder/BuilderBody/BuilderBody'
 import { FLAGS } from 'flags'
 import { LOCALE_MAP } from './locale.map'
-import { useDispatch } from 'react-redux'
-import { setLocaleAction } from 'redux/actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { setLocaleAction, toggleBuilderAction } from 'redux/actions'
+import { ReduxState } from './shared'
 
 const { Body } = Navbar
 const { Item } = Nav
 type LocalesType = keyof typeof LOCALE_MAP
 
 const HeaderComp = () => {
-  const [show, toggleShow] = useToggle(false)
+  const [show, toggleShow_] = useToggle(false)
   const [locale, setLocale] = useState<LocalesType>('en')
   const dispatch = useDispatch()
+  const isOpen: boolean = useSelector((state: ReduxState) => state.builder)
 
   const changeLocale = (newLocale: LocalesType) => {
     // feels nasty to do this in redux and the locale state
     setLocale(newLocale)
     dispatch(setLocaleAction(newLocale))
+  }
+
+  const toggleShow = () => {
+    toggleShow_()
+    dispatch(toggleBuilderAction(!isOpen))
   }
 
   return (
@@ -93,7 +100,7 @@ const HeaderComp = () => {
           </Item>
           <Drawer
             backdrop={false}
-            show={show}
+            show={isOpen}
             size="xs"
             placement="left"
             onHide={toggleShow}
