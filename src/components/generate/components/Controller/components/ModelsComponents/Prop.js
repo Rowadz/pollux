@@ -144,7 +144,9 @@ const Prop = ({
                     disabled={disableModalControllers}
                     size="sm"
                     onChange={onFuncSelect}
-                    data={inputData}
+                    data={inputData?.filter((data) => {
+                      return data.label !== 'Faker'
+                    })}
                     defaultValue={state.func}
                     groupBy="groupName"
                     placeholder="Select a function"
