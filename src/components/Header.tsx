@@ -17,7 +17,9 @@ const HeaderComp = () => {
   const [show, toggleShow_] = useToggle(false)
   const [locale, setLocale] = useState<LocalesType>('en')
   const dispatch = useDispatch()
-  const isOpen: boolean = useSelector((state: ReduxState) => state.builder)
+  const isOpen: boolean = useSelector(
+    (state: ReduxState) => state.builder.isOpen
+  )
 
   const changeLocale = (newLocale: LocalesType) => {
     // feels nasty to do this in redux and the locale state

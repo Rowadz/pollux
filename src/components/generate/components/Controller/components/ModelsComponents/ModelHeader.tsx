@@ -31,7 +31,9 @@ export const ModelHeader = ({
   disableModalControllers,
 }: ModelHeaderProps) => {
   const dispatch = useDispatch()
-  const isOpen: boolean = useSelector((state: ReduxState) => state.builder)
+  const isOpen: boolean = useSelector(
+    (state: ReduxState) => state.builder.isOpen
+  )
 
   const toggle = () => {
     dispatch(toggleBuilderAction(!isOpen))
@@ -166,8 +168,8 @@ export const ModelHeader = ({
             color: hovered ? '#000' : '#fff',
           }}
         >
+          <Badge style={{ background: '#1b9cb0' }} /> Drop Properties Here{' '}
           <Badge style={{ background: '#1b9cb0' }} />
-          Drop Properties Here <Badge style={{ background: '#1b9cb0' }} />
           <Button
             size="xs"
             appearance="ghost"

@@ -3,7 +3,7 @@ export type RelationsMap = Record<string, string[]>
 export type ReduxState = {
   relations: RelationsMap
   prop: FakerPropMap
-  builder: boolean
+  builder: { isOpen: boolean }
   models: Model[]
   // TODO remove `?`
   faker?: FakerPolluxReduxStoreState[]
