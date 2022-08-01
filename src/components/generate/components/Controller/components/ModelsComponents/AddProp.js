@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useLayoutEffect } from 'react'
 import { Input, TagPicker, Button, Modal, Message } from 'rsuite'
 import { connect } from 'react-redux'
 import { editProp } from 'redux/actions'
@@ -21,6 +21,16 @@ const AddProp = ({
     propName: mode === 'edit' ? propNameProp : '',
     valid: true,
   })
+
+  useLayoutEffect(() => {
+    if (showPropNameModal && mode !== 'edit') {
+      queueMicrotask(() => {
+        document.querySelector('.rs-picker-tag-wrapper').click()
+        document.querySelector('.rs-picker-tag-wrapper input').focus()
+      })
+    }
+  }, [showPropNameModal, mode])
+
   const inputChange = (strOrArrayOfStrings) => {
     if (mode === 'edit') {
       setState({ propName: strOrArrayOfStrings.trim(''), valid: true })
