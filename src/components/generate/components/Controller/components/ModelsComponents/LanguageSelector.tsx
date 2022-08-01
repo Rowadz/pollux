@@ -26,7 +26,7 @@ const LanguageSelector = ({
           onClick={toggleShowModal}
           size="xs"
         >
-          <RenderLangIcon lang={lang} />
+          Click here to get <RenderLangIcon lang={lang} /> code
         </Button>
         <Dropdown
           disabled={disableModalControllers}
