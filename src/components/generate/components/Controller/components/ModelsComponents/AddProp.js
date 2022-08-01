@@ -25,8 +25,8 @@ const AddProp = ({
   useLayoutEffect(() => {
     if (showPropNameModal && mode !== 'edit') {
       queueMicrotask(() => {
-        document.querySelector('.rs-picker-tag-wrapper').click()
-        document.querySelector('.rs-picker-tag-wrapper input').focus()
+        document.querySelector('.properties-tag-picker').click()
+        document.querySelector('.properties-tag-picker input').focus()
       })
     }
   }, [showPropNameModal, mode])
@@ -102,6 +102,7 @@ const AddProp = ({
           />
         ) : (
           <TagPicker
+            className="properties-tag-picker"
             creatable
             placeholder="add as many properties you want here"
             style={{ width: '100%' }}
