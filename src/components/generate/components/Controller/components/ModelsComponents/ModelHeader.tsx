@@ -176,7 +176,7 @@ export const ModelHeader = ({
             onClick={toggle}
             style={{ marginLeft: '1rem' }}
           >
-            Open the Properties picker (the builder)
+            <b>Open the Properties picker (the builder)</b>
           </Button>
         </Panel>
       </div>
