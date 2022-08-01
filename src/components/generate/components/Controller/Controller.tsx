@@ -86,12 +86,12 @@ let steps: ReactourStep[] = [
   },
   {
     selector: '#add-attribute-btn',
-    content: 'Click here to add attributes (props) to this model',
+    content: 'Click here to add properties (props) to this model',
   },
   {
     selector: '#prop-tag-count',
     content:
-      'This number shows the number of attributes (props) this models have',
+      'This number shows the number of properties (props) this models have',
   },
   {
     selector: '#generate-data-btn',

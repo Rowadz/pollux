@@ -19,7 +19,7 @@ export const toGraphQl = (
   modelName: string
 ) => {
   if (!modelProps || !modelProps.length) {
-    Alert.warning('Pelase add some attributes to the model.')
+    Alert.warning('Pelase add some properties to the model.')
     return ''
   }
 
