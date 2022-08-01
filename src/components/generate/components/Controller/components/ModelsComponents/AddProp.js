@@ -78,8 +78,11 @@ const AddProp = ({
             description={`The Property "${state.propName}" is already exists in this model (${name})`}
           />
         </div>
-        <p>
-          <b>Type the prop name then press enter to add them</b>
+        <p style={{ marginBottom: '1rem' }}>
+          <b>
+            Type the prop name then press <span className="note">`Enter`</span>{' '}
+            to add them
+          </b>
         </p>
         {mode === 'edit' ? (
           <Input

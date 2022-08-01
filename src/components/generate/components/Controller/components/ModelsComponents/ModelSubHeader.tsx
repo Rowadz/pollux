@@ -62,10 +62,11 @@ const ModelSubHeader = ({
           disabled={disableModalControllers}
           icon={<Icon icon="plus" />}
           size="xs"
+          color="cyan"
           id={isTourOpen ? 'add-attribute-btn' : null}
           onClick={toggleShowPropNameModal}
         >
-          Add attribute
+          <b>Add attribute</b>
         </IconButton>
       </FlexboxGrid.Item>
       <FlexboxGrid.Item>
