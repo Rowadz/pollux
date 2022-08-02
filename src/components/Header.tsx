@@ -42,7 +42,10 @@ const HeaderComp = () => {
           >
             <Item
               renderItem={() => (
-                <span className="rs-nav-item-content">
+                <span
+                  className="rs-nav-item-content"
+                  style={{ fontSize: '1rem' }}
+                >
                   <Icon icon="home" /> Pollux
                 </span>
               )}
@@ -54,9 +57,12 @@ const HeaderComp = () => {
           >
             <Item
               renderItem={() => (
-                <span className="rs-nav-item-content">
+                <span
+                  className="rs-nav-item-content"
+                  style={{ fontSize: '1rem' }}
+                >
                   <Icon icon="magic2" />
-                  Generate
+                  Generate 👈 👋
                 </span>
               )}
             >

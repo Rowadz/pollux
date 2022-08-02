@@ -21,8 +21,9 @@ main {
 }
 .active-route .rs-nav-item,
 .active-route .rs-nav-item-content {
-  background-color: rgb(27, 155, 176);
+  /* background-color: rgb(27, 155, 176); */
   color: #fff !important;
+  border-bottom: 1px skyblue solid;
   /* background-color: #d9d9d9; */
 }
 .note {
