@@ -1,8 +1,7 @@
 export default () => ({
-  description:
-    'The file is generated using https://mohammedal-rowad.github.io/pollux/',
+  description: 'The file is generated using https://rowadz.github.io/pollux/',
   scripts: {
-    dev: 'json-graphql-server db.json --p 3001' 
+    dev: 'json-graphql-server db.json --p 3001',
   },
   author: 'Rowadz',
   license: 'MIT',

@@ -1,11 +1,11 @@
-[![Deploy to GitHub pages](https://github.com/MohammedAl-Rowad/pollux/actions/workflows/workflow.yml/badge.svg)](https://github.com/MohammedAl-Rowad/pollux/actions/workflows/workflow.yml)
+[![Deploy to GitHub pages](https://github.com/Rowadz/pollux/actions/workflows/workflow.yml/badge.svg)](https://github.com/Rowadz/pollux/actions/workflows/workflow.yml)
 
 # Welomce to 🌞 Pollux 🌞
 
 Need Restful API with bearer authentication? or a GraphQL API? maybe some testing data in JSON or Ruby or Python or PHP or JavaScript , all of that and more is possible with pollux, without writing a single line of code.
 
 - check this video -> [here](https://www.youtube.com/watch?v=4Kwv98RDoSM)
-- link to use it -> [here](https://mohammedal-rowad.github.io/pollux/)
+- link to use it -> [here](https://pollux.dev)
 
 # ⚗️ How does it work? ⚗️
 
@@ -19,7 +19,7 @@ You create a model, then you can drag and drop properties into it, and these pro
 # install
 
 ```bash
-$ git clone https://github.com/MohammedAl-Rowad/pollux.git
+$ git clone https://github.com/Rowadz/pollux.git
 $ npm i
 $ npm run start
 ```

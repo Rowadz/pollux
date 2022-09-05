@@ -40,7 +40,7 @@ export class ErrorBoundary extends React.Component<
 
   componentDidCatch() {
     console.log(
-      '%cPlease open an issue there: https://github.com/MohammedAl-Rowad/pollux',
+      '%cPlease open an issue there: https://github.com/Rowadz/pollux',
       'color: #4E7F97; font-size: 20px'
     )
   }
@@ -59,11 +59,11 @@ export class ErrorBoundary extends React.Component<
             <p>
               Please visit{' '}
               <a
-                href="https://github.com/MohammedAl-Rowad/pollux"
+                href="https://github.com/Rowadz/pollux"
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                MohammedAl-Rowad/pollux
+                Rowadz/pollux
               </a>{' '}
               and open an issue
             </p>

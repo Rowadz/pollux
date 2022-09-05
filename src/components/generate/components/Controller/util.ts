@@ -117,7 +117,7 @@ export const generate = (
         console.log('the error object')
         console.error(error)
         console.log('you can open an issue with this error in the link below')
-        console.log('https://github.com/MohammedAl-Rowad/pollux')
+        console.log('https://github.com/Rowadz/pollux')
         console.groupEnd()
         Alert.success('Feels bad, we faced an error')
       })
@@ -337,7 +337,7 @@ export const generateAPI = async (
     console.log('the error object')
     console.error(error)
     console.log('you can open an issue with this error in the link below')
-    console.log('https://github.com/MohammedAl-Rowad/pollux')
+    console.log('https://github.com/Rowadz/pollux')
     console.groupEnd()
   }
 }
@@ -383,7 +383,7 @@ export const generateGraphqlAPI = async (
     console.log('the error object')
     console.error(error)
     console.log('you can open an issue with this error in the link below')
-    console.log('https://github.com/MohammedAl-Rowad/pollux')
+    console.log('https://github.com/Rowadz/pollux')
     console.groupEnd()
   }
 }

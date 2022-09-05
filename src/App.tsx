@@ -24,7 +24,7 @@ console.log(
 )
 
 console.log(
-  '%cRepo: https://github.com/MohammedAl-Rowad/pollux',
+  '%cRepo: https://github.com/Rowadz/pollux',
   'color: #4E7F97; font-size: 20px'
 )
 

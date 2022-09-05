@@ -14,7 +14,7 @@ const FooterComp = () => {
       </a>
       {'  '}
       <a
-        href="https://github.com/MohammedAl-Rowad"
+        href="https://github.com/Rowadz"
         target="_blank"
         rel="noopener noreferrer"
       >

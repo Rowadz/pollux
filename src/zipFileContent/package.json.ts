@@ -1,6 +1,5 @@
 export default (auth = false) => ({
-  description:
-    'The file is generated using https://mohammedal-rowad.github.io/pollux/',
+  description: 'The file is generated using https://rowadz.github.io/pollux/',
   scripts: {
     dev: `${
       auth ? 'json-server-auth' : 'json-server'
