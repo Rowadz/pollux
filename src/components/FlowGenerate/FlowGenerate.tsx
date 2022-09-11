@@ -20,6 +20,10 @@ const ReactFlowSection = styled.section`
   border: 1px solid #fff;
 `
 
+const reactFlowStyle = {
+  // minHeight: '100vh',
+}
+
 let id = 0
 const getId = () => `dndnode_${id++}`
 
@@ -71,6 +75,7 @@ const FlowGenerate = () => {
     <ReactFlowProvider>
       <ReactFlowSection className="reactflow-wrapper" ref={reactFlowWrapper}>
         <ReactFlow
+          style={reactFlowStyle}
           fitView
           snapToGrid
           nodes={nodes}
