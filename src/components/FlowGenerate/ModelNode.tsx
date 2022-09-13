@@ -2,6 +2,12 @@ import React, { memo } from 'react'
 import { Handle, Position } from 'react-flow-renderer'
 import type { NodeProps } from 'react-flow-renderer'
 import styled from 'styled-components'
+import { Input, InputGroup } from 'rsuite'
+
+const styles = {
+  width: 300,
+  marginBottom: 10,
+}
 
 const ModelNodeBody = styled.div`
   background: #fff;
@@ -15,18 +21,22 @@ const ModelNodeBody = styled.div`
 `
 
 export const ModelNode = memo(({ data, isConnectable }: NodeProps) => {
+  console.log({ data })
+
   return (
     <>
       <Handle
-        type="source"
-        id="aa"
+        type="target"
+        id={`${data.id}_target`}
         position={Position.Left}
         style={{ background: 'red' }}
-        onConnect={(params) => console.log('handle onConnect', params)}
         isConnectable={isConnectable}
       />
       <ModelNodeBody>
-        Users
+        <InputGroup style={styles}>
+          <Input plaplaceholder="Default Input" />
+          <InputGroup.Addon>👈 Model name</InputGroup.Addon>
+        </InputGroup>
         <ol style={{ textAlign: 'left' }}>
           <li>id: auto increment</li>
           <li>username: string(255)</li>
@@ -38,15 +48,8 @@ export const ModelNode = memo(({ data, isConnectable }: NodeProps) => {
       <Handle
         type="source"
         position={Position.Right}
-        id="a"
+        id={`${data.id}_source`}
         style={{ top: 10, background: '#555' }}
-        isConnectable={isConnectable}
-      />
-      <Handle
-        type="source"
-        position={Position.Right}
-        id="b"
-        style={{ bottom: 10, top: 'auto', background: '#555' }}
         isConnectable={isConnectable}
       />
     </>
