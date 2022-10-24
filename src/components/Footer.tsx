@@ -6,7 +6,7 @@ const FooterComp = () => {
     <section style={{ textAlign: 'center' }}>
       Made by <b>Rowadz</b>{' '}
       <a
-        href="https://www.linkedin.com/in/mohammed-al-rowad/"
+        href="https://www.linkedin.com/in/rowadz/"
         target="_blank"
         rel="noopener noreferrer"
       >
