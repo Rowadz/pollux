@@ -1,20 +1,20 @@
 import React, { useState } from 'react'
-import { useToggle } from 'react-use'
 import { Navbar, Nav, Icon, Drawer, Badge, Dropdown } from 'rsuite'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import BuilderBody from './Builder/BuilderBody/BuilderBody'
 import { FLAGS } from 'flags'
 import { LOCALE_MAP } from './locale.map'
 import { useDispatch, useSelector } from 'react-redux'
 import { setLocaleAction, toggleBuilderAction } from 'redux/actions'
 import { ReduxState } from './shared'
+import waveHello from './wave_hello.gif'
 
 const { Body } = Navbar
 const { Item } = Nav
 type LocalesType = keyof typeof LOCALE_MAP
 
 const HeaderComp = () => {
-  const [show, toggleShow_] = useToggle(false)
+  const { pathname } = useLocation()
   const [locale, setLocale] = useState<LocalesType>('en')
   const dispatch = useDispatch()
   const isOpen: boolean = useSelector(
@@ -28,7 +28,6 @@ const HeaderComp = () => {
   }
 
   const toggleShow = () => {
-    toggleShow_()
     dispatch(toggleBuilderAction(!isOpen))
   }
 
@@ -56,15 +55,26 @@ const HeaderComp = () => {
             className={(navData) => (navData.isActive ? 'active-route' : '')}
           >
             <Item
-              renderItem={() => (
-                <span
-                  className="rs-nav-item-content"
-                  style={{ fontSize: '1rem' }}
-                >
-                  <Icon icon="magic2" />
-                  Generate 👈 👋
-                </span>
-              )}
+              renderItem={() => {
+                return (
+                  <span
+                    className="rs-nav-item-content"
+                    style={{ fontSize: '1rem' }}
+                  >
+                    <Icon icon="magic2" />
+                    Generate
+                    {pathname === '/' && (
+                      <img
+                        width={20}
+                        height={20}
+                        alt="Wave hello"
+                        src={waveHello}
+                        style={{ marginLeft: 10 }}
+                      />
+                    )}
+                  </span>
+                )
+              }}
             >
               About
             </Item>

@@ -21,7 +21,7 @@ import {
  * @param {Object} model - the model object
  * @param {string} model.name - the model name
  * @param {string} model.id - the model uuid
- * @param {Date} model.createdAt - the mode timestamp
+ * @param {number} model.createdAt - the mode timestamp
  */
 export const addModel = (model) => ({
   type: ADD_MODEL,

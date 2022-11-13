@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import { IconButton, Icon, Modal, Button, Input } from 'rsuite'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { addModel } from 'redux/actions'
 import { v4 } from 'uuid'
 
 const { Header, Body, Footer, Title } = Modal
 
-const AddModelBtn = ({ dispatch }) => {
+const AddModelBtn = () => {
   const [state, setState] = useState({ showNameModal: false, modelName: '' })
+  const dispatch = useDispatch()
   const showNameModal = () => setState({ ...state, showNameModal: true })
   const close = () => setState({ ...state, showNameModal: false })
   const create = () => {
@@ -20,10 +21,9 @@ const AddModelBtn = ({ dispatch }) => {
     )
     setState({ ...state, modelName: '', showNameModal: false })
   }
-  /**
-   * @param {string} str
-   */
-  const inputChange = (str) => setState({ ...state, modelName: str.trim('') })
+
+  const inputChange = (str: string) =>
+    setState({ ...state, modelName: str.trim() })
 
   const onEnter = () => {
     inputChange(state.modelName)
@@ -31,15 +31,21 @@ const AddModelBtn = ({ dispatch }) => {
   }
   return (
     <section>
+      <ol>
+        <li>Click on "Add a model"</li>
+        <li>Click on "Builder"</li>
+        <li>Drag and drop and functions</li>
+        <li>Generate data</li>
+      </ol>
       <IconButton
         id="add-prototype-btn"
         color="cyan"
         onClick={showNameModal}
-        appearance="ghost"
+        appearance="primary"
         style={{ width: '100%' }}
         icon={<Icon icon="plus" />}
       >
-        Add a model
+        <b>Add a model</b>
       </IconButton>
       <Modal
         show={state.showNameModal}
@@ -77,4 +83,4 @@ const AddModelBtn = ({ dispatch }) => {
   )
 }
 
-export default connect()(AddModelBtn)
+export default AddModelBtn
