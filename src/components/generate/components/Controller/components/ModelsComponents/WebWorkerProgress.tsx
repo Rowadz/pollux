@@ -2,14 +2,20 @@ import React, { useEffect, useCallback, useState } from 'react'
 import { FlexboxGrid, Progress } from 'rsuite'
 import { useSelector } from 'react-redux'
 import { eventEmitter } from 'components/generate/webWorker/eventEmitter'
+import type { ReduxState, Relation } from 'components/shared'
 
-const WebWorkerProgress = ({ modelId, relations }) => {
+type WebWorkerProgressProps = {
+  modelId: string
+  relations: Relation[]
+}
+
+const WebWorkerProgress = ({ modelId, relations }: WebWorkerProgressProps) => {
   const [generated, setGenereated] = useState(0)
   const [startedWorkersCount, setStartedWorkersCount] = useState(0)
   const [currentWebWorkerModelId, setModelId] = useState('')
   // const [started, setStarted] = useState(false)
   const modelSelector = useCallback(
-    (state) => state.models.filter(({ id }) => id === modelId)[0],
+    (state: ReduxState) => state.models.filter(({ id }) => id === modelId)[0],
     [modelId]
   )
 
@@ -79,10 +85,12 @@ const WebWorkerProgress = ({ modelId, relations }) => {
           </div>
           <div style={{ width: 80 }}>
             <Progress.Circle
-              percent={(
-                (generated / totalNumberOfDocumentsToBeGenerated) *
-                100
-              ).toFixed(2)}
+              percent={
+                +(
+                  (generated / totalNumberOfDocumentsToBeGenerated) *
+                  100
+                ).toFixed(2)
+              }
               status={
                 generated === totalNumberOfDocumentsToBeGenerated
                   ? 'success'

@@ -191,12 +191,7 @@ const Model = ({
                     modelId={id}
                   />
                   <Col xs={24} sm={24} md={24}>
-                    <WebWorkerProgress
-                      modelId={id}
-                      relations={relations}
-                      // @ts-ignore
-                      relationsProps={relationsProps}
-                    />
+                    <WebWorkerProgress modelId={id} relations={relations} />
 
                     <IconButton
                       icon={<Icon icon="minus" />}
@@ -219,11 +214,8 @@ const Model = ({
                       ''
                     ) : (
                       <CreateRel
-                        // @ts-ignore
                         showCreateRel={state.showCreateRel}
-                        // @ts-ignore
                         id={id}
-                        // @ts-ignore
                         close={closeConfirmModal}
                       />
                     )}

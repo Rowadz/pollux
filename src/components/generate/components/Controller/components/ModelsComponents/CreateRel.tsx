@@ -1,23 +1,37 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React, { memo } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Button, Modal } from 'rsuite'
 import { Grid, Row, Col } from 'rsuite'
 import { Toggle } from 'rsuite'
 import { addRelation, removeRelation } from 'redux/actions'
 import { Alert } from 'rsuite'
 import cat from './cat.svg'
+import { ReduxState } from 'components/shared'
 const { Body, Footer, Header, Title } = Modal
 
-const CreateRel = ({
-  showCreateRel,
-  mainModel,
-  close,
-  id,
-  eligibleModels,
-  dispatch,
-  checkedModels,
-}) => {
-  const toggleRel = (checked, distId) => {
+type CreateRelProps = {
+  close: () => void
+  id: string
+  showCreateRel: boolean
+}
+
+const CreateRel = ({ showCreateRel, close, id }: CreateRelProps) => {
+  const dispatch = useDispatch()
+
+  const eligibleModels = useSelector(({ models }: ReduxState) =>
+    (models || []).filter(({ id: _id }) => _id !== id)
+  )
+
+  const mainModel = useSelector(
+    ({ models }: ReduxState) =>
+      (models || []).filter(({ id: _id }) => _id !== id)[0]
+  )
+
+  const checkedModels = useSelector(
+    ({ relations }: ReduxState) => new Set(relations[id] || [])
+  )
+
+  const toggleRel = (checked: boolean, distId: string) => {
     if (checked) {
       Alert.success(`created the link with ${mainModel.name} (1:m)`)
       dispatch(addRelation({ distId, modelId: id }))
@@ -26,8 +40,10 @@ const CreateRel = ({
       dispatch(removeRelation({ distId, modelId: id }))
     }
   }
-  
-  if (!mainModel) return ''
+
+  if (!mainModel) {
+    return null
+  }
 
   return (
     <Modal
@@ -89,13 +105,4 @@ const CreateRel = ({
   )
 }
 
-export default connect((state, ownProps) => {
-  const { models, relations } = state
-
-  return {
-    ...ownProps,
-    eligibleModels: (models || []).filter(({ id }) => id !== ownProps.id),
-    mainModel: (models || []).filter(({ id }) => id === ownProps.id)[0],
-    checkedModels: new Set(relations[ownProps.id] || []),
-  }
-})(CreateRel)
+export default memo(CreateRel)
