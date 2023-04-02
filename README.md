@@ -1,4 +1,5 @@
 [![Deploy to GitHub pages](https://github.com/Rowadz/pollux/actions/workflows/workflow.yml/badge.svg)](https://github.com/Rowadz/pollux/actions/workflows/workflow.yml)
+[![pages-build-deployment](https://github.com/Rowadz/pollux/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/Rowadz/pollux/actions/workflows/pages/pages-build-deployment)
 
 # Welomce to 🌞 Pollux 🌞
 
