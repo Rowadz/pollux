@@ -17,7 +17,7 @@ export type ModelHeaderProps = {
   relationsProps: RelationProps
   auth: boolean
   checkedModels: Set<string>
-  generate: () => ReturnType<typeof generate>
+  generate: (justReturn?: boolean) => ReturnType<typeof generate>
   generateGraphQl: () => ReturnType<typeof generateGraphqlAPI>
   disableModalControllers: boolean
   openCreateRelModal: () => void

@@ -75,8 +75,18 @@ const Model = ({
   })
 
   const generateProxy = useCallback(
-    () =>
-      generate(props, name, amount, relations, relationsProps, false, id, true),
+    (justReturn: boolean = false) => {
+      return generate(
+        props,
+        name,
+        amount,
+        relations,
+        relationsProps,
+        justReturn,
+        id,
+        true
+      )
+    },
     [props, name, amount, relations, relationsProps, id]
   )
 
