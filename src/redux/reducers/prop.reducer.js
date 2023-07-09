@@ -4,7 +4,7 @@ import {
   EDIT_PROP,
   DELETE_PROP,
   JUST_ADD_PROP,
-} from '../actionTypes'
+} from '../actionTypes.js'
 import { v4 } from 'uuid'
 
 const initialState = {}

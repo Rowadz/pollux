@@ -1,7 +1,7 @@
 import React, { useState, useLayoutEffect } from 'react'
 import { Input, TagPicker, Button, Modal, Message } from 'rsuite'
 import { connect } from 'react-redux'
-import { editProp } from 'redux/actions'
+import { editProp } from 'redux/actions.js'
 
 const { Body, Footer, Header, Title } = Modal
 

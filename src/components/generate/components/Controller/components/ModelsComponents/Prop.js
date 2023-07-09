@@ -10,11 +10,11 @@ import {
   IconButton,
   Input,
 } from 'rsuite'
-import AddProp from './AddProp'
+import AddProp from './AddProp.js'
 import { connect } from 'react-redux'
-import { delProp, editProp } from 'redux/actions'
+import { delProp, editProp } from 'redux/actions.js'
 import styled from 'styled-components'
-import { danger, normal } from '../../../../../../colors'
+import { danger, normal } from '../../../../../../colors.js'
 import { useDebouncedCallback } from 'use-debounce'
 import { Flipped, Flipper } from 'react-flip-toolkit'
 

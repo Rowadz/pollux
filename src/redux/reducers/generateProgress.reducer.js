@@ -1,4 +1,4 @@
-import { SET_PROGRESS } from '../actionTypes'
+import { SET_PROGRESS } from '../actionTypes.js'
 
 export default function (state = {}, { type, payload }) {
   switch (type) {
