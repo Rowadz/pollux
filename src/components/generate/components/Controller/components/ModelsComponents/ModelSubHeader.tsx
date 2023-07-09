@@ -12,10 +12,10 @@ import { addPropName } from 'redux/actions'
 import { FlexboxGrid, Icon, IconButton, InputNumber } from 'rsuite'
 import styled from 'styled-components'
 
-import { generate } from '../../util'
 import AddProp from './AddProp'
 import LanguageSelector from './LanguageSelector'
 import GraphQlModel from '../../GraphQlModel'
+import { generate } from '../../util'
 
 const SiGraphqlContainer = styled.i`
   display: flex;
@@ -30,7 +30,7 @@ type ModelSubHeaderProps = {
   modelId: string
   amount: number
   changeAmount: (val: string | number) => void
-  generate: () => ReturnType<typeof generate>
+  generate: (justReturn?: boolean) => ReturnType<typeof generate>
 }
 
 const ModelSubHeader = ({
@@ -76,7 +76,7 @@ const ModelSubHeader = ({
           size="xs"
           disabled={disableModalControllers}
           icon={<Icon icon="magic2" />}
-          onClick={generate}
+          onClick={() => generate()}
         >
           Generate JSON
         </IconButton>

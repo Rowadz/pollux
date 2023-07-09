@@ -119,7 +119,9 @@ export const generate = (
         console.log('you can open an issue with this error in the link below')
         console.log('https://github.com/Rowadz/pollux')
         console.groupEnd()
-        Alert.success('Feels bad, we faced an error')
+        Alert.error(
+          'Feels bad, we faced an error ¯_(ツ)_/¯. Save your models before exiting the page.'
+        )
       })
   }
 }

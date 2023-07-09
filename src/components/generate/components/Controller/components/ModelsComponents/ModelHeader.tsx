@@ -17,10 +17,12 @@ import {
 } from 'rsuite'
 import type { ModelHeaderProps } from './types'
 import type { FakerPolluxReduxStoreState, ReduxState } from 'components/shared'
+import { generateAPI } from '../../util'
 
 export const ModelHeader = ({
   id,
   name,
+  auth,
   faker,
   isTourOpen,
   propsCount,
@@ -129,7 +131,10 @@ export const ModelHeader = ({
           size="xs"
           disabled={disableModalControllers}
           style={{ marginLeft: '5px' }}
-          onClick={generate}
+          onClick={async () => {
+            const data = await generate(true)
+            generateAPI(name, null, null, null, null, data, auth)
+          }}
         >
           Generate Restful API
         </IconButton>
