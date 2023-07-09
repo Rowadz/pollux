@@ -1,4 +1,4 @@
-import { ADD_RELATION, REMOVE_RELATION } from '../actionTypes'
+import { ADD_RELATION, REMOVE_RELATION } from '../actionTypes.js'
 
 const initialState = {}
 

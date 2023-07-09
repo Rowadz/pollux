@@ -1,6 +1,6 @@
 import React from 'react'
 import { Badge, List } from 'rsuite'
-import DraggableCommonProp from './components/DraggableCommonProp'
+import DraggableCommonProp from './components/DraggableCommonProp.js'
 
 const CommonProps = () => {
   return (

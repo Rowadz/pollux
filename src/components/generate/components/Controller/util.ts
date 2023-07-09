@@ -104,7 +104,8 @@ export const generate = (
         // see https://stackoverflow.com/questions/29175877/json-stringify-throws-rangeerror-invalid-string-length-for-huge-objects
         // stringify-ing the whole array might cause (RangeError: Invalid string length) error
         // which means "Out Of Memory"
-        const outJSON = '[' + data.map((el) => toJSONPritty(el)).join(',') + ']'
+        const outJSON =
+          '[' + data.map((el: object) => toJSONPritty(el)).join(',') + ']'
 
         if (justReturn) {
           return outJSON

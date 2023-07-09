@@ -1,4 +1,4 @@
-import { DISABLE_AUTH, ENABLE_AUTH } from '../actionTypes'
+import { DISABLE_AUTH, ENABLE_AUTH } from '../actionTypes.js'
 
 export default function (_, { type }) {
   switch (type) {

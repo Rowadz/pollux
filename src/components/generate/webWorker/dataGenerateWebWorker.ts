@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { faker } from '@faker-js/faker'
 import { faker as arabicFaker } from '@faker-js/faker/locale/ar'
 import { faker as englishFaker } from '@faker-js/faker/locale/en'

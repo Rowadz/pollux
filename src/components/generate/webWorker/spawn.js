@@ -1,6 +1,7 @@
+// @ts-nocheck
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import worker from 'workerize-loader!./dataGenerateWebWorker'
-import { eventEmitter } from './eventEmitter'
+import { eventEmitter } from './eventEmitter.js'
 
 // this runs in a web worker
 export const spawnWebWorker = async ({

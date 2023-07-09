@@ -1,6 +1,11 @@
 import React, { memo } from 'react'
-import { SiJavascript, SiPython, SiPhp, SiRuby } from 'react-icons/si'
-import { DiMysql } from 'react-icons/di'
+import {
+  SiJavascript,
+  SiPython,
+  SiPhp,
+  SiRuby,
+} from 'react-icons/si/index.esm.js'
+import { DiMysql } from 'react-icons/di/index.esm.js'
 
 const RenderLangIcon = ({ lang }) => {
   return (

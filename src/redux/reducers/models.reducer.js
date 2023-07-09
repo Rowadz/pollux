@@ -1,4 +1,4 @@
-import { ADD_MODEL, DELETE_MODEL, UPDATE_AMOUNT } from '../actionTypes'
+import { ADD_MODEL, DELETE_MODEL, UPDATE_AMOUNT } from '../actionTypes.js'
 
 const initialState = []
 

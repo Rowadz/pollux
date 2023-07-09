@@ -2,7 +2,7 @@ import React from 'react'
 import { useDrag } from 'react-dnd'
 import { List, Icon } from 'rsuite'
 import styles from './DraggableCommonProp.module.css'
-import { map } from 'components/Builder/maps'
+import { map } from 'components/Builder/maps.js'
 
 const DraggableCommonProp = ({ type, icon, label, func, children }) => {
   const [{ isDragging }, dragRef] = useDrag({

@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react'
 import { connect } from 'react-redux'
-import CommonProps from '../builderComponents/CommonProps/CommonProps'
-import DraggableCommonProp from '../builderComponents/CommonProps/components/DraggableCommonProp'
+import CommonProps from '../builderComponents/CommonProps/CommonProps.js'
+import DraggableCommonProp from '../builderComponents/CommonProps/components/DraggableCommonProp.js'
 import { Divider, List, Input } from 'rsuite'
 
 const BuilderBody = ({ faker }) => {

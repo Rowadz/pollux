@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import cat from './cat.svg'
 import { List } from 'rsuite'
-import Prop from './Prop'
+import Prop from './Prop.js'
 
 const PropsDisplay = ({ id, props, modelName, disableModalControllers }) => {
   const propsEl =

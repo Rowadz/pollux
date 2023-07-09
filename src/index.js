@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
-import Pollux from './App'
+import Pollux from './App.tsx'
 // import * as serviceWorker from './serviceWorker'
 import { Provider } from 'react-redux'
-import store from './redux/store'
+import store from './redux/store.js'
 
 if (module.hot) {
   module.hot.accept()

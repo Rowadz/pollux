@@ -14,7 +14,7 @@ import {
   DISABLE_AUTH,
   SET_PROGRESS,
   TOGGLE_BUILDER,
-} from './actionTypes'
+} from './actionTypes.js'
 
 /**
  *

@@ -3,7 +3,7 @@ import { IconButton, Icon, Modal, Button, Divider } from 'rsuite'
 import { connect } from 'react-redux'
 import { Alert } from 'rsuite'
 import loadModelsEmpty from './loadModels.svg'
-import { addModel, justAddProp } from 'redux/actions'
+import { addModel, justAddProp } from 'redux/actions.js'
 const { Header, Body, Footer, Title } = Modal
 
 const LoadModel = ({ dispatch, models }) => {
