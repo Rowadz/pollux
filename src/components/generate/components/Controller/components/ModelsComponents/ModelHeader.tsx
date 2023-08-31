@@ -133,7 +133,7 @@ export const ModelHeader = ({
           style={{ marginLeft: '5px' }}
           onClick={async () => {
             const data = await generate(true)
-            generateAPI(name, null, null, null, null, data, auth)
+            generateAPI(name, null, null, null, null, { [name]: data }, auth)
           }}
         >
           Generate Restful API

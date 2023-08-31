@@ -84,7 +84,7 @@ const Model = ({
         relationsProps,
         justReturn,
         id,
-        true
+        false
       )
     },
     [props, name, amount, relations, relationsProps, id]
