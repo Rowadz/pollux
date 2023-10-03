@@ -63,6 +63,10 @@
       "last 1 safari version"
     ]
   },
+  "engines": {
+    "node": "<=16.20.2",
+    "npm": "<=8.19.4"
+  },
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
