@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import Pollux from './App'
+import { HashRouter as Router } from 'react-router-dom'
 // import * as serviceWorker from './serviceWorker'
 import { Provider } from 'react-redux'
 import store from './redux/store'
@@ -13,7 +14,9 @@ if (module.hot) {
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Pollux />
+      <Router>
+        <Pollux />
+      </Router>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

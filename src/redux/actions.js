@@ -150,11 +150,6 @@ export const setLocaleAction = (locale) => ({
   payload: locale,
 })
 
-/**
- *
- * @param {boolean} flag
- */
-export const toggleBuilderAction = (flag) => ({
+export const toggleBuilderAction = () => ({
   type: TOGGLE_BUILDER,
-  payload: flag,
 })

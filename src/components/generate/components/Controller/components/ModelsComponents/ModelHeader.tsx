@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import { useDrop } from 'react-dnd'
 import { v4 } from 'uuid'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { justAddProp, toggleBuilderAction } from 'redux/actions'
 import { SiGraphql } from 'react-icons/si'
 import {
@@ -16,7 +16,7 @@ import {
   Button,
 } from 'rsuite'
 import type { ModelHeaderProps } from './types'
-import type { FakerPolluxReduxStoreState, ReduxState } from 'components/shared'
+import type { FakerPolluxReduxStoreState } from 'components/shared'
 import { generateAPI } from '../../util'
 
 export const ModelHeader = ({
@@ -33,12 +33,9 @@ export const ModelHeader = ({
   disableModalControllers,
 }: ModelHeaderProps) => {
   const dispatch = useDispatch()
-  const isOpen: boolean = useSelector(
-    (state: ReduxState) => state.builder.isOpen
-  )
 
   const toggle = () => {
-    dispatch(toggleBuilderAction(!isOpen))
+    dispatch(toggleBuilderAction())
   }
 
   const [{ canDrop, hovered }, drop] = useDrop({

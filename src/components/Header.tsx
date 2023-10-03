@@ -28,7 +28,7 @@ const HeaderComp = () => {
   }
 
   const toggleShow = () => {
-    dispatch(toggleBuilderAction(!isOpen))
+    dispatch(toggleBuilderAction())
   }
 
   return (
