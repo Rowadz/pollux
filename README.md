@@ -1,5 +1,10 @@
 [![Deploy to GitHub pages](https://github.com/Rowadz/pollux/actions/workflows/workflow.yml/badge.svg)](https://github.com/Rowadz/pollux/actions/workflows/workflow.yml)
 
+<a href="https://www.buymeacoffee.com/rowadz" 
+  target="_blank">
+  <img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" >
+  </a>
+
 # Welomce to 🌞 Pollux 🌞
 
 Need Restful API with bearer authentication? or a GraphQL API? maybe some testing data in JSON or Ruby or Python or PHP or JavaScript , all of that and more is possible with pollux, without writing a single line of code.
