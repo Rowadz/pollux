@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "homepage": "https://pollux.dev/",
+  "homepage": "https://rowadz.github.io/pollux/",
   "dependencies": {
     "@babel/plugin-transform-for-of": "^7.16.7",
     "@codemirror/lang-javascript": "^6.0.1",
